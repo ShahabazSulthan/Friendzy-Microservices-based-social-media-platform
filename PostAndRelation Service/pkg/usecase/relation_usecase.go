@@ -7,6 +7,7 @@ import (
 	"log"
 	"time"
 
+	requestmodel "github.com/ShahabazSulthan/friendzy_post/pkg/models/requestModel"
 	"github.com/ShahabazSulthan/friendzy_post/pkg/pb"
 	interface_repo "github.com/ShahabazSulthan/friendzy_post/pkg/repository/interface"
 	interface_usecase "github.com/ShahabazSulthan/friendzy_post/pkg/usecase/interface"
@@ -84,7 +85,7 @@ func (r *RelationUsecase) UserAFollowingUserBorNot(userId, userBId *string) (boo
 
 func (r *RelationUsecase) Follow(userId, userBId *string) *error {
 
-	//var message requestmodel.KafkaNotification
+	var message requestmodel.KafkaNotification
 	// Step 1: Create a context with a timeout for the AuthClient call
 	context, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
@@ -113,16 +114,16 @@ func (r *RelationUsecase) Follow(userId, userBId *string) *error {
 
 	// Step 4: If follow was successfully initiated, return nil (success)
 	if inserted {
-		// message.UserID = *userBId
-		// message.ActorID = *userId
-		// message.ActionType = "follow"
-		// message.TargetID = "0"
-		// message.CreatedAt = time.Now()
+		message.UserID = *userBId
+		message.ActorID = *userId
+		message.ActionType = "follow"
+		message.TargetID = "0"
+		message.CreatedAt = time.Now()
 
-		// err = r.Kafka.KafkaNotificationProducer(&message)
-		// if err != nil {
-		// 	return &err
-		// }
+		err = r.Kafka.KafkaNotificationProducer(&message)
+		if err != nil {
+			return &err
+		}
 		fmt.Printf("User %s successfully followed User %s\n", *userId, *userBId)
 	}
 	cacheKey2 := "userFeed"

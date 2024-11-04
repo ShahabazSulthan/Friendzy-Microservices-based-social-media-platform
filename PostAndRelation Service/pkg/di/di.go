@@ -3,6 +3,7 @@ package di
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"github.com/ShahabazSulthan/friendzy_post/pkg/client"
 	"github.com/ShahabazSulthan/friendzy_post/pkg/config"
@@ -34,8 +35,13 @@ func InitializePostAndRelationServer(config *config.Config) (*server.PostService
 		return nil, err
 	}
 
-	// Initialize the Kafka producer
+	// Initialize the Kafka producer and check connection
 	kafkaProducer := kafka.NewKafkaProducer(config.Kafka)
+	if err := kafka.CheckKafkaConnection([]string{config.Kafka.KafkaPort}, nil); err != nil {
+		log.Println("Failed to connect to Kafka:", err)
+		return nil, err
+	}
+	fmt.Println("Kafka connection established successfully.")
 
 	// Initialize the authentication client
 	authClient, err := client.InitAuthServiceClient(config)

@@ -6,6 +6,7 @@ import (
 
 	di_auth "github.com/ShahabazSulthan/Friendzy_apiGateway/pkg/Auth_Service/di"
 	config "github.com/ShahabazSulthan/Friendzy_apiGateway/pkg/Config"
+	di_notif "github.com/ShahabazSulthan/Friendzy_apiGateway/pkg/Notification_Service/di"
 	di_post "github.com/ShahabazSulthan/Friendzy_apiGateway/pkg/post_relation_service/di"
 	"github.com/gofiber/fiber/v2"
 )
@@ -25,6 +26,11 @@ func main() {
 	}
 
 	err = di_post.InitPostNrelClient(app, config, middleware)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = di_notif.InitNotificationClient(app, config, middleware)
 	if err != nil {
 		log.Fatal(err)
 	}

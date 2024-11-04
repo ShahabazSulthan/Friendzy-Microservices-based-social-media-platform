@@ -66,7 +66,7 @@ func (c *CommentUseCase) AddNewComment(input *requestmodel.CommentRequest) error
 	}
 
 	// Kafka notification logic is commented out
-	/*
+	
 		var message requestmodel.KafkaNotification
 
 		if input.ParentCommentId == 0 {
@@ -102,7 +102,7 @@ func (c *CommentUseCase) AddNewComment(input *requestmodel.CommentRequest) error
 				return err
 			}
 		}
-	*/
+
 
 	cacheKey2 := "userFeed"
 	cacheKey3 := "Homefeed"

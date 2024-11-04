@@ -11,6 +11,10 @@ type Config struct {
 	AuthSvcUrl          string `mapstructure:"AUTH_SVC_URL"`
 	ApiKey              string `mapstructure:"API_KEY"`
 	PostNrelSvcUrl      string `mapstructure:"POSTNREL_SVC_URL"`
+	KafkaPort           string `mapstructure:"KAFKA_PORT"`
+	KafkaTopicOneToOne  string `mapstructure:"KAFKA_TOPIC_1"`
+	NotifSvcUrl         string `mapstructure:"NOTIF_SVC_URL"`
+	KafkaTopicOneToMany string `mapstructure:"KAFKA_TOPIC_2"`
 }
 
 func LoadConfig() (*Config, error) {

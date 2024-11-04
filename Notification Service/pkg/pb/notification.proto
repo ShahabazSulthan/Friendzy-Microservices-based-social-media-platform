@@ -1,0 +1,34 @@
+syntax="proto3";
+
+package notif_proto;
+
+
+option go_package="./pkg/pb";
+
+
+service NotificationService{
+    rpc GetNotificationsForUser (RequestGetNotifications) returns (ResponseGetNotifications);
+}
+
+message RequestGetNotifications{
+    string UserId=1;
+    string Limit=2;
+    string OffSet=3;
+}
+
+message SingleNotification{
+    uint64 NotificationID=1;
+    uint64 UserID=2;
+    uint64 ActorID=3;
+    string ActorUserName=4;      
+    string ActorProfileImgURL=5; 
+    string ActionType=6;
+    uint64 TargetID=7;
+    string TargetType=8;
+    string CommentText=9;
+    string NotificationAge=10;
+}
+message ResponseGetNotifications{
+    repeated SingleNotification Notifications=1;
+    string ErrorMessage=2;
+}

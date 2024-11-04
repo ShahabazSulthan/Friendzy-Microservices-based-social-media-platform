@@ -57,9 +57,9 @@ func (p *PostUseCase) AddNewPost(data *[]*pb.SingleMedia, caption *string, userI
 	var postData requestmodel.AddPostData
 
 	for i, file := range *data {
-		
-		extension := strings.ReplaceAll(file.ContentType, "/", ".")  
-		fileName := fmt.Sprintf("%s_%d.%s", *userId, i+1, extension) 
+
+		extension := strings.ReplaceAll(file.ContentType, "/", ".")
+		fileName := fmt.Sprintf("%s_%d.%s", *userId, i+1, extension)
 
 		// Create the file path in the local folder
 		filePath := filepath.Join(localFolder, fileName)
@@ -191,21 +191,22 @@ func (p *PostUseCase) LikePost(postId, userId *string) *error {
 	}
 
 	if *postCrreatorId != *postId {
-		//var message requestmodel.KafkaNotification
+		var message requestmodel.KafkaNotification
 		if inserted {
-			// message.UserID = *postCrreatorId
-			// message.ActorID = *userId
-			// message.ActionType = "like"
-			// message.TargetID = *postId
-			// message.TargetType = "post"
-			// message.CreatedAt = time.Now()
+			message.UserID = *postCrreatorId
+			message.ActorID = *userId
+			message.ActionType = "like"
+			message.TargetID = *postId
+			message.TargetType = "post"
+			message.CreatedAt = time.Now()
 
-			// err := p.kafkaProducer.KafkaNotificationProducer(&message)
-			// if err != nil {
-			// 	return &err
-			// }
+			err := p.KafkaProducer.KafkaNotificationProducer(&message)
+			if err != nil {
+				return &err
+			}
 			fmt.Println("Post liked successfully by user:", *userId)
 		}
+		fmt.Println("message = ",message)
 	}
 
 	cacheKey2 := "userFeed"

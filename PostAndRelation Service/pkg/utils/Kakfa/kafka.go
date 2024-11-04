@@ -1,3 +1,4 @@
+// kafka package
 package kafka
 
 import (
@@ -12,17 +13,27 @@ import (
 	interface_kafka "github.com/ShahabazSulthan/friendzy_post/pkg/utils/Kakfa/interface"
 )
 
-type KafkaProducer struct {
+type KafakProducer struct {
 	Config config.KafkaConfigs
 }
 
 func NewKafkaProducer(config config.KafkaConfigs) interface_kafka.IKafkaProducer {
-	return &KafkaProducer{
-		Config: config,
-	}
+	return &KafakProducer{Config: config}
 }
 
-func (k *KafkaProducer) KafkaNotificationProducer(message *requestmodel.KafkaNotification) error {
+func CheckKafkaConnection(brokers []string, configs *sarama.Config) error {
+	log.Println("Checking Kafka connection...")
+	client, err := sarama.NewClient(brokers, configs)
+	if err != nil {
+		log.Println("Kafka connection failed:", err)
+		return err
+	}
+	defer client.Close()
+	log.Println("Kafka connection successful.")
+	return nil
+}
+
+func (k *KafakProducer) KafkaNotificationProducer(message *requestmodel.KafkaNotification) error {
 
 	fmt.Println("---------------to kafkaProducer:", *message)
 	configs := sarama.NewConfig()
@@ -34,7 +45,6 @@ func (k *KafkaProducer) KafkaNotificationProducer(message *requestmodel.KafkaNot
 		log.Println("---------kafka producer err--------", err)
 		return err
 	}
-
 	msgJson, _ := marshalStructJson(message)
 
 	msg := &sarama.ProducerMessage{Topic: k.Config.KafkaTopicNotification,
