@@ -1,0 +1,34 @@
+syntax="proto3";
+
+package auth_proto;
+
+option go_package="./pkg/pb";
+
+service AuthService{
+    rpc GetUserDetailsLiteForPostView(RequestUserId) returns (ResponseUserDetailsLite);
+    rpc CheckUserExist(RequestUserId) returns (ResponseBool);
+    rpc GetEmailAndUsername (RequestUserId) returns (UserEmailUsernameResponse);
+}
+
+message RequestUserId{
+    string UserId=1;
+}
+
+
+
+message ResponseBool{
+    bool ExistStatus=1;
+    string ErrorMessage=2;
+}
+
+message ResponseUserDetailsLite{
+    string ErrorMessage=1;
+    string UserName=2;
+    string UserProfileImgURL=3;
+}
+
+message UserEmailUsernameResponse {
+    string Email = 1;    // Ensure capitalization matches
+    string Username = 2;
+    string ErrorMessage = 3;  // Added field for consistency with other responses
+}

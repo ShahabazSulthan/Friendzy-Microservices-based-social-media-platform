@@ -1,0 +1,173 @@
+syntax = "proto3";
+
+package postnrel_proto;
+
+option go_package = "./pkg/pb";
+
+service PostNrelService {
+    rpc AddNewPost(RequestAddPost) returns (ResponseErrorMessageOnly);
+    rpc GetAllPostByUser(RequestGetAllPosts) returns (ResponseUserPosts);
+    rpc DeletePost(RequestDeletePost) returns (ResponseErrorMessageOnly);
+    rpc EditPost(RequestEditPost) returns (ResponseErrorMessageOnly);
+
+    rpc Follow(RequestFollowUnFollow) returns (ResponseErrorMessageOnly);
+    rpc UnFollow(RequestFollowUnFollow) returns (ResponseErrorMessageOnly);
+
+    rpc LikePost(RequestLikeUnlikePost) returns (ResponseErrorMessageOnly);
+    rpc UnLikePost(RequestLikeUnlikePost) returns (ResponseErrorMessageOnly);
+    rpc AddComment(RequestAddComment) returns (ResponseErrorMessageOnly);
+    rpc DeleteComment(RequestCommentDelete) returns (ResponseErrorMessageOnly);
+    rpc EditComment(RequestEditComment) returns (ResponseErrorMessageOnly);
+    rpc FetchPostComments(RequestFetchComments) returns (ResponseFetchComments);
+    rpc GetMostLovedPostsFromGlobalUser(RequestGetAllPosts) returns (ResponseUserPosts);
+    rpc GetAllRelatedPostsForHomeScreen(RequestGetAllPosts) returns (ResponseUserPosts);
+    rpc GetRandomPosts(RequestGetRandomPosts) returns (ResponseUserPosts);
+
+
+    // From Auth Service
+    rpc GetCountsForUserProfile(RequestUserIdPnR) returns (ResponseGetCounts);
+    rpc GetFollowersIds(RequestUserIdPnR) returns (ResposneGetUsersIds);
+    rpc GetFollowingsIds(RequestUserIdPnR) returns (ResposneGetUsersIds);
+    rpc UserAFollowingUserBorNot(RequestFollowUnFollow) returns (ResponseUserABrelation);
+}
+
+message RequestUserIdPnR {
+    string userId = 1;
+}
+
+message ResponseErrorMessageOnly {
+    string ErrorMessage = 1;
+}
+
+message RequestAddPost {
+    string UserId = 1;
+    string Caption = 2;
+    repeated singleMedia Media = 3;
+}
+
+message singleMedia {
+    bytes media = 1;
+    string ContentType = 2;
+}
+
+message PostsDataModel{
+    uint64 UserId=1;
+    string UserName=2;
+    string UserProfileImgURL=3;
+    uint64 PostId   =4;    
+    bool LikeStatus=5;
+    string Caption=6;    
+    uint64 LikesCount    =7;
+    uint64 CommentsCount =8;
+    string 	PostAge    =9;
+    repeated string MediaUrl =10;
+    }
+
+
+message RequestGetAllPosts {
+    string UserId = 1;
+    string Limit = 2;
+    string OffSet = 3;
+}
+
+message RequestGetRandomPosts {
+    string Limit = 2;
+    string OffSet = 3;
+}
+
+message ResponseUserPosts {
+    repeated PostsDataModel PostsData = 1;
+    string ErrorMessage = 2;
+}
+
+message RequestEditPost {
+    string UserId = 1;
+    string PostId = 2;
+    string Caption = 3;
+}
+
+message RequestDeletePost {
+    string UserId = 1;
+    string PostId = 2;
+}
+
+message RequestFollowUnFollow {
+    string UserId = 1;
+    string UserBId = 2;
+}
+
+message ResponseUserABrelation {
+    bool BoolStat = 1;
+    string ErrorMessage = 2;
+}
+
+message ResposneGetUsersIds {
+    string ErrorMessage = 1;
+    repeated uint64 UserIds = 2;
+}
+
+message ResponseGetCounts {
+    uint64 PostCount = 1;
+    uint64 FollowerCount = 2;
+    uint64 FollowingCount = 3;
+    string ErrorMessage = 4;
+}
+
+message ChildComments{
+    uint64 CommentId=1; 
+    uint64 PostId=2;
+    uint64 UserId=3;
+    string UserName=4;
+    string UserProfileImgURL=5;
+    string CommentText=6;
+    uint64 ParentCommentID=7;
+    string CommentAge=8;
+    }
+    
+    message ParentComments{
+        uint64 CommentId=1; 
+        uint64 PostId=2;
+        uint64 UserId=3;
+        string UserName=4;
+        string UserProfileImgURL=5;
+        string CommentText=6;
+        string CommentAge=7;
+        uint64 ChildCommentCount=8;
+        repeated ChildComments ChildComments=9;
+        }
+    
+    message ResponseFetchComments{
+        uint64 ParentCommentsCount=1;
+        repeated ParentComments ParentComments=2;
+        string ErrorMessage=3;
+    }
+    
+    message RequestFetchComments{
+        string UserId=1;
+        string PostId=2;
+        string Limit=3;
+        string OffSet=4;
+    }
+    
+    message RequestEditComment{
+        uint64 CommentId=1;
+        string UserId=2;
+        string CommentText=3;
+    }
+    
+    message RequestCommentDelete{
+        string UserId=1;
+        string CommentId=2;
+    }
+    
+    message RequestAddComment{
+        string UserId=1;
+        uint64 PostId=2;
+        uint64 ParentCommentId=3;
+        string CommentText=4;
+    }
+    
+    message RequestLikeUnlikePost{
+        string UserId=1;
+        string PostId=2;
+    }

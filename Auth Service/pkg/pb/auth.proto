@@ -1,0 +1,238 @@
+syntax="proto3";
+
+package auth_proto;
+
+option go_package ="./pkg/pb";
+
+service AuthService {
+    rpc UserSignUp(SignUpRequest) returns (SignUpResponse);
+    rpc UserOTPVerification(RequestOtpVefification) returns (ResponseOtpVerification);
+    rpc UserLogin(RequestUserLogin) returns (ResponseUserLogin);
+    rpc ForgotPasswordRequest(RequestForgotPass) returns (ResponseForgotPass);
+    rpc ResetPassword(RequestResetPass) returns (ResponseErrorMessage);
+    rpc VerifyAccessToken(RequestVerifyAccess) returns (ResponseVerifyAccess);
+    rpc AccessRegenerator(RequestAccessGenerator) returns (ResponseAccessGenerator);
+    rpc GetUserProfile(RequestGetUserProfile) returns (ResponseUserProfile);
+    rpc EditUserProfile(RequestEditUserProfile) returns (ResponseErrorMessage);
+    rpc GetFollowersDetails(RequestUserId) returns (ResponseGetUsersDetails);
+    rpc GetFollowingsDetails(RequestUserId) returns (ResponseGetUsersDetails);
+    rpc SearchUser(RequestUserSearch) returns (ResponseUserSearch);
+    rpc SetUserProfileImage(RequestSetProfileImg) returns (ResponseErrorMessage);
+    rpc GetEmailAndUsername(GetEmailAndUsernameRequest) returns (GetEmailAndUsernameResponse);
+
+    rpc GetUserDetailsLiteForPostView(RequestUserId) returns (ResponseUserDetailsLite);
+    rpc CheckUserExist(RequestUserId) returns (ResponseBool);
+
+    rpc AdminLogin(AdminLoginRequest) returns (AdminLoginResponse);
+    rpc GetAllUsers(GetAllUsersRequest) returns (GetAllUsersResponse);
+    rpc BlockUser(BlockUserRequest) returns (ResponseErrorMessage);
+    rpc UnblockUser(UnblockUserRequest) returns (ResponseErrorMessage);
+    rpc VerifyAdminToken(RequestVerifyAdmin) returns (ResponseVerifyAdmin);
+}
+
+message RequestUserId {
+    string UserId=1;
+}
+
+message ResponseErrorMessage {
+    string ErrorMessage=1;
+}
+
+message RequestSetProfileImg{
+    string UserId=1;
+    string ContentType=2;
+    bytes Img=3;
+}
+
+message RequestUserSearch{
+    string UserId=1;
+    string SearchText=2;
+    string limit=3;
+    string offset=4;
+}
+
+message ResponseUserSearch {
+    string Errormessage=1;
+    repeated SingleResponseGetFollowers SearchResult=2;
+}
+
+message SingleResponseGetFollowers {
+    string Name=1;
+    string UserName=2;
+    string ProfileImgUrl = 3;
+    uint32 UserId=4;
+}
+
+message ResponseGetUsersDetails {
+    string ErrorMessage=1;
+    repeated SingleResponseGetFollowers UserData=2;
+}
+
+message ResponseBool {
+    bool ExistStatus=1;
+    string ErrorMessage=2;
+}
+
+message ResponseUserDetailsLite{
+    string ErrorMessage=1;
+    string UserName=2;
+    string UserProfileImgURL=3;
+}
+
+message RequestEditUserProfile{
+    string Name=1;
+    string UserName=2;
+    string Bio=3;
+    string Links=4;
+    string UserId=5;
+}
+
+message RequestGetUserProfile{
+    string UserId=1;
+    string UserBId=2;
+}
+
+message ResponseUserProfile{
+    string Name=1;
+    string UserName=2;
+    string Bio=3;
+    string Links=4;
+    string ProfileImageURL=5;
+    uint64 PostsCount=6;
+    uint64 FollowerCount=7;
+    uint64 FollowingCount=8;
+    bool FollowingStat=10;
+    string ErrorMessage=9;
+}
+
+message RequestAccessGenerator {
+    string AccessToken = 1;
+    string RefreshToken = 2;
+}
+
+message ResponseAccessGenerator {
+    string AccesToken = 1;
+    string ErrorMessage = 2;
+}
+
+message RequestVerifyAccess{
+    string AccessToken=1;
+ }
+
+ message ResponseVerifyAccess{
+     string UserId=2;
+     string ErrorMessage=1;
+ }
+
+ message RequestResetPass{
+    string Otp=1;
+    string Password=2;
+    string ConfirmPassword=3;
+    string TempToken=4;
+}
+
+message RequestForgotPass {
+    string Email = 1;
+}
+
+message ResponseForgotPass {
+    string Token = 1;
+    string ErrorMessage = 2;
+}
+
+
+message RequestUserLogin{
+    string Email=1;
+    string Password=2;
+}
+
+message ResponseUserLogin{
+    string AccessToken=1;
+    string RefreshToken=2;
+    string ErrorMessage=3;
+}
+
+message RequestOtpVefification{
+    string TempToken=1;
+    string Otp=2;
+}
+    
+message ResponseOtpVerification{
+    string AccessToken=1;
+    string RefreshToken=2;
+    string ErrorMessage =3;
+    string Otp=4;
+}
+
+message SignUpRequest{
+    string UserName  =1;
+    string Name = 2;
+    string Email =4;
+    string Password = 5;
+    string ConfirmPassword = 6;
+}
+
+message SignUpResponse{
+	string Token  =1;
+    string ErrorMessage =2;
+}
+
+message AdminLoginRequest {
+    string Email = 1;
+    string Password = 2;
+}
+
+message AdminLoginResponse {
+    string Token = 1;
+    string ErrorMessage = 2; // Use this to communicate login errors
+}
+
+message GetAllUsersRequest {
+    string Limit = 1;
+    string Offset = 2;
+}
+
+message GetAllUsersResponse {
+    string ErrorMessage = 1;
+    repeated UserAdminResponse Users = 2;
+}
+
+message UserAdminResponse {
+    uint64 ID = 1; // Changed to uint64 for better compatibility with IDs
+    string Name = 2;
+    string UserName = 3;
+    string Email = 4;
+    string Bio = 5;
+    string ProfileImageURL = 6;
+    string Links = 7;
+    string Status = 8;
+}
+
+message BlockUserRequest {
+    string UserId = 1;
+}
+
+message UnblockUserRequest {
+    string UserId = 1;
+}
+
+message RequestVerifyAdmin {
+    string AdminToken = 1; // The admin token to be verified
+}
+
+// Response message for verifying admin token
+message ResponseVerifyAdmin {
+    string AdminEmail = 1; // The email of the admin if token is valid
+    string ErrorMessage = 2; // Error message if token verification fails
+}
+
+message GetEmailAndUsernameRequest {
+    int32 user_id = 1;  // User ID to look up
+  }
+  
+  // The response message containing the email and username
+  message GetEmailAndUsernameResponse {
+    string email = 1;    // User email
+    string username = 2; // User username
+    string error = 3;    // Error message, if any
+  }

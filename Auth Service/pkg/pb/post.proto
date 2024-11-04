@@ -1,0 +1,39 @@
+syntax="proto3";
+
+package postnrel_proto;
+
+
+option go_package="./pkg/pb";
+
+service PostNrelService{
+    rpc GetCountsForUserProfile(RequestUserIdPnR) returns (ResponseGetCounts);
+    rpc GetFollowersIds(RequestUserIdPnR) returns (ResposneGetUsersIds);
+    rpc GetFollowingsIds(RequestUserIdPnR) returns (ResposneGetUsersIds);
+    rpc UserAFollowingUserBorNot(RequestFollowUnFollow) returns (ResponseUserABrelation);
+
+}
+
+message RequestUserIdPnR{
+    string UserId=1;
+}
+
+message RequestFollowUnFollow{
+    string UserId=1;
+    string UserBId=2;
+}
+message ResponseUserABrelation{
+    bool BoolStat=1;
+    string ErrorMessage=2;
+}
+
+message ResposneGetUsersIds{
+    string ErrorMessage=1;
+    repeated uint64 UserIds=2;
+}
+
+message ResponseGetCounts{
+    uint64 PostCount=1;
+    uint64 FollowerCount=2;
+    uint64 FollowingCount=3;
+    string ErrorMessage=4;
+}
