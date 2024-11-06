@@ -3,5 +3,5 @@ dev.env
 # Sensitive or environment-specific files
 .env
 .env.*
-
-app.log
+.log
+.log.*
