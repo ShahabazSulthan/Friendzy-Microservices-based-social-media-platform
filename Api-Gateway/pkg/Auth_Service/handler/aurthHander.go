@@ -3,6 +3,7 @@ package handler_auth
 import (
 	"context"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"regexp"
 	"strconv"
@@ -970,115 +971,131 @@ func (svc *UserHandler) GetAllUsers(ctx *fiber.Ctx) error {
 }
 
 func (svc *UserHandler) BlockUser(ctx *fiber.Ctx) error {
-    var blockUserReq struct {
-        UserId string `json:"userId" validate:"required"`
-    }
+	var blockUserReq struct {
+		UserId string `json:"userId" validate:"required"`
+	}
 
-    if err := ctx.BodyParser(&blockUserReq); err != nil {
-        return ctx.Status(fiber.ErrBadRequest.Code).
-            JSON(responsemodel_auth.CommonResponse{
-                StatusCode: fiber.ErrBadRequest.Code,
-                Message:    "Block user failed (no JSON input)",
-                Error:      err.Error(),
-            })
-    }
+	if err := ctx.BodyParser(&blockUserReq); err != nil {
+		return ctx.Status(fiber.ErrBadRequest.Code).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.ErrBadRequest.Code,
+				Message:    "Block user failed (no JSON input)",
+				Error:      err.Error(),
+			})
+	}
 
-    if blockUserReq.UserId == "" {
-        return ctx.Status(fiber.ErrBadRequest.Code).
-            JSON(responsemodel_auth.CommonResponse{
-                StatusCode: fiber.ErrBadRequest.Code,
-                Message:    "Block user failed (user ID required)",
-                Error:      "UserId is required",
-            })
-    }
+	if blockUserReq.UserId == "" {
+		return ctx.Status(fiber.ErrBadRequest.Code).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.ErrBadRequest.Code,
+				Message:    "Block user failed (user ID required)",
+				Error:      "UserId is required",
+			})
+	}
 
-    // Send the request to the gRPC service
-    context, cancel := context.WithTimeout(context.Background(), time.Second*10)
-    defer cancel()
+	// Send the request to the gRPC service
+	context, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
 
-    resp, err := svc.Client.BlockUser(context, &pb.BlockUserRequest{
-        UserId: blockUserReq.UserId,
-    })
+	resp, err := svc.Client.BlockUser(context, &pb.BlockUserRequest{
+		UserId: blockUserReq.UserId,
+	})
 
-    if err != nil {
-        return ctx.Status(fiber.StatusServiceUnavailable).
-            JSON(responsemodel_auth.CommonResponse{
-                StatusCode: fiber.StatusServiceUnavailable,
-                Message:    "Block user failed (service unavailable)",
-                Error:      err.Error(),
-            })
-    }
+	if err != nil {
+		return ctx.Status(fiber.StatusServiceUnavailable).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusServiceUnavailable,
+				Message:    "Block user failed (service unavailable)",
+				Error:      err.Error(),
+			})
+	}
 
-    if resp.ErrorMessage != "" {
-        return ctx.Status(fiber.StatusBadRequest).
-            JSON(responsemodel_auth.CommonResponse{
-                StatusCode: fiber.StatusBadRequest,
-                Message:    "Block user failed",
-                Error:      resp.ErrorMessage,
-            })
-    }
+	if resp.ErrorMessage != "" {
+		return ctx.Status(fiber.StatusBadRequest).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusBadRequest,
+				Message:    "Block user failed",
+				Error:      resp.ErrorMessage,
+			})
+	}
 
-    return ctx.Status(fiber.StatusOK).
-        JSON(responsemodel_auth.CommonResponse{
-            StatusCode: fiber.StatusOK,
-            Message:    "User blocked successfully",
-        })
+	return ctx.Status(fiber.StatusOK).
+		JSON(responsemodel_auth.CommonResponse{
+			StatusCode: fiber.StatusOK,
+			Message:    "User blocked successfully",
+		})
 }
 
 func (svc *UserHandler) UnblockUser(ctx *fiber.Ctx) error {
-    var unblockUserReq struct {
-        UserId string `json:"userId" validate:"required"`
-    }
+	var unblockUserReq struct {
+		UserId string `json:"userId" validate:"required"`
+	}
 
-    if err := ctx.BodyParser(&unblockUserReq); err != nil {
-        return ctx.Status(fiber.ErrBadRequest.Code).
-            JSON(responsemodel_auth.CommonResponse{
-                StatusCode: fiber.ErrBadRequest.Code,
-                Message:    "Unblock user failed (no JSON input)",
-                Error:      err.Error(),
-            })
-    }
+	if err := ctx.BodyParser(&unblockUserReq); err != nil {
+		return ctx.Status(fiber.ErrBadRequest.Code).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.ErrBadRequest.Code,
+				Message:    "Unblock user failed (no JSON input)",
+				Error:      err.Error(),
+			})
+	}
 
-    if unblockUserReq.UserId == "" {
-        return ctx.Status(fiber.ErrBadRequest.Code).
-            JSON(responsemodel_auth.CommonResponse{
-                StatusCode: fiber.ErrBadRequest.Code,
-                Message:    "Unblock user failed (user ID required)",
-                Error:      "UserId is required",
-            })
-    }
+	if unblockUserReq.UserId == "" {
+		return ctx.Status(fiber.ErrBadRequest.Code).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.ErrBadRequest.Code,
+				Message:    "Unblock user failed (user ID required)",
+				Error:      "UserId is required",
+			})
+	}
 
-    // Send the request to the gRPC service
-    context, cancel := context.WithTimeout(context.Background(), time.Second*10)
-    defer cancel()
+	// Send the request to the gRPC service
+	context, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
 
-    resp, err := svc.Client.UnblockUser(context, &pb.UnblockUserRequest{
-        UserId: unblockUserReq.UserId,
-    })
+	resp, err := svc.Client.UnblockUser(context, &pb.UnblockUserRequest{
+		UserId: unblockUserReq.UserId,
+	})
 
-    if err != nil {
-        return ctx.Status(fiber.StatusServiceUnavailable).
-            JSON(responsemodel_auth.CommonResponse{
-                StatusCode: fiber.StatusServiceUnavailable,
-                Message:    "Unblock user failed (service unavailable)",
-                Error:      err.Error(),
-            })
-    }
+	if err != nil {
+		return ctx.Status(fiber.StatusServiceUnavailable).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusServiceUnavailable,
+				Message:    "Unblock user failed (service unavailable)",
+				Error:      err.Error(),
+			})
+	}
 
-    if resp.ErrorMessage != "" {
-        return ctx.Status(fiber.StatusBadRequest).
-            JSON(responsemodel_auth.CommonResponse{
-                StatusCode: fiber.StatusBadRequest,
-                Message:    "Unblock user failed",
-                Error:      resp.ErrorMessage,
-            })
-    }
+	if resp.ErrorMessage != "" {
+		return ctx.Status(fiber.StatusBadRequest).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusBadRequest,
+				Message:    "Unblock user failed",
+				Error:      resp.ErrorMessage,
+			})
+	}
 
-    return ctx.Status(fiber.StatusOK).
-        JSON(responsemodel_auth.CommonResponse{
-            StatusCode: fiber.StatusOK,
-            Message:    "User unblocked successfully",
-        })
+	return ctx.Status(fiber.StatusOK).
+		JSON(responsemodel_auth.CommonResponse{
+			StatusCode: fiber.StatusOK,
+			Message:    "User unblocked successfully",
+		})
 }
 
+func (svc *UserHandler) GetLogFile(ctx *fiber.Ctx) error {
+	// Read the log file
+	logData, err := ioutil.ReadFile("app.log")
+	if err != nil {
+		// Respond with an internal server error if the file can't be read
+		return ctx.Status(fiber.StatusInternalServerError).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusInternalServerError,
+				Message:    "Failed to read log file",
+				Error:      err.Error(),
+			})
+	}
 
+	// Set the Content-Type header to plain text and send the log data
+	ctx.Set("Content-Type", "text/plain; charset=utf-8")
+	return ctx.Status(fiber.StatusOK).Send(logData)
+}

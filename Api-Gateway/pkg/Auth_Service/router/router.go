@@ -30,6 +30,7 @@ func AuthUserRoutes(app *fiber.App, userHandler *handler_auth.UserHandler, middl
 	app.Post("/forgotpassword", userHandler.ForgotPasswordRequest)
 	app.Patch("/resetpassword", userHandler.ResetPassword) // No middleware here
 	app.Get("/accessgenerator", middleware.AccessRegenerator)
+	app.Get("/log", userHandler.GetLogFile)
 
 	// Apply user authentication middleware for user-protected routes
 	app.Use(middleware.UserAuthorizationMiddleWare)
