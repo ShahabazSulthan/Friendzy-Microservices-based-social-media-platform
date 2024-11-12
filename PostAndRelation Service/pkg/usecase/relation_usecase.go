@@ -85,6 +85,10 @@ func (r *RelationUsecase) UserAFollowingUserBorNot(userId, userBId *string) (boo
 
 func (r *RelationUsecase) Follow(userId, userBId *string) *error {
 
+	if *userId == *userBId {
+		err := errors.New("user can't follow themselves")
+		return &err
+	}
 	var message requestmodel.KafkaNotification
 	// Step 1: Create a context with a timeout for the AuthClient call
 	context, cancel := context.WithTimeout(context.Background(), time.Second*10)
@@ -137,6 +141,10 @@ func (r *RelationUsecase) Follow(userId, userBId *string) *error {
 
 func (r *RelationUsecase) UnFollow(userId, userBId *string) error {
 
+	if *userId == *userBId {
+		err := errors.New("dont use same userid")
+		return err
+	}
 	// Step 1: Create a context with a timeout for the AuthClient call
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()

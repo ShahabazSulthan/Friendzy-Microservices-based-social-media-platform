@@ -10,4 +10,19 @@ type IChatRepo interface {
 	UpdateChatStatus(senderId, recipientId *string) error
 	GetOneToOneChats(senderId, recipientId, limit, offset *string) (*[]responsemodel.OneToOneChatResponse, error)
 	RecentChatProfileData(senderid, limit, offset *string) (*[]responsemodel.RecentChatProfileResponse, error)
+
+	CreateNewGroup(groupInfo *requestmodel.NewGroupInfo) error
+	GetGroupMembersList(groupId *string) (*[]uint64, error)
+	StoreOneToManyChatToDB(msg *requestmodel.OneToManyMessageRequest) error
+	GetRecentGroupProfilesOfUser(userId, limit, offset *string) (*[]responsemodel.GroupInfoLite, error)
+
+	GetGroupLastMessageDetailsByGroupId(groupid *string) (*responsemodel.OneToManyMessageLite, error)
+	CheckUserIsGroupMember(userid, groupid *string) (bool, error)
+	GetOneToManyChats(groupId, limit, offset *string) (*[]responsemodel.OneToManyChatResponse, error)
+	AddNewMembersToGroupByGroupId(inputData *requestmodel.AddNewMemberToGroup) error
+	
+	RemoveGroupMember(inputData *requestmodel.RemoveMemberFromGroup) error
+	CountMembersInGroup(groupId string) (int, error)
+	DeleteOneToManyChatsByGroupId(groupId string) error
+	DeleteGroupDataByGroupId(groupId string) error
 }

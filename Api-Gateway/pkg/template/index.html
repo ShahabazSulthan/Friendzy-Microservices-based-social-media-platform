@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Chat App - Create Room</title>
+</head>
+<body>
+    <div>
+        <h1>Create a Video Chat Room</h1>
+        <button onclick="createRoom()">Create Room</button>
+    </div>
+
+    <script>
+        async function createRoom() {
+            try {
+                const response = await fetch("/room/create", { method: "POST" });
+                const data = await response.json();
+                if (data.room_id) {
+                    window.location.href = `/room/${data.room_id}`;
+                } else {
+                    console.error("Room creation failed:", data);
+                }
+            } catch (error) {
+                console.error("Error creating room:", error);
+            }
+        }
+    </script>
+</body>
+</html>

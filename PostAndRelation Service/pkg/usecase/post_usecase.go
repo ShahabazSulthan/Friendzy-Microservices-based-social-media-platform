@@ -206,7 +206,7 @@ func (p *PostUseCase) LikePost(postId, userId *string) *error {
 			}
 			fmt.Println("Post liked successfully by user:", *userId)
 		}
-		fmt.Println("message = ",message)
+		fmt.Println("message = ", message)
 	}
 
 	cacheKey2 := "userFeed"
@@ -319,20 +319,26 @@ func (p *PostUseCase) GetMostLovedPostsFromGlobalUser(userId, limit, offset *str
 
 		// Fetch media URLs for each post
 		postMedias, err := p.PostRepo.GetPostMediaById(&postIdStr)
-		if err == nil {
+		if err != nil {
+			return nil, err
+		} else {
 			(*postData)[i].MediaUrl = *postMedias
 		}
 
 		// Fetch like and comment counts
 		likeCommentCount, err := p.PostRepo.GetPostLikeAndCommentsCount(&postIdStr)
-		if err == nil {
+		if err != nil {
+			return nil, err
+		} else {
 			(*postData)[i].LikesCount = likeCommentCount.LikesCount
 			(*postData)[i].CommentsCount = likeCommentCount.CommentsCount
 		}
 
 		// Calculate post age
 		postAge, err := p.PostRepo.CalculatePostAge(int((*postData)[i].PostId))
-		if err == nil {
+		if err != nil {
+			return nil, err
+		} else {
 			(*postData)[i].PostAge = postAge
 		}
 	}

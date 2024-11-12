@@ -270,59 +270,55 @@ func (p *PostRepo) GetPostLikeAndCommentsCount(postId *string) (*responsemodel.L
 }
 
 func (p *PostRepo) GetMostLovedPostsFromGlobalUser(userId, limit, offset string) (*[]responsemodel.PostData, error) {
-	//cacheKey := fmt.Sprintf("mostLovedPosts:%s:%s:%s", userId, limit, offset)
-
-	// // Try to fetch cached data
 	var response []responsemodel.PostData
-	// err := cache.CacheGet(p.Ctx, p.Redis, cacheKey, &response)
-	// if err == nil {
-	// 	return &response, nil // Cache hit
-	// }
 
-	// Cache miss - query database
-	query := `SELECT 
-                posts.*, 
-                COUNT(post_likes.post_id) AS like_count, 
-                CASE 
-                    WHEN EXISTS (SELECT 1 FROM post_likes WHERE post_likes.post_id = posts.post_id AND post_likes.user_id = ?) 
-                    THEN TRUE 
-                    ELSE FALSE 
-                END AS is_liked 
-              FROM posts 
-              LEFT JOIN post_likes ON posts.post_id = post_likes.post_id 
-              WHERE posts.post_status = 'normal' 
-              GROUP BY posts.post_id 
-              ORDER BY like_count DESC, posts.created_at DESC 
-              LIMIT ? OFFSET ?`
+	// SQL query to retrieve the most-loved posts
+	query := `
+		SELECT 
+			posts.*, 
+			COUNT(post_likes.post_id) AS like_count, 
+			EXISTS (
+				SELECT 1 
+				FROM post_likes 
+				WHERE post_likes.post_id = posts.post_id AND post_likes.user_id = ?
+			) AS is_liked
+		FROM posts 
+		LEFT JOIN post_likes ON posts.post_id = post_likes.post_id 
+		WHERE posts.post_status = 'normal' 
+		GROUP BY posts.post_id 
+		ORDER BY like_count DESC, posts.created_at DESC 
+		LIMIT ? OFFSET ?
+	`
 
+	// Parse limit and offset as integers for the query
 	limitInt, _ := strconv.Atoi(limit)
 	offsetInt, _ := strconv.Atoi(offset)
+
+	// Execute query and scan results
 	err := p.DB.Raw(query, userId, limitInt, offsetInt).Scan(&response).Error
 	if err != nil {
 		return nil, err
 	}
 
-	// Cache the result with a TTL
-	//cache.CacheSet(p.Ctx, p.Redis, cacheKey, response, 1*time.Minute)
-
 	return &response, nil
 }
 
+
 func (p *PostRepo) GetRandomPosts(limit, offset string) (*[]responsemodel.PostData, error) {
-    var response []responsemodel.PostData
-    query := `
+	var response []responsemodel.PostData
+	query := `
         SELECT posts.*
         FROM posts 
         WHERE posts.post_status = 'normal' 
         ORDER BY RANDOM() 
         LIMIT ? OFFSET ?`
-    
-    limitInt, _ := strconv.Atoi(limit)
-    offsetInt, _ := strconv.Atoi(offset)
-    err := p.DB.Raw(query, limitInt, offsetInt).Scan(&response).Error
-    if err != nil {
-        return nil, err
-    }
 
-    return &response, nil
+	limitInt, _ := strconv.Atoi(limit)
+	offsetInt, _ := strconv.Atoi(offset)
+	err := p.DB.Raw(query, limitInt, offsetInt).Scan(&response).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &response, nil
 }

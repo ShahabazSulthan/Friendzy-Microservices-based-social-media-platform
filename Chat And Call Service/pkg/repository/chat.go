@@ -53,7 +53,6 @@ func (c *ChatRepo) StoreOneToOneChatToDB(chatData *requestmodel.OneToOneChatRequ
 	return &hexMessageID, nil
 }
 
-
 func (c *ChatRepo) UpdateChatStatus(senderId, recipientId *string) error {
 	// Create a context with a 10-second timeout
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -230,4 +229,286 @@ func (c *ChatRepo) RecentChatProfileData(senderID, limit, offset *string) (*[]re
 	}
 
 	return &chatSummaries, nil
+}
+
+func (c *ChatRepo) CreateNewGroup(groupInfo *requestmodel.NewGroupInfo) error {
+	// Set a timeout for the database operation
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	// Insert the new group information into the Chatgroup collection
+	if _, err := c.MongoCollections.Chatgroup.InsertOne(ctx, groupInfo); err != nil {
+		log.Printf("Error inserting data into MongoDB Chatgroup collection: %v", err)
+		return fmt.Errorf("could not create new group: %w", err)
+	}
+	return nil
+}
+
+
+func (c *ChatRepo) GetGroupMembersList(groupId *string) (*[]uint64, error) {
+	objGroupID, err := primitive.ObjectIDFromHex(*groupId)
+	if err != nil {
+		return nil, fmt.Errorf("invalid group ID: %v", err)
+	}
+
+	fmt.Println("objectGroupId", objGroupID)
+
+	var group struct {
+		Members []uint64 `bson:"groupmembers"`
+	}
+
+	filter := bson.M{"_id": objGroupID}
+	err = c.MongoCollections.Chatgroup.FindOne(context.Background(), filter).Decode(&group)
+	if err != nil {
+		return nil, fmt.Errorf("could not find group: %v", err)
+	}
+
+	return &group.Members, nil
+}
+
+func (c *ChatRepo) StoreOneToManyChatToDB(msg *requestmodel.OneToManyMessageRequest) error {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	_, err := c.MongoCollections.Chatgroup.InsertOne(ctx, msg)
+	if err != nil {
+		log.Println("-----error: from chatrepo:StoreOneToManyChatToDB() failed to store chat data")
+		fmt.Println("--------", err)
+		return err
+	}
+	return nil
+}
+
+func (c *ChatRepo) GetRecentGroupProfilesOfUser(userId, limit, offset *string) (*[]responsemodel.GroupInfoLite, error) {
+	userIdInt, _ := strconv.Atoi(fmt.Sprint(*userId))
+	limitInt, _ := strconv.Atoi(*limit)
+	offsetInt, _ := strconv.Atoi(*offset)
+
+	filter := bson.M{"groupmembers": userIdInt}
+	findOptions := options.Find()
+	findOptions.SetLimit(int64(limitInt))
+	findOptions.SetSkip(int64(offsetInt))
+
+	cursor, err := c.MongoCollections.Chatgroup.Find(context.TODO(), filter, findOptions)
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(context.TODO())
+
+	var groups []responsemodel.GroupInfoLite
+	for cursor.Next(context.TODO()) {
+		var group responsemodel.GroupInfoLite
+		if err = cursor.Decode(&group); err != nil {
+			return nil, err
+		}
+
+		group.GroupID = group.ID.Hex()
+		groups = append(groups, group)
+	}
+
+	return &groups, nil
+}
+
+func (c *ChatRepo) GetGroupLastMessageDetailsByGroupId(groupid *string) (*responsemodel.OneToManyMessageLite, error) {
+	filter := bson.M{"groupid": *groupid}
+	findOptions := options.FindOne()
+	findOptions.SetSort(bson.D{{Key: "timestamp", Value: -1}}) // Sort by timestamp in descending order
+
+	var chat responsemodel.OneToManyMessageLite
+	err := c.MongoCollections.OneToManyChats.FindOne(context.TODO(), filter, findOptions).Decode(&chat)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return nil, nil // No message found for the given groupID
+		}
+		return nil, err
+	}
+
+	chat.StringTime = fmt.Sprint(chat.TimeStamp.In(c.LocationInd))
+	return &chat, nil
+}
+
+func (c *ChatRepo) CheckUserIsGroupMember(userid, groupid *string) (bool, error) {
+	objGroupID, err := primitive.ObjectIDFromHex(*groupid)
+	if err != nil {
+		return false, fmt.Errorf("invalid group ID: %v", err)
+	}
+	userIdInt, _ := strconv.Atoi(*userid)
+
+	filter := bson.M{
+		"_id":          objGroupID,
+		"groupmembers": userIdInt,
+	}
+	var result bson.M
+	err = c.MongoCollections.Chatgroup.FindOne(context.TODO(), filter).Decode(&result)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return false, nil
+		}
+		return false, err
+	}
+	return true, nil
+}
+
+func (c *ChatRepo) GetOneToManyChats(groupId, limit, offset *string) (*[]responsemodel.OneToManyChatResponse, error) {
+	var chatSlice []responsemodel.OneToManyChatResponse
+
+	// Filter setup
+	filter := bson.M{"groupid": *groupId}
+
+	// Convert limit and offset safely
+	limitInt, err := strconv.Atoi(*limit)
+	if err != nil {
+		return nil, fmt.Errorf("invalid limit: %v", err)
+	}
+	offsetInt, err := strconv.Atoi(*offset)
+	if err != nil {
+		return nil, fmt.Errorf("invalid offset: %v", err)
+	}
+
+	// Set options for the query
+	options := options.Find().
+		SetLimit(int64(limitInt)).
+		SetSkip(int64(offsetInt)).
+		SetSort(bson.D{{Key: "timestamp", Value: -1}})
+
+	// Execute the find query
+	cursor, err := c.MongoCollections.Chatgroup.Find(context.TODO(), filter, options)
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(context.TODO())
+
+	// Iterate over the cursor
+	for cursor.Next(context.TODO()) {
+		var message responsemodel.OneToManyChatResponse
+		if err := cursor.Decode(&message); err != nil {
+			return nil, err
+		}
+		// Additional processing
+		message.MessageID = message.ID.Hex()
+		message.StringTime = fmt.Sprint(message.TimeStamp.In(c.LocationInd))
+		chatSlice = append(chatSlice, message)
+	}
+
+	if err := cursor.Err(); err != nil {
+		return nil, err
+	}
+
+	return &chatSlice, nil
+}
+
+
+func (c *ChatRepo) AddNewMembersToGroupByGroupId(inputData *requestmodel.AddNewMemberToGroup) error {
+	objGroupID, err := primitive.ObjectIDFromHex(inputData.GroupID)
+	if err != nil {
+		return fmt.Errorf("invalid group ID: %v", err)
+	}
+
+	filter := bson.M{"_id": objGroupID}
+	var group struct {
+		GroupMembers []uint64 `bson:"groupmembers"`
+	}
+
+	err = c.MongoCollections.Chatgroup.FindOne(context.TODO(), filter).Decode(&group)
+	if err != nil {
+		return fmt.Errorf("failed to find group: %v", err)
+	}
+
+	// Create a map to ensure uniqueness
+	memberSet := make(map[uint64]struct{})
+	for _, member := range group.GroupMembers {
+		memberSet[member] = struct{}{}
+	}
+
+	// Add new members if they are not already present
+	for _, newMember := range inputData.GroupMembers {
+		if _, exists := memberSet[newMember]; !exists {
+			memberSet[newMember] = struct{}{}
+		}
+	}
+
+	// Convert the map back to a slice
+	updatedMembers := make([]uint64, 0, len(memberSet))
+	for member := range memberSet {
+		updatedMembers = append(updatedMembers, member)
+	}
+
+	// Update the group document with the new members
+	update := bson.M{"$set": bson.M{"groupmembers": updatedMembers}}
+	_, err = c.MongoCollections.Chatgroup.UpdateOne(context.TODO(), filter, update)
+	if err != nil {
+		return fmt.Errorf("failed to update group members: %v", err)
+	}
+
+	return nil
+}
+
+func (c *ChatRepo) RemoveGroupMember(inputData *requestmodel.RemoveMemberFromGroup) error {
+	objGroupID, err := primitive.ObjectIDFromHex(inputData.GroupID)
+	if err != nil {
+		return fmt.Errorf("invalid group ID: %v", err)
+	}
+	memberIdInt, _ := strconv.Atoi(inputData.MemberID)
+
+	filter := bson.M{"_id": objGroupID}
+	update := bson.M{"$pull": bson.M{"groupmembers": memberIdInt}}
+
+	result, err := c.MongoCollections.Chatgroup.UpdateOne(context.TODO(), filter, update)
+	if err != nil {
+		return fmt.Errorf("failed to remove user from group: %v", err)
+	}
+
+	if result.MatchedCount == 0 {
+		return fmt.Errorf("group not found")
+	}
+
+	if result.ModifiedCount == 0 {
+		return fmt.Errorf("user with this member id is not in this group")
+	}
+
+	return nil
+}
+
+func (c *ChatRepo) CountMembersInGroup(groupId string) (int, error) {
+	objGroupID, err := primitive.ObjectIDFromHex(groupId)
+	if err != nil {
+		return 0, fmt.Errorf("invalid group ID: %v", err)
+	}
+
+	filter := bson.M{"_id": objGroupID}
+	var group struct {
+		GroupMembers []uint64 `bson:"groupmembers"`
+	}
+
+	err = c.MongoCollections.Chatgroup.FindOne(context.TODO(), filter).Decode(&group)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return 0, fmt.Errorf("group not found")
+		}
+		return 0, err
+	}
+	return len(group.GroupMembers), nil
+}
+
+func (c *ChatRepo) DeleteOneToManyChatsByGroupId(groupId string) error {
+	deleteFilter := bson.M{"groupid": groupId}
+	_, err := c.MongoCollections.OneToManyChats.DeleteMany(context.TODO(), deleteFilter)
+	if err != nil {
+		return fmt.Errorf("failed to delete group chats: %v", err)
+	}
+
+	return nil
+}
+
+func (c *ChatRepo) DeleteGroupDataByGroupId(groupId string) error {
+	objGroupID, err := primitive.ObjectIDFromHex(groupId)
+	if err != nil {
+		return fmt.Errorf("invalid group ID: %v", err)
+	}
+	filter := bson.M{"_id": objGroupID}
+	_, err = c.MongoCollections.Chatgroup.DeleteOne(context.TODO(), filter)
+	if err != nil {
+		return err
+	}
+	return nil
 }

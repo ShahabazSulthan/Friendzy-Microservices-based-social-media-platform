@@ -17,59 +17,53 @@ import (
 	"google.golang.org/grpc/peer"
 )
 
-// Define a server ID for log entries
 const serverID = "SERVER-8000"
 
 func main() {
 
-	// Load configuration
+	//server.Videocallroutes()
+
 	cfg, err := config.LoadConfig()
 	if err != nil {
 		log.Fatalf("[%s] Failed to load config: %v", serverID, err)
 	}
 
-	// Set up logging to only write to a file
 	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalf("[%s] Failed to open log file: %v", serverID, err)
 	}
 	defer file.Close()
 
-	// Configure logging to output to both file and stdout with serverID prefix
 	log.SetOutput(file)
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 
 	// Log the server start with server ID
 	log.Printf("[%s] Server starting on port %s", serverID, cfg.Port)
 
-	// Initialize Fiber app
 	app := fiber.New()
-	app.Use(FiberLogger()) // Apply the HTTP logger middleware
+	app.Use(FiberLogger())
 
+	// Initialize services with dependency injection
 	middleware, err := di_auth.InitAuthClient(app, cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = di_post.InitPostNrelClient(app, cfg, middleware)
-	if err != nil {
+	if err := di_post.InitPostNrelClient(app, cfg, middleware); err != nil {
 		log.Fatal(err)
 	}
 
-	err = di_notif.InitNotificationClient(app, cfg, middleware)
-	if err != nil {
+	if err := di_notif.InitNotificationClient(app, cfg, middleware); err != nil {
 		log.Fatal(err)
 	}
 
-	err = di_chat.InitChatNcallClient(app, cfg, middleware)
-	if err != nil {
+	if err := di_chat.InitChatNcallClient(app, cfg, middleware); err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Port Running  ", cfg.Port)
+	fmt.Println("Port Running on ", cfg.Port)
 
-	err = app.Listen(cfg.Port)
-	if err != nil {
+	if err := app.Listen(cfg.Port); err != nil {
 		fmt.Printf("Error starting server: %v\n", err)
 	}
 }

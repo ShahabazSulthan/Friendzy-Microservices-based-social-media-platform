@@ -27,3 +27,280 @@
 2024/11/06 12:27:21.142459 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
 2024/11/06 12:27:24.733946 [SERVER-8000] [HTTP] status=200 latency=9.7977ms clientIP=127.0.0.1 method=GET path=/log userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
 2024/11/06 12:27:24.757578 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/06 12:57:27.767800 [SERVER-8000] Server starting on port :8000
+2024/11/06 12:59:07.471304 [SERVER-8000] [HTTP] status=200 latency=64.9763ms clientIP=127.0.0.1 method=GET path=/explore/ userAgent=PostmanRuntime/7.42.0
+2024/11/06 13:01:22.825655 [SERVER-8000] [HTTP] status=400 latency=27.9459ms clientIP=127.0.0.1 method=GET path=/explore/ userAgent=PostmanRuntime/7.42.0
+2024/11/06 13:02:33.824249 [SERVER-8000] [HTTP] status=200 latency=26.8291ms clientIP=127.0.0.1 method=GET path=/explore/ userAgent=PostmanRuntime/7.42.0
+2024/11/06 13:05:57.573863 [SERVER-8000] [HTTP] status=400 latency=14.1195ms clientIP=127.0.0.1 method=GET path=/explore/ userAgent=PostmanRuntime/7.42.0
+2024/11/06 13:07:23.588672 [SERVER-8000] [HTTP] status=400 latency=5.4526ms clientIP=127.0.0.1 method=GET path=/explore/ userAgent=PostmanRuntime/7.42.0
+2024/11/06 13:07:36.455598 [SERVER-8000] [HTTP] status=200 latency=24.9437ms clientIP=127.0.0.1 method=GET path=/explore/ userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:45:07.502260 [SERVER-8000] Server starting on port :8000
+2024/11/07 09:48:07.561626 [SERVER-8000] Server starting on port :8000
+2024/11/07 09:51:38.486992 [SERVER-8000] [HTTP] status=400 latency=13.7755ms clientIP=127.0.0.1 method=GET path=/profile/ userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:52:00.336969 [SERVER-8000] [HTTP] status=200 latency=66.4631ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:52:29.888101 [SERVER-8000] [HTTP] status=200 latency=20.4831ms clientIP=127.0.0.1 method=GET path=/profile/ userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:53:19.656687 [SERVER-8000] [HTTP] status=200 latency=8.7588ms clientIP=127.0.0.1 method=GET path=/profile/followers userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:53:23.945506 [SERVER-8000] [HTTP] status=200 latency=6.5138ms clientIP=127.0.0.1 method=GET path=/profile/following userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:53:32.508085 [SERVER-8000] [HTTP] status=400 latency=5.0247ms clientIP=127.0.0.1 method=POST path=/relation/follow/4 userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:54:23.222811 [SERVER-8000] [HTTP] status=200 latency=36.7838ms clientIP=127.0.0.1 method=GET path=/explore/ userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:55:02.744071 [SERVER-8000] [HTTP] status=200 latency=9.4302ms clientIP=127.0.0.1 method=DELETE path=/post/like/2 userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:55:13.612289 [SERVER-8000] [HTTP] status=200 latency=65.2418ms clientIP=127.0.0.1 method=POST path=/post/like/2 userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:55:42.661130 [SERVER-8000] [HTTP] status=200 latency=23.9608ms clientIP=127.0.0.1 method=GET path=/notification/ userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:56:05.953529 [SERVER-8000] [HTTP] status=200 latency=6.2298ms clientIP=127.0.0.1 method=GET path=/notification/ userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:57:24.508116 [SERVER-8000] [HTTP] status=200 latency=14.3299ms clientIP=127.0.0.1 method=GET path=/log userAgent=PostmanRuntime/7.42.0
+2024/11/07 09:58:48.648780 [SERVER-8000] [HTTP] status=400 latency=1.8835ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 09:58:56.812646 [SERVER-8000] [HTTP] status=101 latency=4.8444ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 09:59:47.086857 [SERVER-8000] [HTTP] status=200 latency=57.0589ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/07 10:00:17.043355 [SERVER-8000] [HTTP] status=101 latency=3.3297ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 10:00:39.917299 [producer] partition id: 0; offset: 20; value: &{onetomessage 4 {"SenderID":"1","RecipientID":"4","Type":"OneToOne","Content":"Hii","TimeStamp":"2024-11-07T10:00:39.8968931+05:30","Status":"send"} [] <nil> 20 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc000381bc0 0 0 false}
+2024/11/07 10:02:19.398463 read: websocket: close 1000 (normal)
+2024/11/07 10:02:22.785607 [SERVER-8000] [HTTP] status=101 latency=2.899ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 10:02:24.556367 [producer] partition id: 0; offset: 21; value: &{onetomessage 1 {"SenderID":"4","RecipientID":"1","Type":"OneToOne","Content":"come on yaaar","TimeStamp":"2024-11-07T10:02:24.541585+05:30","Status":"send"} [] <nil> 21 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc000380960 0 0 false}
+2024/11/07 10:02:34.451345 [SERVER-8000] [HTTP] status=101 latency=3.4823ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 10:02:52.600855 read: websocket: close 1000 (normal)
+2024/11/07 10:02:55.649373 [SERVER-8000] [HTTP] status=101 latency=2.7256ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 10:03:34.703745 read: websocket: close 1000 (normal)
+2024/11/07 10:04:23.450442 [SERVER-8000] [HTTP] status=101 latency=5.0889ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 10:04:47.348368 [producer] partition id: 0; offset: 22; value: &{onetomessage 4 {"SenderID":"1","RecipientID":"4","Type":"OneToOne","Content":"bye","TimeStamp":"2024-11-07T10:04:47.3366891+05:30","Status":"send"} [] <nil> 22 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc000052540 0 0 false}
+2024/11/07 10:08:22.622098 [SERVER-8000] [HTTP] status=101 latency=2.5718ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 10:09:00.829998 read: websocket: close 1000 (normal)
+2024/11/07 10:09:01.380340 [SERVER-8000] [HTTP] status=101 latency=2.4636ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 10:09:33.248566 read: websocket: close 1000 (normal)
+2024/11/07 10:09:33.782852 [SERVER-8000] [HTTP] status=101 latency=2.8599ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 10:09:36.968652 read: websocket: close 1000 (normal)
+2024/11/07 10:09:37.556090 [SERVER-8000] [HTTP] status=101 latency=3.0795ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 10:09:46.139246 read: websocket: close 1000 (normal)
+2024/11/07 10:09:52.914757 read: websocket: close 1000 (normal)
+2024/11/07 10:10:18.579911 [SERVER-8000] [HTTP] status=200 latency=126.4495ms clientIP=127.0.0.1 method=GET path=/chat/onetoonechats/4 userAgent=PostmanRuntime/7.42.0
+2024/11/07 10:10:24.957175 [SERVER-8000] [HTTP] status=200 latency=114.6305ms clientIP=127.0.0.1 method=GET path=/chat/onetoonechats/1 userAgent=PostmanRuntime/7.42.0
+2024/11/07 11:11:08.141758 [SERVER-8000] Server starting on port :8000
+2024/11/07 11:12:05.299840 [SERVER-8000] [HTTP] status=200 latency=90.0304ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/07 11:13:21.916473 [SERVER-8000] [HTTP] status=200 latency=55.1054ms clientIP=127.0.0.1 method=GET path=/explore/ userAgent=PostmanRuntime/7.42.0
+2024/11/07 11:13:32.165757 [SERVER-8000] [HTTP] status=200 latency=12.722ms clientIP=127.0.0.1 method=DELETE path=/post/like/4 userAgent=PostmanRuntime/7.42.0
+2024/11/07 11:13:38.558873 [SERVER-8000] [HTTP] status=200 latency=95.9507ms clientIP=127.0.0.1 method=POST path=/post/like/4 userAgent=PostmanRuntime/7.42.0
+2024/11/07 11:15:18.474461 [SERVER-8000] [HTTP] status=200 latency=26.9425ms clientIP=127.0.0.1 method=GET path=/notification/ userAgent=PostmanRuntime/7.42.0
+2024/11/07 11:16:39.670087 [SERVER-8000] [HTTP] status=200 latency=88.4214ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/07 11:17:29.643059 [SERVER-8000] [HTTP] status=200 latency=80.1227ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/07 11:17:52.707800 [SERVER-8000] [HTTP] status=101 latency=12.0329ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 11:17:57.209510 [SERVER-8000] [HTTP] status=101 latency=6.2887ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 11:18:01.289777 [SERVER-8000] [HTTP] status=101 latency=6.6224ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 11:18:05.273942 [SERVER-8000] [HTTP] status=101 latency=3.8459ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 11:18:20.316865 [producer] partition id: 0; offset: 23; value: &{onetomessage 1 {"SenderID":"4","RecipientID":"1","Type":"OneToOne","Content":"Hello Shahabaz","TimeStamp":"2024-11-07T11:18:20.246976+05:30","Status":"send"} [] <nil> 23 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc000123e60 0 0 false}
+2024/11/07 11:18:34.978098 [producer] partition id: 0; offset: 24; value: &{onetomessage 1 {"SenderID":"4","RecipientID":"1","Type":"OneToOne","Content":"Hello Shahabaz","TimeStamp":"2024-11-07T11:18:34.9459528+05:30","Status":"send"} [] <nil> 24 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc000430ae0 0 0 false}
+2024/11/07 11:18:57.213561 [SERVER-8000] [HTTP] status=200 latency=87.3424ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/07 11:19:34.173501 [SERVER-8000] [HTTP] status=200 latency=95.4623ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/07 11:20:01.285665 read: websocket: close 1000 (normal)
+2024/11/07 11:20:13.658580 [SERVER-8000] [HTTP] status=101 latency=6.3639ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 11:20:26.844709 read: websocket: close 1000 (normal)
+2024/11/07 11:20:27.669145 [SERVER-8000] [HTTP] status=101 latency=4.9103ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 11:20:32.578222 [producer] partition id: 0; offset: 25; value: &{onetomessage 1 {"SenderID":"1","RecipientID":"1","Type":"OneToOne","Content":"Hello Chabbu","TimeStamp":"2024-11-07T11:20:32.5332273+05:30","Status":"pending"} [] <nil> 25 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc0003aa360 0 0 false}
+2024/11/07 11:20:37.685880 [producer] partition id: 0; offset: 26; value: &{onetomessage 4 {"SenderID":"4","RecipientID":"4","Type":"OneToOne","Content":"come on yaaar","TimeStamp":"2024-11-07T11:20:37.6596598+05:30","Status":"send"} [] <nil> 26 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc000052de0 0 0 false}
+2024/11/07 11:20:38.238704 [producer] partition id: 0; offset: 27; value: &{onetomessage 4 {"SenderID":"4","RecipientID":"4","Type":"OneToOne","Content":"come on yaaar","TimeStamp":"2024-11-07T11:20:38.2199847+05:30","Status":"send"} [] <nil> 27 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc000431ec0 0 0 false}
+2024/11/07 11:20:46.595945 [producer] partition id: 0; offset: 28; value: &{onetomessage 1 {"SenderID":"1","RecipientID":"1","Type":"OneToOne","Content":"Hello Chabbu","TimeStamp":"2024-11-07T11:20:46.569781+05:30","Status":"pending"} [] <nil> 28 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc000123e60 0 0 false}
+2024/11/07 11:20:53.491110 [producer] partition id: 0; offset: 29; value: &{onetomessage 4 {"SenderID":"1","RecipientID":"4","Type":"OneToOne","Content":"Hello Chabbu","TimeStamp":"2024-11-07T11:20:53.4622879+05:30","Status":"send"} [] <nil> 29 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc00053f140 0 0 false}
+2024/11/07 11:23:13.697605 read: websocket: close 1000 (normal)
+2024/11/07 11:23:20.754008 [SERVER-8000] [HTTP] status=101 latency=7.1667ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 11:23:35.976340 read: websocket: close 1000 (normal)
+2024/11/07 11:23:37.159845 [SERVER-8000] [HTTP] status=101 latency=19.685ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/07 11:26:26.095733 [SERVER-8000] [HTTP] status=200 latency=22.8113ms clientIP=127.0.0.1 method=GET path=/log userAgent=PostmanRuntime/7.42.0
+2024/11/08 14:46:08.833108 [SERVER-8000] Server starting on port :8000
+2024/11/09 10:17:58.900655 [SERVER-8000] Server starting on port :8000
+2024/11/09 10:20:19.923746 [SERVER-8000] [HTTP] status=200 latency=95.5046ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/09 10:21:02.670726 [SERVER-8000] [HTTP] status=200 latency=53.5995ms clientIP=127.0.0.1 method=GET path=/explore/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 10:24:35.861294 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 10:24:48.672517 [SERVER-8000] [HTTP] status=400 latency=2.7637716s clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 10:25:49.500854 [SERVER-8000] [HTTP] status=400 latency=7.2181ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 10:26:03.225331 [SERVER-8000] [HTTP] status=400 latency=3.6684ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 10:26:13.878903 [SERVER-8000] [HTTP] status=400 latency=4.0013ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:17:53.024119 [SERVER-8000] Server starting on port :8000
+2024/11/09 17:20:54.592857 [SERVER-8000] [HTTP] status=200 latency=52.8189ms clientIP=127.0.0.1 method=GET path=/explore/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:21:08.191028 [SERVER-8000] [HTTP] status=400 latency=2.7563848s clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:21:46.759598 [SERVER-8000] [HTTP] status=400 latency=5.4399ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:21:57.761481 [SERVER-8000] [HTTP] status=400 latency=3.2575ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:23:57.580886 [SERVER-8000] [HTTP] status=400 latency=2.7729193s clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:24:54.688731 [SERVER-8000] Server starting on port :8000
+2024/11/09 17:25:22.642418 [SERVER-8000] [HTTP] status=400 latency=4.4844ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:25:36.828217 -----error: from handler:CreateNewGroup(),chatNcall service down while calling CreateNewGroup()
+2024/11/09 17:25:36.828217 [SERVER-8000] [HTTP] status=503 latency=8.8319ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:27:06.543119 -----error: from handler:CreateNewGroup(),chatNcall service down while calling CreateNewGroup()
+2024/11/09 17:27:06.543119 [SERVER-8000] [HTTP] status=503 latency=9.7176ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:29:50.693760 -----error: from handler:CreateNewGroup(),chatNcall service down while calling CreateNewGroup()
+2024/11/09 17:29:50.693760 [SERVER-8000] [HTTP] status=503 latency=8.2664ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:34:14.730868 [SERVER-8000] Server starting on port :8000
+2024/11/09 17:34:30.805407 [SERVER-8000] [HTTP] status=200 latency=4.6469ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:38:18.738644 [SERVER-8000] [HTTP] status=400 latency=4.3885ms clientIP=127.0.0.1 method=POST path=/groupchat/add userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:40:02.901393 [SERVER-8000] [HTTP] status=200 latency=2.4996ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:43:56.996419 [SERVER-8000] Server starting on port :8000
+2024/11/09 17:44:04.713350 [SERVER-8000] [HTTP] status=400 latency=2.7815221s clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:47:57.476952 [SERVER-8000] Server starting on port :8000
+2024/11/09 17:48:03.096719 [SERVER-8000] [HTTP] status=400 latency=8.3766ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:48:37.910755 [SERVER-8000] [HTTP] status=400 latency=2.7952464s clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:52:29.414559 [SERVER-8000] Server starting on port :8000
+2024/11/09 17:52:43.434005 [SERVER-8000] [HTTP] status=400 latency=2.7707194s clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:53:32.938593 [SERVER-8000] [HTTP] status=400 latency=3.5812ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:57:33.571254 [SERVER-8000] [HTTP] status=400 latency=2.7516503s clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:58:05.735072 Service unavailable: error creating group - rpc error: code = Unavailable desc = connection error: desc = "error reading server preface: read tcp 127.0.0.1:8630->127.0.0.1:50004: wsarecv: An existing connection was forcibly closed by the remote host."
+2024/11/09 17:58:05.735072 [SERVER-8000] [HTTP] status=503 latency=13.2098ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 17:58:37.761555 Service unavailable: error creating group - rpc error: code = Unavailable desc = connection error: desc = "error reading server preface: read tcp 127.0.0.1:8657->127.0.0.1:50004: wsarecv: An existing connection was forcibly closed by the remote host."
+2024/11/09 17:58:37.761555 [SERVER-8000] [HTTP] status=503 latency=9.7825ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:04:42.629566 [SERVER-8000] [HTTP] status=400 latency=88.255ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:04:50.676210 [SERVER-8000] [HTTP] status=200 latency=96.951ms clientIP=127.0.0.1 method=POST path=/groupchat/ userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:08:29.167229 [SERVER-8000] [HTTP] status=200 latency=3.1434ms clientIP=127.0.0.1 method=GET path=/groupchat//summary userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:08:29.167775 [SERVER-8000] [HTTP] error=Cannot GET /groupchat//summary
+2024/11/09 18:08:38.889620 [SERVER-8000] [HTTP] status=200 latency=129.8809ms clientIP=127.0.0.1 method=GET path=/groupchat/summary userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:09:12.093896 [SERVER-8000] [HTTP] status=200 latency=198.869ms clientIP=127.0.0.1 method=POST path=/groupchat/add userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:11:28.565734 [SERVER-8000] [HTTP] status=200 latency=187.9311ms clientIP=127.0.0.1 method=POST path=/groupchat/add userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:11:54.413703 [SERVER-8000] [HTTP] status=400 latency=121.0387ms clientIP=127.0.0.1 method=POST path=/groupchat/remove userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:12:25.647921 [SERVER-8000] [HTTP] status=400 latency=122.4103ms clientIP=127.0.0.1 method=POST path=/groupchat/remove userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:12:55.828097 [SERVER-8000] [HTTP] status=400 latency=122.0333ms clientIP=127.0.0.1 method=POST path=/groupchat/remove userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:14:14.247214 [SERVER-8000] Server starting on port :8000
+2024/11/09 18:14:21.300329 [SERVER-8000] [HTTP] status=400 latency=6.51ms clientIP=127.0.0.1 method=POST path=/groupchat/remove userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:15:04.679225 [SERVER-8000] [HTTP] status=400 latency=3.2406ms clientIP=127.0.0.1 method=POST path=/groupchat/remove userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:15:15.443830 [SERVER-8000] [HTTP] status=200 latency=187.5904ms clientIP=127.0.0.1 method=POST path=/groupchat/remove userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:15:47.347947 [SERVER-8000] [HTTP] status=200 latency=124.3987ms clientIP=127.0.0.1 method=GET path=/groupchat/summary userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:16:06.142575 [SERVER-8000] [HTTP] status=200 latency=65.3025ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:16:57.686869 [SERVER-8000] [HTTP] status=400 latency=4.4734ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:17:02.536940 [SERVER-8000] [HTTP] status=200 latency=56.4519ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:18:40.243106 [SERVER-8000] [HTTP] status=200 latency=57.665ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:19:10.625378 [SERVER-8000] [HTTP] status=200 latency=120.5027ms clientIP=127.0.0.1 method=GET path=/groupchat/summary userAgent=PostmanRuntime/7.42.0
+2024/11/09 18:23:51.024810 [SERVER-8000] [HTTP] status=101 latency=4.5231ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/09 18:23:53.709642 [SERVER-8000] [HTTP] status=101 latency=3.9412ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/09 18:23:56.404184 [SERVER-8000] [HTTP] status=101 latency=2.7052ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/09 18:24:09.875790 [producer] partition id: 0; offset:0, value: &{manytomessage 672f56ea924f764997443e27 {"SenderID":"4","GroupID":"672f56ea924f764997443e27","Type":"OneToMany","Content":"Hello Guyzz","TimeStamp":"2024-11-09T18:24:09.624605+05:30","Status":"send"} [] <nil> 0 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc0003a64e0 0 0 false}
+2024/11/09 18:24:30.019568 [producer] partition id: 0; offset:1, value: &{manytomessage 672f56ea924f764997443e27 {"SenderID":"5","GroupID":"672f56ea924f764997443e27","Type":"OneToMany","Content":"How are you all","TimeStamp":"2024-11-09T18:24:29.9315098+05:30","Status":"send"} [] <nil> 1 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc000498960 0 0 false}
+2024/11/09 18:25:17.692750 [producer] partition id: 0; offset:2, value: &{manytomessage 672f56ea924f764997443e27 {"SenderID":"1","GroupID":"672f56ea924f764997443e27","Type":"OneToMany","Content":"Whats Going On","TimeStamp":"2024-11-09T18:25:17.6193775+05:30","Status":"send"} [] <nil> 2 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc0001424e0 0 0 false}
+2024/11/09 18:25:24.469864 read: websocket: close 1000 (normal)
+2024/11/09 18:25:26.900861 read: websocket: close 1000 (normal)
+2024/11/09 18:25:29.049927 read: websocket: close 1000 (normal)
+2024/11/10 18:05:52.653302 [SERVER-8000] Server starting on port :8000
+2024/11/10 18:07:36.071506 [SERVER-8000] Server starting on port :8000
+2024/11/10 18:08:19.656622 [SERVER-8000] [HTTP] status=401 latency=1.6416ms clientIP=127.0.0.1 method=GET path=/ userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:08:19.920229 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:08:48.226279 [SERVER-8000] Server starting on port :8000
+2024/11/10 18:08:52.241910 [SERVER-8000] [HTTP] status=401 latency=879.2µs clientIP=127.0.0.1 method=GET path=/ userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:08:52.300922 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:08:55.980875 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/ userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:08:56.043202 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:09:00.123906 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/ userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:09:00.185931 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:11:11.149061 [SERVER-8000] Server starting on port :8000
+2024/11/10 18:11:16.323911 [SERVER-8000] [HTTP] status=401 latency=566.2µs clientIP=127.0.0.1 method=GET path=/ userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:11:16.377900 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:11:28.609978 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=// userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:11:28.691963 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:11:34.560209 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/ userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:11:34.634291 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:11:38.462469 [SERVER-8000] [HTTP] status=200 latency=9.5136ms clientIP=127.0.0.1 method=GET path=/log userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:11:38.509457 [SERVER-8000] [HTTP] status=401 latency=979.7µs clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:11:42.498685 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/ userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:11:42.534522 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:12:06.041329 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/index userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:12:06.136720 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/10 18:13:55.684055 [SERVER-8000] Server starting on port :8000
+2024/11/10 18:16:55.227311 [SERVER-8000] Server starting on port :8000
+2024/11/10 18:17:43.539306 [SERVER-8000] [HTTP] status=200 latency=64.4966ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/10 18:19:09.367212 [SERVER-8000] [HTTP] status=400 latency=8.8775ms clientIP=127.0.0.1 method=POST path=/room/create userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:18:16.118665 [SERVER-8000] Server starting on port :8000
+2024/11/11 18:20:40.746730 [SERVER-8000] Server starting on port :8000
+2024/11/11 18:21:25.463065 [SERVER-8000] Server starting on port :8000
+2024/11/11 18:25:33.624024 [SERVER-8000] Server starting on port :8000
+2024/11/11 18:26:24.733209 [SERVER-8000] [HTTP] status=401 latency=3.8502ms clientIP=127.0.0.1 method=POST path=/create userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:26:35.309975 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=POST path=/create userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:27:06.208515 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=POST path=/ userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:30:36.963934 [SERVER-8000] Server starting on port :8000
+2024/11/11 18:30:43.580710 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=POST path=/create userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:31:14.850250 [SERVER-8000] Server starting on port :8000
+2024/11/11 18:31:22.542557 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=POST path=/createRoom userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:32:55.509937 [SERVER-8000] Server starting on port :8000
+2024/11/11 18:33:10.116192 [SERVER-8000] [HTTP] status=200 latency=81.7632ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:34:05.264083 [SERVER-8000] [HTTP] status=200 latency=9.2886ms clientIP=127.0.0.1 method=POST path=/createRoom userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:34:05.264591 [SERVER-8000] [HTTP] error=Cannot POST /createRoom
+2024/11/11 18:34:22.240055 [SERVER-8000] [HTTP] status=200 latency=3.6253ms clientIP=127.0.0.1 method=POST path=/createRoom userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:34:22.240581 [SERVER-8000] [HTTP] error=Cannot POST /createRoom
+2024/11/11 18:43:49.458344 [SERVER-8000] Server starting on port :8000
+2024/11/11 18:43:54.519969 [SERVER-8000] [HTTP] status=401 latency=1.7135ms clientIP=127.0.0.1 method=POST path=/createRoom userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:44:35.323623 [SERVER-8000] Server starting on port :8000
+2024/11/11 18:45:21.887549 [SERVER-8000] [HTTP] status=200 latency=11.3466ms clientIP=127.0.0.1 method=POST path=/createRoom userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:45:21.887549 [SERVER-8000] [HTTP] error=Cannot POST /createRoom
+2024/11/11 18:47:33.356590 [SERVER-8000] Server starting on port :8000
+2024/11/11 18:47:38.101767 [SERVER-8000] [HTTP] status=200 latency=5.8976ms clientIP=127.0.0.1 method=POST path=/createRoom userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:47:38.102322 [SERVER-8000] [HTTP] error=Cannot POST /createRoom
+2024/11/11 18:47:46.240694 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/createRoom userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/11 18:47:46.337067 [SERVER-8000] [HTTP] status=401 latency=0s clientIP=127.0.0.1 method=GET path=/favicon.ico userAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36
+2024/11/11 18:48:07.596744 [SERVER-8000] [HTTP] status=200 latency=3.2967ms clientIP=127.0.0.1 method=POST path=/createRoom userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:48:07.596818 [SERVER-8000] [HTTP] error=Cannot POST /createRoom
+2024/11/11 18:56:06.323651 [SERVER-8000] Server starting on port :8000
+2024/11/11 18:56:19.791756 [SERVER-8000] [HTTP] status=200 latency=6.7236ms clientIP=127.0.0.1 method=POST path=/createRoom userAgent=PostmanRuntime/7.42.0
+2024/11/11 18:56:19.792461 [SERVER-8000] [HTTP] error=Cannot POST /createRoom
+2024/11/11 18:59:55.556465 [SERVER-8000] Server starting on port :8000
+2024/11/11 19:00:07.019328 [SERVER-8000] [HTTP] status=200 latency=3.2422ms clientIP=127.0.0.1 method=POST path=/ userAgent=PostmanRuntime/7.42.0
+2024/11/11 19:00:07.019328 [SERVER-8000] [HTTP] error=Cannot POST /
+2024/11/11 19:00:12.180372 [SERVER-8000] [HTTP] status=200 latency=2.1271ms clientIP=127.0.0.1 method=GET path=/ userAgent=PostmanRuntime/7.42.0
+2024/11/11 19:00:12.180372 [SERVER-8000] [HTTP] error=Cannot GET /
+2024/11/12 09:28:41.090407 [SERVER-8000] Server starting on port :8000
+2024/11/12 09:30:24.000193 [SERVER-8000] [HTTP] status=200 latency=14.0219ms clientIP=127.0.0.1 method=GET path=/log userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:30:46.357850 [SERVER-8000] [HTTP] status=200 latency=73.638ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:31:09.815515 [SERVER-8000] [HTTP] status=200 latency=18.2684ms clientIP=127.0.0.1 method=GET path=/profile/ userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:31:25.155562 [SERVER-8000] [HTTP] status=200 latency=174.9431ms clientIP=127.0.0.1 method=GET path=/explore/ userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:31:36.149468 [SERVER-8000] [HTTP] status=200 latency=13.8908ms clientIP=127.0.0.1 method=GET path=/explore/home userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:31:41.371697 [SERVER-8000] [HTTP] status=200 latency=13.8947ms clientIP=127.0.0.1 method=GET path=/explore/random userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:31:45.997542 [SERVER-8000] [HTTP] status=200 latency=11.7862ms clientIP=127.0.0.1 method=GET path=/notification/ userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:32:07.242798 [SERVER-8000] [HTTP] status=200 latency=389.0818ms clientIP=127.0.0.1 method=POST path=/post/like/6 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:34:21.066079 [SERVER-8000] [HTTP] status=200 latency=9.9918ms clientIP=127.0.0.1 method=DELETE path=/post/like/6 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:34:26.326779 [SERVER-8000] [HTTP] status=200 latency=17.1675ms clientIP=127.0.0.1 method=POST path=/post/like/6 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:35:50.861950 [SERVER-8000] [HTTP] status=200 latency=26.4567ms clientIP=127.0.0.1 method=POST path=/post/comment/ userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:40:42.508262 [SERVER-8000] [HTTP] status=200 latency=12.8469ms clientIP=127.0.0.1 method=DELETE path=/post/like/6 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:40:45.653681 [SERVER-8000] [HTTP] status=200 latency=31.3825ms clientIP=127.0.0.1 method=POST path=/post/like/6 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:44:08.463537 [SERVER-8000] [HTTP] status=400 latency=3.3061ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:44:19.494887 [SERVER-8000] [HTTP] status=200 latency=58.5697ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:45:01.599786 [SERVER-8000] [HTTP] status=200 latency=8.1989ms clientIP=127.0.0.1 method=POST path=/post/like/6 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:47:51.356413 [SERVER-8000] [HTTP] status=200 latency=11.5393ms clientIP=127.0.0.1 method=DELETE path=/post/like/6 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:47:54.176085 [SERVER-8000] [HTTP] status=200 latency=44.0535ms clientIP=127.0.0.1 method=POST path=/post/like/6 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:48:22.196171 [SERVER-8000] [HTTP] status=200 latency=4.5783ms clientIP=127.0.0.1 method=POST path=/post/like/6 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:48:36.921316 [SERVER-8000] [HTTP] status=200 latency=31.1091ms clientIP=127.0.0.1 method=GET path=/notification/ userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:48:55.712207 [SERVER-8000] [HTTP] status=200 latency=18.8997ms clientIP=127.0.0.1 method=POST path=/post/comment/ userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:49:23.581751 [SERVER-8000] [HTTP] status=503 latency=10.6386ms clientIP=127.0.0.1 method=GET path=/chat/onetoonechats/1 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:49:54.257104 [SERVER-8000] [HTTP] status=200 latency=155.7021ms clientIP=127.0.0.1 method=GET path=/chat/onetoonechats/1 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:50:21.043457 [SERVER-8000] [HTTP] status=200 latency=88.6493ms clientIP=127.0.0.1 method=GET path=/groupchat/summary userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:52:05.155781 [SERVER-8000] [HTTP] status=200 latency=83.4131ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:53:38.694708 [SERVER-8000] [HTTP] status=200 latency=95.096ms clientIP=127.0.0.1 method=GET path=/chat/onetoonechats/1 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:53:50.118663 [SERVER-8000] [HTTP] status=200 latency=131.1966ms clientIP=127.0.0.1 method=GET path=/chat/onetoonechats/4 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:54:00.462706 [SERVER-8000] [HTTP] status=200 latency=143.7719ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:54:37.901836 [SERVER-8000] [HTTP] status=200 latency=53.3536ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:55:51.440582 [SERVER-8000] [HTTP] status=200 latency=26.2878ms clientIP=127.0.0.1 method=GET path=/explore/profile/5 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:56:06.192142 [SERVER-8000] [HTTP] status=200 latency=56.6944ms clientIP=127.0.0.1 method=POST path=/login userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:56:27.551784 [SERVER-8000] [HTTP] status=200 latency=93.3024ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 09:57:26.720805 [SERVER-8000] [HTTP] status=101 latency=4.8241ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/12 09:57:31.532918 [SERVER-8000] [HTTP] status=101 latency=2.539ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/12 09:57:41.099617 [SERVER-8000] [HTTP] status=101 latency=2.1186ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/12 09:57:56.691535 [producer] partition id: 0; offset: 30; value: &{onetomessage 4 {"SenderID":"1","RecipientID":"4","Type":"OneToOne","Content":"How are you","TimeStamp":"2024-11-12T09:57:56.667359+05:30","Status":"send"} [] <nil> 30 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc00056e060 0 0 false}
+2024/11/12 09:58:06.975904 [producer] partition id: 0; offset: 31; value: &{onetomessage 4 {"SenderID":"4","RecipientID":"4","Type":"OneToOne","Content":"i am fine","TimeStamp":"2024-11-12T09:58:06.9608825+05:30","Status":"send"} [] <nil> 31 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc0001627e0 0 0 false}
+2024/11/12 09:58:54.093934 read: websocket: close 1000 (normal)
+2024/11/12 09:58:56.557349 read: websocket: close 1000 (normal)
+2024/11/12 09:58:59.129615 read: websocket: close 1000 (normal)
+2024/11/12 09:59:05.784583 [SERVER-8000] [HTTP] status=101 latency=2.3825ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/12 09:59:09.234061 read: websocket: close 1000 (normal)
+2024/11/12 09:59:12.064577 [SERVER-8000] [HTTP] status=101 latency=3.0188ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/12 09:59:21.853438 read: websocket: close 1000 (normal)
+2024/11/12 09:59:24.741425 [SERVER-8000] [HTTP] status=101 latency=2.0592ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/12 09:59:31.026453 [SERVER-8000] [HTTP] status=101 latency=2.226ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/12 09:59:43.388167 [SERVER-8000] [HTTP] status=101 latency=5.1559ms clientIP=127.0.0.1 method=GET path=/chat/ws userAgent=
+2024/11/12 10:00:23.603883 [producer] partition id: 0; offset:3, value: &{manytomessage 672f56ea924f764997443e27 {"SenderID":"1","GroupID":"672f56ea924f764997443e27","Type":"OneToMany","Content":"guyz anybody coming party","TimeStamp":"2024-11-12T10:00:23.5516168+05:30","Status":"send"} [] <nil> 3 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc00042a900 0 0 false}
+2024/11/12 10:01:43.937353 [producer] partition id: 0; offset:4, value: &{manytomessage 672f56ea924f764997443e27 {"SenderID":"5","GroupID":"672f56ea924f764997443e27","Type":"OneToMany","Content":"Yes i am coming","TimeStamp":"2024-11-12T10:01:43.8634798+05:30","Status":"send"} [] <nil> 4 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc000309b00 0 0 false}
+2024/11/12 10:01:56.794124 [producer] partition id: 0; offset:5, value: &{manytomessage 672f56ea924f764997443e27 {"SenderID":"4","GroupID":"672f56ea924f764997443e27","Type":"OneToMany","Content":"Yes i am coming","TimeStamp":"2024-11-12T10:01:56.7405793+05:30","Status":"send"} [] <nil> 5 0 0001-01-01 00:00:00 +0000 UTC 0 0 0xc0002ce1e0 0 0 false}
+2024/11/12 10:02:25.660376 [SERVER-8000] [HTTP] status=200 latency=84.3337ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:03:51.754065 [SERVER-8000] Server starting on port :8000
+2024/11/12 10:03:57.205543 [SERVER-8000] [HTTP] status=200 latency=79.45ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:06:40.565892 [SERVER-8000] [HTTP] status=200 latency=92.4003ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:06:44.891225 [SERVER-8000] [HTTP] status=200 latency=103.8671ms clientIP=127.0.0.1 method=GET path=/groupchat/summary userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:08:19.771521 [SERVER-8000] [HTTP] status=200 latency=104.8715ms clientIP=127.0.0.1 method=GET path=/groupchat/summary userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:08:23.536715 [SERVER-8000] [HTTP] status=200 latency=99.4397ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:09:37.382798 [SERVER-8000] [HTTP] status=200 latency=77.1359ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:11:22.891956 -----error: from handler:GetGroupChats(),chatNcall service down while calling GetOneToManyChats()
+2024/11/12 10:11:22.891956 [SERVER-8000] [HTTP] status=503 latency=10.167ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:11:39.046357 [SERVER-8000] [HTTP] status=200 latency=87.6044ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:17:19.981158 -----error: from handler:GetGroupChats(),chatNcall service down while calling GetOneToManyChats()
+2024/11/12 10:17:19.982793 [SERVER-8000] [HTTP] status=503 latency=18.1063ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:17:27.310245 [SERVER-8000] [HTTP] status=200 latency=407.3249ms clientIP=127.0.0.1 method=GET path=/groupchat/672f56ea924f764997443e27 userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:17:41.945530 [SERVER-8000] [HTTP] status=200 latency=75.1075ms clientIP=127.0.0.1 method=GET path=/groupchat/summary userAgent=PostmanRuntime/7.42.0
+2024/11/12 10:20:20.045495 [SERVER-8000] [HTTP] status=426 latency=3.6848ms clientIP=127.0.0.1 method=GET path=/chat//recentchatprofiles/ userAgent=PostmanRuntime/7.42.0

@@ -9,27 +9,95 @@ option go_package="./pkg/pb";
 service ChatNCallService {
     rpc GetOneToOneChats(RequestUserOneToOneChat) returns (ResponseUserOneToOneChat);
     rpc GetRecentChatProfiles(RequestRecentChatProfiles) returns (ResponseRecentChatProfiles);
+
+    rpc GetGroupMembersInfo(RequestGroupMembersInfo) returns (ResponseGroupMembersInfo);
+    rpc CreateNewGroup(RequestNewGroup) returns (ResponseNewGroup);
+    rpc GetUserGroupChatSummary(RequestGroupChatSummary) returns (ResponseGroupChatSummary);
+    rpc GetOneToManyChats(RequestGetOneToManyChats) returns (ResponseGetOneToManyChats);
+    rpc AddMembersToGroup(RequestAddGroupMembers) returns (ResponseAddGroupMembers);
+    rpc RemoveMemberFromGroup(RequestRemoveGroupMember) returns (ResponseRemoveGroupMember);
+
 }
 
-message SingleOneToOneChat{
+message ResponseRemoveGroupMember{
+    string ErrorMessage=1;
+}
+
+message RequestRemoveGroupMember{
+    string UserID=1;    
+    string GroupID=2;
+    string MemberID=3;
+}
+
+message RequestAddGroupMembers{
+    string UserID=1;
+    string GroupID=2;
+    repeated uint64 MemberIDs=3;
+}
+
+message ResponseAddGroupMembers{
+    string ErrorMessage=1;
+}
+
+message RequestGetOneToManyChats{
+    string UserID=1;
+    string GroupID=2;
+    string Limit=3;
+    string Offset=4;
+}
+
+message SingleOneToManyChat{
     string messageID=1;
     string SenderID=2;
-    string RecieverID=3;
-    string Content=4;
-    string Status=5;
-    string TimeStamp=6;
+    string SenderUserName=3;
+    string SenderProfileImageURL=4;
+    string GroupID=5;
+    string Content=6;
+    string TimeStamp=7;
 }
 
-message ResponseUserOneToOneChat{
-    repeated SingleOneToOneChat Chat=1;
+message ResponseGetOneToManyChats{
+    repeated SingleOneToManyChat Chat=1;
     string ErrorMessage=2;
 }
 
-message RequestUserOneToOneChat{
-    string SenderID=1;
-    string RecieverID=2;
-    string Limit=3;
-    string Offset=4;
+message SingleGroupChatDetails{
+    string GroupID=1;
+    string GroupName=2;
+    string GroupProfileImageURL=3;
+    string LastMessageContent=4;
+    string TimeStamp=5;
+    string SenderID=6;
+    string SenderUserName=7;
+}
+
+message ResponseGroupChatSummary{
+repeated SingleGroupChatDetails SingleEntity=1;
+string ErrorMessage=2;
+}
+
+message RequestGroupChatSummary{
+    string UserID=1;
+    string Limit=2;
+    string Offset=3;
+}
+
+message RequestNewGroup{
+string GroupName=1;
+repeated uint64 GroupMembers=2;
+string CreatorID=3;
+string CreatedAt=4;
+}
+message ResponseNewGroup{
+string ErrorMessage=1;
+}
+
+message RequestGroupMembersInfo{
+    string GroupID =1;
+}
+message ResponseGroupMembersInfo{
+    repeated string GroupMembers=1;
+    string ErrorMessage=2;
 }
 
 message RequestRecentChatProfiles{
@@ -49,4 +117,67 @@ message SingelUserAndLastChat{
 message ResponseRecentChatProfiles{
     string ErrorMessage=1;
     repeated SingelUserAndLastChat ActualData=2;
+}
+
+
+message RequestUserOneToOneChat{
+    string SenderID=1;
+    string RecieverID=2;
+    string Limit=3;
+    string Offset=4;
+}
+
+message SingleOneToOneChat{
+    string messageID=1;
+    string SenderID=2;
+    string RecieverID=3;
+    string Content=4;
+    string Status=5;
+    string TimeStamp=6;
+}
+
+message ResponseUserOneToOneChat{
+    repeated SingleOneToOneChat Chat=1;
+    string ErrorMessage=2;
+}
+
+message CreateRoomRequest {}
+
+message CreateRoomResponse {
+    string room_id = 1;
+}
+
+message GetRoomRequest {
+    string room_id = 1;
+}
+
+message GetRoomResponse {
+    Room room = 1;
+}
+
+message InsertIntoRoomRequest {
+    string room_id = 1;
+    Participant participant = 2;
+}
+
+message InsertIntoRoomResponse {
+    bool success = 1;
+}
+
+message DeleteRoomRequest {
+    string room_id = 1;
+}
+
+message DeleteRoomResponse {
+    bool success = 1;
+}
+
+message Room {
+    string id = 1;
+    repeated Participant participants = 2;
+}
+
+message Participant {
+    bool host = 1;
+    string connection_id = 2;
 }

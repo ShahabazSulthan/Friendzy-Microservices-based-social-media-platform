@@ -32,7 +32,7 @@ func InitializeChatNCallSvc(config *config.Config) (*server.ChatNCallSvc, error)
 
 	// Start Kafka message consumer in a separate goroutine
 	go chatUseCase.KafkaOneToOneMessageConsumer()
-
+	go chatUseCase.KafkaOneToManyMessageConsumer()
 	// Initialize and return the ChatNCall Service server
 	return server.NewChatNCallServiceServer(chatUseCase), nil
 }

@@ -39,7 +39,7 @@ func (n *NotifUseCase) KafkaMessageConsumer() {
 	// Configure Sarama settings
 	configs := sarama.NewConfig()
 	configs.Consumer.Return.Errors = true
-	configs.Version = sarama.V2_1_0_0 // Adjust to your Kafka version for compatibility
+	configs.Version = sarama.V2_1_0_0
 
 	// Initialize Kafka consumer
 	consumer, err := sarama.NewConsumer([]string{n.KafkaConfig.KafkaPort}, configs)
@@ -64,8 +64,6 @@ func (n *NotifUseCase) KafkaMessageConsumer() {
 			log.Printf("Failed to close partition consumer: %v", err)
 		}
 	}()
-
-	
 
 	// Listen for messages
 	for {
