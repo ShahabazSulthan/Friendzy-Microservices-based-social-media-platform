@@ -58,7 +58,7 @@ func ConnectDatabase(config *config.DataBase, hash interface_hash.IHashPassword)
 	}
 
 	// Perform migrations
-	if err := DB.AutoMigrate(&domain.Admin{}, &domain.User{}, &domain.OTP{}); err != nil {
+	if err := DB.AutoMigrate(&domain.Admin{}, &domain.User{}, &domain.OTP{},&domain.BlueTickVerification{}); err != nil {
 		fmt.Println("Error in migrating database:", err)
 		return nil, err
 	}

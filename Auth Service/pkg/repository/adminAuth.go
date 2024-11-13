@@ -95,3 +95,4 @@ func (a *AdminRepo) UnblockUser(id string) error {
 	fmt.Println("User unblocked successfully")
 	return nil
 }
+

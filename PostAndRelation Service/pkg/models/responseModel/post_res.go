@@ -4,6 +4,7 @@ import "time"
 
 type PostData struct {
 	UserId            uint
+	BlueTick          string
 	UserName          string
 	UserProfileImgURL string
 	PostId            uint

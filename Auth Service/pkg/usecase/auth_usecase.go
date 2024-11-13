@@ -31,6 +31,7 @@ type UserUseCase struct {
 	TokenSecurityKey *config.Token
 	HashUtil         interface_hash.IHashPassword
 	PostANdClient    pb.PostNrelServiceClient
+	Razopay          *config.Razopay
 }
 
 func NewUserCase(userRepo interfaces.IUserRepository,
@@ -40,7 +41,8 @@ func NewUserCase(userRepo interfaces.IUserRepository,
 	regexUtil interface_regex.IRegex,
 	config *config.Token,
 	hashUtil interface_hash.IHashPassword,
-	postNrel *pb.PostNrelServiceClient) interface_usecase.IUserUseCase {
+	postNrel *pb.PostNrelServiceClient,
+	razopay *config.Razopay) interface_usecase.IUserUseCase {
 	return &UserUseCase{
 		UserRepo:         userRepo,
 		SmtpUtil:         smtpUtil,
@@ -50,6 +52,7 @@ func NewUserCase(userRepo interfaces.IUserRepository,
 		TokenSecurityKey: config,
 		HashUtil:         hashUtil,
 		PostANdClient:    *postNrel,
+		Razopay:          razopay,
 	}
 }
 
@@ -483,3 +486,5 @@ func getExtension(contentType string) string {
 		return "bin" // Default to a generic binary extension
 	}
 }
+
+//==============================================================================//

@@ -14,34 +14,39 @@ import (
 	di_post "github.com/ShahabazSulthan/Friendzy_apiGateway/pkg/post_relation_service/di"
 	"github.com/fatih/color"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html/v2"
 	"google.golang.org/grpc/peer"
 )
 
 const serverID = "SERVER-8000"
 
 func main() {
-
-	//server.Videocallroutes()
-
+	// Load configuration
 	cfg, err := config.LoadConfig()
 	if err != nil {
 		log.Fatalf("[%s] Failed to load config: %v", serverID, err)
 	}
 
+	// Open log file
 	file, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalf("[%s] Failed to open log file: %v", serverID, err)
 	}
 	defer file.Close()
 
+	// Set log output to file and configure flags
 	log.SetOutput(file)
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 
-	// Log the server start with server ID
+	// Log server start
 	log.Printf("[%s] Server starting on port %s", serverID, cfg.Port)
 
-	app := fiber.New()
-	app.Use(FiberLogger())
+	// Initialize Fiber app with HTML template engine
+	engine := html.New("D:/BROTOTYPE/WEEK 26/Friendzy/Api-Gateway/template", ".html")
+	app := fiber.New(fiber.Config{
+		Views: engine,
+	})
+	app.Use(FiberLogger()) // Add custom logging middleware
 
 	// Initialize services with dependency injection
 	middleware, err := di_auth.InitAuthClient(app, cfg)
@@ -61,8 +66,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Port Running on ", cfg.Port)
+	// Log running port to the console
+	fmt.Printf("Server running on port %s\n", cfg.Port)
 
+	// Start the Fiber app
 	if err := app.Listen(cfg.Port); err != nil {
 		fmt.Printf("Error starting server: %v\n", err)
 	}
@@ -73,7 +80,7 @@ func FiberLogger() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		startTime := time.Now()
 
-		// Process HTTP request
+		// Process the HTTP request
 		err := c.Next()
 
 		// Calculate request details

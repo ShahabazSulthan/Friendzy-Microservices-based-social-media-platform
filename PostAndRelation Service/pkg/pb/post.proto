@@ -52,16 +52,17 @@ message singleMedia {
 
 message PostsDataModel{
     uint64 UserId=1;
-    string UserName=2;
-    string UserProfileImgURL=3;
-    uint64 PostId   =4;    
-    bool LikeStatus=5;
-    string Caption=6;    
-    uint64 LikesCount    =7;
-    uint64 CommentsCount =8;
-    string 	PostAge    =9;
-    repeated string MediaUrl =10;
-    }
+    string BlueTick=2;
+    string UserName=3;
+    string UserProfileImgURL=4;
+    uint64 PostId=5;    
+    bool LikeStatus=6;
+    string Caption=7;    
+    uint64 LikesCount=8;
+    uint64 CommentsCount =9;
+    string 	PostAge=10;
+    repeated string MediaUrl=11;
+ }
 
 
 message RequestGetAllPosts {

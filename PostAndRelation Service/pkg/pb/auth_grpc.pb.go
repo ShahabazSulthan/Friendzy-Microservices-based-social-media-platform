@@ -22,6 +22,7 @@ const (
 	AuthService_GetUserDetailsLiteForPostView_FullMethodName = "/auth_proto.AuthService/GetUserDetailsLiteForPostView"
 	AuthService_CheckUserExist_FullMethodName                = "/auth_proto.AuthService/CheckUserExist"
 	AuthService_GetEmailAndUsername_FullMethodName           = "/auth_proto.AuthService/GetEmailAndUsername"
+	AuthService_CheckUserVerified_FullMethodName             = "/auth_proto.AuthService/CheckUserVerified"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -31,6 +32,7 @@ type AuthServiceClient interface {
 	GetUserDetailsLiteForPostView(ctx context.Context, in *RequestUserId, opts ...grpc.CallOption) (*ResponseUserDetailsLite, error)
 	CheckUserExist(ctx context.Context, in *RequestUserId, opts ...grpc.CallOption) (*ResponseBool, error)
 	GetEmailAndUsername(ctx context.Context, in *RequestUserId, opts ...grpc.CallOption) (*UserEmailUsernameResponse, error)
+	CheckUserVerified(ctx context.Context, in *RequestUserId, opts ...grpc.CallOption) (*ResponseBool, error)
 }
 
 type authServiceClient struct {
@@ -71,6 +73,16 @@ func (c *authServiceClient) GetEmailAndUsername(ctx context.Context, in *Request
 	return out, nil
 }
 
+func (c *authServiceClient) CheckUserVerified(ctx context.Context, in *RequestUserId, opts ...grpc.CallOption) (*ResponseBool, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ResponseBool)
+	err := c.cc.Invoke(ctx, AuthService_CheckUserVerified_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -78,6 +90,7 @@ type AuthServiceServer interface {
 	GetUserDetailsLiteForPostView(context.Context, *RequestUserId) (*ResponseUserDetailsLite, error)
 	CheckUserExist(context.Context, *RequestUserId) (*ResponseBool, error)
 	GetEmailAndUsername(context.Context, *RequestUserId) (*UserEmailUsernameResponse, error)
+	CheckUserVerified(context.Context, *RequestUserId) (*ResponseBool, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -96,6 +109,9 @@ func (UnimplementedAuthServiceServer) CheckUserExist(context.Context, *RequestUs
 }
 func (UnimplementedAuthServiceServer) GetEmailAndUsername(context.Context, *RequestUserId) (*UserEmailUsernameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEmailAndUsername not implemented")
+}
+func (UnimplementedAuthServiceServer) CheckUserVerified(context.Context, *RequestUserId) (*ResponseBool, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckUserVerified not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 func (UnimplementedAuthServiceServer) testEmbeddedByValue()                     {}
@@ -172,6 +188,24 @@ func _AuthService_GetEmailAndUsername_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_CheckUserVerified_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RequestUserId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).CheckUserVerified(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_CheckUserVerified_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).CheckUserVerified(ctx, req.(*RequestUserId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -190,6 +224,10 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetEmailAndUsername",
 			Handler:    _AuthService_GetEmailAndUsername_Handler,
+		},
+		{
+			MethodName: "CheckUserVerified",
+			Handler:    _AuthService_CheckUserVerified_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

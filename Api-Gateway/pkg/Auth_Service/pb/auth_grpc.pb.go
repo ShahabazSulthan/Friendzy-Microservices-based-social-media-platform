@@ -39,6 +39,10 @@ const (
 	AuthService_BlockUser_FullMethodName                     = "/auth_proto.AuthService/BlockUser"
 	AuthService_UnblockUser_FullMethodName                   = "/auth_proto.AuthService/UnblockUser"
 	AuthService_VerifyAdminToken_FullMethodName              = "/auth_proto.AuthService/VerifyAdminToken"
+	AuthService_CreateBlueTickPayment_FullMethodName         = "/auth_proto.AuthService/CreateBlueTickPayment"
+	AuthService_VerifyBlueTickPayment_FullMethodName         = "/auth_proto.AuthService/VerifyBlueTickPayment"
+	AuthService_OnlinePayment_FullMethodName                 = "/auth_proto.AuthService/OnlinePayment"
+	AuthService_GetAllVerifiedUsers_FullMethodName           = "/auth_proto.AuthService/GetAllVerifiedUsers"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -65,6 +69,10 @@ type AuthServiceClient interface {
 	BlockUser(ctx context.Context, in *BlockUserRequest, opts ...grpc.CallOption) (*ResponseErrorMessage, error)
 	UnblockUser(ctx context.Context, in *UnblockUserRequest, opts ...grpc.CallOption) (*ResponseErrorMessage, error)
 	VerifyAdminToken(ctx context.Context, in *RequestVerifyAdmin, opts ...grpc.CallOption) (*ResponseVerifyAdmin, error)
+	CreateBlueTickPayment(ctx context.Context, in *CreateBlueTickPaymentRequest, opts ...grpc.CallOption) (*CreateBlueTickPaymentResponse, error)
+	VerifyBlueTickPayment(ctx context.Context, in *VerifyBlueTickPaymentRequest, opts ...grpc.CallOption) (*VerifyBlueTickPaymentResponse, error)
+	OnlinePayment(ctx context.Context, in *OnlinePaymentRequest, opts ...grpc.CallOption) (*OnlinePaymentResponse, error)
+	GetAllVerifiedUsers(ctx context.Context, in *GetAllVerifiedUsersRequest, opts ...grpc.CallOption) (*GetAllverifiedUsers, error)
 }
 
 type authServiceClient struct {
@@ -275,6 +283,46 @@ func (c *authServiceClient) VerifyAdminToken(ctx context.Context, in *RequestVer
 	return out, nil
 }
 
+func (c *authServiceClient) CreateBlueTickPayment(ctx context.Context, in *CreateBlueTickPaymentRequest, opts ...grpc.CallOption) (*CreateBlueTickPaymentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateBlueTickPaymentResponse)
+	err := c.cc.Invoke(ctx, AuthService_CreateBlueTickPayment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) VerifyBlueTickPayment(ctx context.Context, in *VerifyBlueTickPaymentRequest, opts ...grpc.CallOption) (*VerifyBlueTickPaymentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(VerifyBlueTickPaymentResponse)
+	err := c.cc.Invoke(ctx, AuthService_VerifyBlueTickPayment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) OnlinePayment(ctx context.Context, in *OnlinePaymentRequest, opts ...grpc.CallOption) (*OnlinePaymentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(OnlinePaymentResponse)
+	err := c.cc.Invoke(ctx, AuthService_OnlinePayment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) GetAllVerifiedUsers(ctx context.Context, in *GetAllVerifiedUsersRequest, opts ...grpc.CallOption) (*GetAllverifiedUsers, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllverifiedUsers)
+	err := c.cc.Invoke(ctx, AuthService_GetAllVerifiedUsers_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -299,6 +347,10 @@ type AuthServiceServer interface {
 	BlockUser(context.Context, *BlockUserRequest) (*ResponseErrorMessage, error)
 	UnblockUser(context.Context, *UnblockUserRequest) (*ResponseErrorMessage, error)
 	VerifyAdminToken(context.Context, *RequestVerifyAdmin) (*ResponseVerifyAdmin, error)
+	CreateBlueTickPayment(context.Context, *CreateBlueTickPaymentRequest) (*CreateBlueTickPaymentResponse, error)
+	VerifyBlueTickPayment(context.Context, *VerifyBlueTickPaymentRequest) (*VerifyBlueTickPaymentResponse, error)
+	OnlinePayment(context.Context, *OnlinePaymentRequest) (*OnlinePaymentResponse, error)
+	GetAllVerifiedUsers(context.Context, *GetAllVerifiedUsersRequest) (*GetAllverifiedUsers, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -368,6 +420,18 @@ func (UnimplementedAuthServiceServer) UnblockUser(context.Context, *UnblockUserR
 }
 func (UnimplementedAuthServiceServer) VerifyAdminToken(context.Context, *RequestVerifyAdmin) (*ResponseVerifyAdmin, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyAdminToken not implemented")
+}
+func (UnimplementedAuthServiceServer) CreateBlueTickPayment(context.Context, *CreateBlueTickPaymentRequest) (*CreateBlueTickPaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBlueTickPayment not implemented")
+}
+func (UnimplementedAuthServiceServer) VerifyBlueTickPayment(context.Context, *VerifyBlueTickPaymentRequest) (*VerifyBlueTickPaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyBlueTickPayment not implemented")
+}
+func (UnimplementedAuthServiceServer) OnlinePayment(context.Context, *OnlinePaymentRequest) (*OnlinePaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OnlinePayment not implemented")
+}
+func (UnimplementedAuthServiceServer) GetAllVerifiedUsers(context.Context, *GetAllVerifiedUsersRequest) (*GetAllverifiedUsers, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllVerifiedUsers not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 func (UnimplementedAuthServiceServer) testEmbeddedByValue()                     {}
@@ -750,6 +814,78 @@ func _AuthService_VerifyAdminToken_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_CreateBlueTickPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateBlueTickPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).CreateBlueTickPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_CreateBlueTickPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).CreateBlueTickPayment(ctx, req.(*CreateBlueTickPaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_VerifyBlueTickPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyBlueTickPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).VerifyBlueTickPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_VerifyBlueTickPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).VerifyBlueTickPayment(ctx, req.(*VerifyBlueTickPaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_OnlinePayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OnlinePaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).OnlinePayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_OnlinePayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).OnlinePayment(ctx, req.(*OnlinePaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_GetAllVerifiedUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllVerifiedUsersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).GetAllVerifiedUsers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_GetAllVerifiedUsers_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).GetAllVerifiedUsers(ctx, req.(*GetAllVerifiedUsersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -836,6 +972,22 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VerifyAdminToken",
 			Handler:    _AuthService_VerifyAdminToken_Handler,
+		},
+		{
+			MethodName: "CreateBlueTickPayment",
+			Handler:    _AuthService_CreateBlueTickPayment_Handler,
+		},
+		{
+			MethodName: "VerifyBlueTickPayment",
+			Handler:    _AuthService_VerifyBlueTickPayment_Handler,
+		},
+		{
+			MethodName: "OnlinePayment",
+			Handler:    _AuthService_OnlinePayment_Handler,
+		},
+		{
+			MethodName: "GetAllVerifiedUsers",
+			Handler:    _AuthService_GetAllVerifiedUsers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

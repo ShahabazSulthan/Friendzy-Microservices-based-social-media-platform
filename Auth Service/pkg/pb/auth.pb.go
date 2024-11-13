@@ -2122,6 +2122,735 @@ func (x *GetEmailAndUsernameResponse) GetError() string {
 	return ""
 }
 
+// Message for CreateBlueTickPayment request
+type CreateBlueTickPaymentRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId uint32 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // User ID for whom payment is being created
+}
+
+func (x *CreateBlueTickPaymentRequest) Reset() {
+	*x = CreateBlueTickPaymentRequest{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateBlueTickPaymentRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateBlueTickPaymentRequest) ProtoMessage() {}
+
+func (x *CreateBlueTickPaymentRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateBlueTickPaymentRequest.ProtoReflect.Descriptor instead.
+func (*CreateBlueTickPaymentRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{36}
+}
+
+func (x *CreateBlueTickPaymentRequest) GetUserId() uint32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+// Message for CreateBlueTickPayment response
+type CreateBlueTickPaymentResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	VerificationId string `protobuf:"bytes,1,opt,name=verification_id,json=verificationId,proto3" json:"verification_id,omitempty"` // Verification ID generated after payment creation// Razorpay order ID
+	Message        string `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`                                     // Any additional message
+}
+
+func (x *CreateBlueTickPaymentResponse) Reset() {
+	*x = CreateBlueTickPaymentResponse{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[37]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateBlueTickPaymentResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateBlueTickPaymentResponse) ProtoMessage() {}
+
+func (x *CreateBlueTickPaymentResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[37]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateBlueTickPaymentResponse.ProtoReflect.Descriptor instead.
+func (*CreateBlueTickPaymentResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{37}
+}
+
+func (x *CreateBlueTickPaymentResponse) GetVerificationId() string {
+	if x != nil {
+		return x.VerificationId
+	}
+	return ""
+}
+
+func (x *CreateBlueTickPaymentResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+// Message for VerifyBlueTickPayment response
+// Message for GetBlueTickVerificationStatus request
+type GetBlueTickVerificationStatusRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId uint32 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // User ID to retrieve verification status
+}
+
+func (x *GetBlueTickVerificationStatusRequest) Reset() {
+	*x = GetBlueTickVerificationStatusRequest{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[38]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetBlueTickVerificationStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBlueTickVerificationStatusRequest) ProtoMessage() {}
+
+func (x *GetBlueTickVerificationStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[38]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBlueTickVerificationStatusRequest.ProtoReflect.Descriptor instead.
+func (*GetBlueTickVerificationStatusRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{38}
+}
+
+func (x *GetBlueTickVerificationStatusRequest) GetUserId() uint32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+// Message for GetBlueTickVerificationStatus response
+type GetBlueTickVerificationStatusResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status  string `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`   // Status of blue tick verification
+	Message string `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"` // Any additional message
+}
+
+func (x *GetBlueTickVerificationStatusResponse) Reset() {
+	*x = GetBlueTickVerificationStatusResponse{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetBlueTickVerificationStatusResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBlueTickVerificationStatusResponse) ProtoMessage() {}
+
+func (x *GetBlueTickVerificationStatusResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBlueTickVerificationStatusResponse.ProtoReflect.Descriptor instead.
+func (*GetBlueTickVerificationStatusResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{39}
+}
+
+func (x *GetBlueTickVerificationStatusResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *GetBlueTickVerificationStatusResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type VerifyBlueTickPaymentRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	VerificationId string `protobuf:"bytes,1,opt,name=verification_id,json=verificationId,proto3" json:"verification_id,omitempty"`
+	PaymentId      string `protobuf:"bytes,2,opt,name=payment_id,json=paymentId,proto3" json:"payment_id,omitempty"`
+	Signature      string `protobuf:"bytes,3,opt,name=signature,proto3" json:"signature,omitempty"`
+	UserId         uint32 `protobuf:"varint,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+}
+
+func (x *VerifyBlueTickPaymentRequest) Reset() {
+	*x = VerifyBlueTickPaymentRequest{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[40]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VerifyBlueTickPaymentRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VerifyBlueTickPaymentRequest) ProtoMessage() {}
+
+func (x *VerifyBlueTickPaymentRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[40]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VerifyBlueTickPaymentRequest.ProtoReflect.Descriptor instead.
+func (*VerifyBlueTickPaymentRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *VerifyBlueTickPaymentRequest) GetVerificationId() string {
+	if x != nil {
+		return x.VerificationId
+	}
+	return ""
+}
+
+func (x *VerifyBlueTickPaymentRequest) GetPaymentId() string {
+	if x != nil {
+		return x.PaymentId
+	}
+	return ""
+}
+
+func (x *VerifyBlueTickPaymentRequest) GetSignature() string {
+	if x != nil {
+		return x.Signature
+	}
+	return ""
+}
+
+func (x *VerifyBlueTickPaymentRequest) GetUserId() uint32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+type VerifyBlueTickPaymentResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Success      bool   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	ErrorMessage string `protobuf:"bytes,2,opt,name=error_message,json=errorMessage,proto3" json:"error_message,omitempty"`
+}
+
+func (x *VerifyBlueTickPaymentResponse) Reset() {
+	*x = VerifyBlueTickPaymentResponse{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[41]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VerifyBlueTickPaymentResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VerifyBlueTickPaymentResponse) ProtoMessage() {}
+
+func (x *VerifyBlueTickPaymentResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[41]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VerifyBlueTickPaymentResponse.ProtoReflect.Descriptor instead.
+func (*VerifyBlueTickPaymentResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{41}
+}
+
+func (x *VerifyBlueTickPaymentResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *VerifyBlueTickPaymentResponse) GetErrorMessage() string {
+	if x != nil {
+		return x.ErrorMessage
+	}
+	return ""
+}
+
+type BlueTickVerification struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id              uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`                                                  // gorm.Model ID
+	UserId          uint32 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                            // User foreign key
+	Status          string `protobuf:"bytes,3,opt,name=status,proto3" json:"status,omitempty"`                                           // Is verified status
+	VerificationId  string `protobuf:"bytes,4,opt,name=verification_id,json=verificationId,proto3" json:"verification_id,omitempty"`     // Unique verification ID
+	VerificationFee uint32 `protobuf:"varint,5,opt,name=verification_fee,json=verificationFee,proto3" json:"verification_fee,omitempty"` // Fixed verification fee
+}
+
+func (x *BlueTickVerification) Reset() {
+	*x = BlueTickVerification{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[42]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BlueTickVerification) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BlueTickVerification) ProtoMessage() {}
+
+func (x *BlueTickVerification) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[42]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BlueTickVerification.ProtoReflect.Descriptor instead.
+func (*BlueTickVerification) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *BlueTickVerification) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *BlueTickVerification) GetUserId() uint32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *BlueTickVerification) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *BlueTickVerification) GetVerificationId() string {
+	if x != nil {
+		return x.VerificationId
+	}
+	return ""
+}
+
+func (x *BlueTickVerification) GetVerificationFee() uint32 {
+	if x != nil {
+		return x.VerificationFee
+	}
+	return 0
+}
+
+type OnlinePaymentRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId         string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                         // User ID to retrieve verification details
+	VerificationId string `protobuf:"bytes,2,opt,name=verification_id,json=verificationId,proto3" json:"verification_id,omitempty"` // Verification ID
+}
+
+func (x *OnlinePaymentRequest) Reset() {
+	*x = OnlinePaymentRequest{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[43]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OnlinePaymentRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OnlinePaymentRequest) ProtoMessage() {}
+
+func (x *OnlinePaymentRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[43]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OnlinePaymentRequest.ProtoReflect.Descriptor instead.
+func (*OnlinePaymentRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *OnlinePaymentRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *OnlinePaymentRequest) GetVerificationId() string {
+	if x != nil {
+		return x.VerificationId
+	}
+	return ""
+}
+
+type OnlinePaymentResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId          string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Paymentstatus   string `protobuf:"bytes,2,opt,name=paymentstatus,proto3" json:"paymentstatus,omitempty"`
+	Verificationfee string `protobuf:"bytes,3,opt,name=verificationfee,proto3" json:"verificationfee,omitempty"`
+}
+
+func (x *OnlinePaymentResponse) Reset() {
+	*x = OnlinePaymentResponse{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OnlinePaymentResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OnlinePaymentResponse) ProtoMessage() {}
+
+func (x *OnlinePaymentResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OnlinePaymentResponse.ProtoReflect.Descriptor instead.
+func (*OnlinePaymentResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *OnlinePaymentResponse) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *OnlinePaymentResponse) GetPaymentstatus() string {
+	if x != nil {
+		return x.Paymentstatus
+	}
+	return ""
+}
+
+func (x *OnlinePaymentResponse) GetVerificationfee() string {
+	if x != nil {
+		return x.Verificationfee
+	}
+	return ""
+}
+
+type BlueTickResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID              uint64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	BlueTick        string `protobuf:"bytes,2,opt,name=BlueTick,proto3" json:"BlueTick,omitempty"`
+	Name            string `protobuf:"bytes,3,opt,name=Name,proto3" json:"Name,omitempty"`
+	UserName        string `protobuf:"bytes,4,opt,name=UserName,proto3" json:"UserName,omitempty"`
+	Email           string `protobuf:"bytes,5,opt,name=Email,proto3" json:"Email,omitempty"`
+	Bio             string `protobuf:"bytes,6,opt,name=Bio,proto3" json:"Bio,omitempty"`
+	ProfileImageURL string `protobuf:"bytes,7,opt,name=ProfileImageURL,proto3" json:"ProfileImageURL,omitempty"`
+	Links           string `protobuf:"bytes,8,opt,name=Links,proto3" json:"Links,omitempty"`
+	Status          string `protobuf:"bytes,9,opt,name=Status,proto3" json:"Status,omitempty"`
+}
+
+func (x *BlueTickResponse) Reset() {
+	*x = BlueTickResponse{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BlueTickResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BlueTickResponse) ProtoMessage() {}
+
+func (x *BlueTickResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BlueTickResponse.ProtoReflect.Descriptor instead.
+func (*BlueTickResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *BlueTickResponse) GetID() uint64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+func (x *BlueTickResponse) GetBlueTick() string {
+	if x != nil {
+		return x.BlueTick
+	}
+	return ""
+}
+
+func (x *BlueTickResponse) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *BlueTickResponse) GetUserName() string {
+	if x != nil {
+		return x.UserName
+	}
+	return ""
+}
+
+func (x *BlueTickResponse) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *BlueTickResponse) GetBio() string {
+	if x != nil {
+		return x.Bio
+	}
+	return ""
+}
+
+func (x *BlueTickResponse) GetProfileImageURL() string {
+	if x != nil {
+		return x.ProfileImageURL
+	}
+	return ""
+}
+
+func (x *BlueTickResponse) GetLinks() string {
+	if x != nil {
+		return x.Links
+	}
+	return ""
+}
+
+func (x *BlueTickResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+type GetAllVerifiedUsersRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Limit  string `protobuf:"bytes,1,opt,name=Limit,proto3" json:"Limit,omitempty"`
+	Offset string `protobuf:"bytes,2,opt,name=Offset,proto3" json:"Offset,omitempty"`
+}
+
+func (x *GetAllVerifiedUsersRequest) Reset() {
+	*x = GetAllVerifiedUsersRequest{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[46]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAllVerifiedUsersRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllVerifiedUsersRequest) ProtoMessage() {}
+
+func (x *GetAllVerifiedUsersRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[46]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllVerifiedUsersRequest.ProtoReflect.Descriptor instead.
+func (*GetAllVerifiedUsersRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *GetAllVerifiedUsersRequest) GetLimit() string {
+	if x != nil {
+		return x.Limit
+	}
+	return ""
+}
+
+func (x *GetAllVerifiedUsersRequest) GetOffset() string {
+	if x != nil {
+		return x.Offset
+	}
+	return ""
+}
+
+type GetAllverifiedUsers struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ErrorMessage string              `protobuf:"bytes,1,opt,name=ErrorMessage,proto3" json:"ErrorMessage,omitempty"`
+	Users        []*BlueTickResponse `protobuf:"bytes,2,rep,name=Users,proto3" json:"Users,omitempty"`
+}
+
+func (x *GetAllverifiedUsers) Reset() {
+	*x = GetAllverifiedUsers{}
+	mi := &file_pkg_pb_auth_proto_msgTypes[47]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAllverifiedUsers) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllverifiedUsers) ProtoMessage() {}
+
+func (x *GetAllverifiedUsers) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_auth_proto_msgTypes[47]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllverifiedUsers.ProtoReflect.Descriptor instead.
+func (*GetAllverifiedUsers) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_auth_proto_rawDescGZIP(), []int{47}
+}
+
+func (x *GetAllverifiedUsers) GetErrorMessage() string {
+	if x != nil {
+		return x.ErrorMessage
+	}
+	return ""
+}
+
+func (x *GetAllverifiedUsers) GetUsers() []*BlueTickResponse {
+	if x != nil {
+		return x.Users
+	}
+	return nil
+}
+
 var File_pkg_pb_auth_proto protoreflect.FileDescriptor
 
 var file_pkg_pb_auth_proto_rawDesc = []byte{
@@ -2358,7 +3087,94 @@ var file_pkg_pb_auth_proto_rawDesc = []byte{
 	0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72,
 	0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72,
-	0x32, 0x81, 0x0e, 0x0a, 0x0b, 0x41, 0x75, 0x74, 0x68, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x22, 0x37, 0x0a, 0x1c, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x42, 0x6c, 0x75, 0x65, 0x54, 0x69,
+	0x63, 0x6b, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x0d, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x62, 0x0a, 0x1d, 0x43, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x42, 0x6c, 0x75, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x50, 0x61, 0x79, 0x6d, 0x65,
+	0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x0f, 0x76, 0x65,
+	0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x0e, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x49, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x3f, 0x0a,
+	0x24, 0x47, 0x65, 0x74, 0x42, 0x6c, 0x75, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x56, 0x65, 0x72, 0x69,
+	0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x59,
+	0x0a, 0x25, 0x47, 0x65, 0x74, 0x42, 0x6c, 0x75, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x56, 0x65, 0x72,
+	0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12,
+	0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x9d, 0x01, 0x0a, 0x1c, 0x56, 0x65,
+	0x72, 0x69, 0x66, 0x79, 0x42, 0x6c, 0x75, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x50, 0x61, 0x79, 0x6d,
+	0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x27, 0x0a, 0x0f, 0x76, 0x65,
+	0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x0e, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x49, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x70, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x69,
+	0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x70, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74,
+	0x49, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x73, 0x69, 0x67, 0x6e, 0x61, 0x74, 0x75, 0x72, 0x65, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x73, 0x69, 0x67, 0x6e, 0x61, 0x74, 0x75, 0x72, 0x65,
+	0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x0d, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x5e, 0x0a, 0x1d, 0x56, 0x65, 0x72,
+	0x69, 0x66, 0x79, 0x42, 0x6c, 0x75, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x50, 0x61, 0x79, 0x6d, 0x65,
+	0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x73, 0x75,
+	0x63, 0x63, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x73, 0x75, 0x63,
+	0x63, 0x65, 0x73, 0x73, 0x12, 0x23, 0x0a, 0x0d, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x5f, 0x6d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x65, 0x72, 0x72,
+	0x6f, 0x72, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0xab, 0x01, 0x0a, 0x14, 0x42, 0x6c,
+	0x75, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x56, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02,
+	0x69, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0d, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x73,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x12, 0x27, 0x0a, 0x0f, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x76, 0x65,
+	0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x29, 0x0a, 0x10,
+	0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x66, 0x65, 0x65,
+	0x18, 0x05, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x0f, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x46, 0x65, 0x65, 0x22, 0x58, 0x0a, 0x14, 0x4f, 0x6e, 0x6c, 0x69, 0x6e,
+	0x65, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x27, 0x0a, 0x0f, 0x76, 0x65, 0x72, 0x69,
+	0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x0e, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49,
+	0x64, 0x22, 0x80, 0x01, 0x0a, 0x15, 0x4f, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x50, 0x61, 0x79, 0x6d,
+	0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x17, 0x0a, 0x07, 0x75,
+	0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x75, 0x73,
+	0x65, 0x72, 0x49, 0x64, 0x12, 0x24, 0x0a, 0x0d, 0x70, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x73,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x70, 0x61, 0x79,
+	0x6d, 0x65, 0x6e, 0x74, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x28, 0x0a, 0x0f, 0x76, 0x65,
+	0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x66, 0x65, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x0f, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x66, 0x65, 0x65, 0x22, 0xee, 0x01, 0x0a, 0x10, 0x42, 0x6c, 0x75, 0x65, 0x54, 0x69, 0x63,
+	0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x49, 0x44, 0x12, 0x1a, 0x0a, 0x08, 0x42, 0x6c, 0x75,
+	0x65, 0x54, 0x69, 0x63, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x42, 0x6c, 0x75,
+	0x65, 0x54, 0x69, 0x63, 0x6b, 0x12, 0x12, 0x0a, 0x04, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x04, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x55, 0x73, 0x65,
+	0x72, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x55, 0x73, 0x65,
+	0x72, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x05,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x10, 0x0a, 0x03, 0x42,
+	0x69, 0x6f, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x42, 0x69, 0x6f, 0x12, 0x28, 0x0a,
+	0x0f, 0x50, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x55, 0x52, 0x4c,
+	0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0f, 0x50, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x49,
+	0x6d, 0x61, 0x67, 0x65, 0x55, 0x52, 0x4c, 0x12, 0x14, 0x0a, 0x05, 0x4c, 0x69, 0x6e, 0x6b, 0x73,
+	0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x4c, 0x69, 0x6e, 0x6b, 0x73, 0x12, 0x16, 0x0a,
+	0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x53,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x4a, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x56,
+	0x65, 0x72, 0x69, 0x66, 0x69, 0x65, 0x64, 0x55, 0x73, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x4c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x4c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x4f, 0x66, 0x66,
+	0x73, 0x65, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x4f, 0x66, 0x66, 0x73, 0x65,
+	0x74, 0x22, 0x6d, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x76, 0x65, 0x72, 0x69, 0x66,
+	0x69, 0x65, 0x64, 0x55, 0x73, 0x65, 0x72, 0x73, 0x12, 0x22, 0x0a, 0x0c, 0x45, 0x72, 0x72, 0x6f,
+	0x72, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c,
+	0x45, 0x72, 0x72, 0x6f, 0x72, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x32, 0x0a, 0x05,
+	0x55, 0x73, 0x65, 0x72, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x61, 0x75,
+	0x74, 0x68, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x42, 0x6c, 0x75, 0x65, 0x54, 0x69, 0x63,
+	0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x05, 0x55, 0x73, 0x65, 0x72, 0x73,
+	0x32, 0xdd, 0x11, 0x0a, 0x0b, 0x41, 0x75, 0x74, 0x68, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
 	0x12, 0x43, 0x0a, 0x0a, 0x55, 0x73, 0x65, 0x72, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x12, 0x19,
 	0x2e, 0x61, 0x75, 0x74, 0x68, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x69, 0x67, 0x6e,
 	0x55, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x61, 0x75, 0x74, 0x68,
@@ -2470,8 +3286,38 @@ var file_pkg_pb_auth_proto_rawDesc = []byte{
 	0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x41, 0x64,
 	0x6d, 0x69, 0x6e, 0x1a, 0x1f, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x41,
-	0x64, 0x6d, 0x69, 0x6e, 0x42, 0x0a, 0x5a, 0x08, 0x2e, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x70, 0x62,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x64, 0x6d, 0x69, 0x6e, 0x12, 0x6c, 0x0a, 0x15, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x42, 0x6c,
+	0x75, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x28, 0x2e,
+	0x61, 0x75, 0x74, 0x68, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x42, 0x6c, 0x75, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x5f, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x42, 0x6c, 0x75, 0x65, 0x54,
+	0x69, 0x63, 0x6b, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x6c, 0x0a, 0x15, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x42, 0x6c, 0x75, 0x65,
+	0x54, 0x69, 0x63, 0x6b, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x28, 0x2e, 0x61, 0x75,
+	0x74, 0x68, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x42,
+	0x6c, 0x75, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x5f, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x42, 0x6c, 0x75, 0x65, 0x54, 0x69, 0x63,
+	0x6b, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x54, 0x0a, 0x0d, 0x4f, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e,
+	0x74, 0x12, 0x20, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4f,
+	0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x21, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x4f, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5e, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c,
+	0x56, 0x65, 0x72, 0x69, 0x66, 0x69, 0x65, 0x64, 0x55, 0x73, 0x65, 0x72, 0x73, 0x12, 0x26, 0x2e,
+	0x61, 0x75, 0x74, 0x68, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c,
+	0x6c, 0x56, 0x65, 0x72, 0x69, 0x66, 0x69, 0x65, 0x64, 0x55, 0x73, 0x65, 0x72, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x5f, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x65,
+	0x64, 0x55, 0x73, 0x65, 0x72, 0x73, 0x12, 0x48, 0x0a, 0x11, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x55,
+	0x73, 0x65, 0x72, 0x56, 0x65, 0x72, 0x69, 0x66, 0x69, 0x65, 0x64, 0x12, 0x19, 0x2e, 0x61, 0x75,
+	0x74, 0x68, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x1a, 0x18, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x5f, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x6f, 0x6f, 0x6c,
+	0x42, 0x0a, 0x5a, 0x08, 0x2e, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2486,96 +3332,119 @@ func file_pkg_pb_auth_proto_rawDescGZIP() []byte {
 	return file_pkg_pb_auth_proto_rawDescData
 }
 
-var file_pkg_pb_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 36)
+var file_pkg_pb_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 48)
 var file_pkg_pb_auth_proto_goTypes = []any{
-	(*RequestUserId)(nil),               // 0: auth_proto.RequestUserId
-	(*ResponseErrorMessage)(nil),        // 1: auth_proto.ResponseErrorMessage
-	(*RequestSetProfileImg)(nil),        // 2: auth_proto.RequestSetProfileImg
-	(*RequestUserSearch)(nil),           // 3: auth_proto.RequestUserSearch
-	(*ResponseUserSearch)(nil),          // 4: auth_proto.ResponseUserSearch
-	(*SingleResponseGetFollowers)(nil),  // 5: auth_proto.SingleResponseGetFollowers
-	(*ResponseGetUsersDetails)(nil),     // 6: auth_proto.ResponseGetUsersDetails
-	(*ResponseBool)(nil),                // 7: auth_proto.ResponseBool
-	(*ResponseUserDetailsLite)(nil),     // 8: auth_proto.ResponseUserDetailsLite
-	(*RequestEditUserProfile)(nil),      // 9: auth_proto.RequestEditUserProfile
-	(*RequestGetUserProfile)(nil),       // 10: auth_proto.RequestGetUserProfile
-	(*ResponseUserProfile)(nil),         // 11: auth_proto.ResponseUserProfile
-	(*RequestAccessGenerator)(nil),      // 12: auth_proto.RequestAccessGenerator
-	(*ResponseAccessGenerator)(nil),     // 13: auth_proto.ResponseAccessGenerator
-	(*RequestVerifyAccess)(nil),         // 14: auth_proto.RequestVerifyAccess
-	(*ResponseVerifyAccess)(nil),        // 15: auth_proto.ResponseVerifyAccess
-	(*RequestResetPass)(nil),            // 16: auth_proto.RequestResetPass
-	(*RequestForgotPass)(nil),           // 17: auth_proto.RequestForgotPass
-	(*ResponseForgotPass)(nil),          // 18: auth_proto.ResponseForgotPass
-	(*RequestUserLogin)(nil),            // 19: auth_proto.RequestUserLogin
-	(*ResponseUserLogin)(nil),           // 20: auth_proto.ResponseUserLogin
-	(*RequestOtpVefification)(nil),      // 21: auth_proto.RequestOtpVefification
-	(*ResponseOtpVerification)(nil),     // 22: auth_proto.ResponseOtpVerification
-	(*SignUpRequest)(nil),               // 23: auth_proto.SignUpRequest
-	(*SignUpResponse)(nil),              // 24: auth_proto.SignUpResponse
-	(*AdminLoginRequest)(nil),           // 25: auth_proto.AdminLoginRequest
-	(*AdminLoginResponse)(nil),          // 26: auth_proto.AdminLoginResponse
-	(*GetAllUsersRequest)(nil),          // 27: auth_proto.GetAllUsersRequest
-	(*GetAllUsersResponse)(nil),         // 28: auth_proto.GetAllUsersResponse
-	(*UserAdminResponse)(nil),           // 29: auth_proto.UserAdminResponse
-	(*BlockUserRequest)(nil),            // 30: auth_proto.BlockUserRequest
-	(*UnblockUserRequest)(nil),          // 31: auth_proto.UnblockUserRequest
-	(*RequestVerifyAdmin)(nil),          // 32: auth_proto.RequestVerifyAdmin
-	(*ResponseVerifyAdmin)(nil),         // 33: auth_proto.ResponseVerifyAdmin
-	(*GetEmailAndUsernameRequest)(nil),  // 34: auth_proto.GetEmailAndUsernameRequest
-	(*GetEmailAndUsernameResponse)(nil), // 35: auth_proto.GetEmailAndUsernameResponse
+	(*RequestUserId)(nil),                         // 0: auth_proto.RequestUserId
+	(*ResponseErrorMessage)(nil),                  // 1: auth_proto.ResponseErrorMessage
+	(*RequestSetProfileImg)(nil),                  // 2: auth_proto.RequestSetProfileImg
+	(*RequestUserSearch)(nil),                     // 3: auth_proto.RequestUserSearch
+	(*ResponseUserSearch)(nil),                    // 4: auth_proto.ResponseUserSearch
+	(*SingleResponseGetFollowers)(nil),            // 5: auth_proto.SingleResponseGetFollowers
+	(*ResponseGetUsersDetails)(nil),               // 6: auth_proto.ResponseGetUsersDetails
+	(*ResponseBool)(nil),                          // 7: auth_proto.ResponseBool
+	(*ResponseUserDetailsLite)(nil),               // 8: auth_proto.ResponseUserDetailsLite
+	(*RequestEditUserProfile)(nil),                // 9: auth_proto.RequestEditUserProfile
+	(*RequestGetUserProfile)(nil),                 // 10: auth_proto.RequestGetUserProfile
+	(*ResponseUserProfile)(nil),                   // 11: auth_proto.ResponseUserProfile
+	(*RequestAccessGenerator)(nil),                // 12: auth_proto.RequestAccessGenerator
+	(*ResponseAccessGenerator)(nil),               // 13: auth_proto.ResponseAccessGenerator
+	(*RequestVerifyAccess)(nil),                   // 14: auth_proto.RequestVerifyAccess
+	(*ResponseVerifyAccess)(nil),                  // 15: auth_proto.ResponseVerifyAccess
+	(*RequestResetPass)(nil),                      // 16: auth_proto.RequestResetPass
+	(*RequestForgotPass)(nil),                     // 17: auth_proto.RequestForgotPass
+	(*ResponseForgotPass)(nil),                    // 18: auth_proto.ResponseForgotPass
+	(*RequestUserLogin)(nil),                      // 19: auth_proto.RequestUserLogin
+	(*ResponseUserLogin)(nil),                     // 20: auth_proto.ResponseUserLogin
+	(*RequestOtpVefification)(nil),                // 21: auth_proto.RequestOtpVefification
+	(*ResponseOtpVerification)(nil),               // 22: auth_proto.ResponseOtpVerification
+	(*SignUpRequest)(nil),                         // 23: auth_proto.SignUpRequest
+	(*SignUpResponse)(nil),                        // 24: auth_proto.SignUpResponse
+	(*AdminLoginRequest)(nil),                     // 25: auth_proto.AdminLoginRequest
+	(*AdminLoginResponse)(nil),                    // 26: auth_proto.AdminLoginResponse
+	(*GetAllUsersRequest)(nil),                    // 27: auth_proto.GetAllUsersRequest
+	(*GetAllUsersResponse)(nil),                   // 28: auth_proto.GetAllUsersResponse
+	(*UserAdminResponse)(nil),                     // 29: auth_proto.UserAdminResponse
+	(*BlockUserRequest)(nil),                      // 30: auth_proto.BlockUserRequest
+	(*UnblockUserRequest)(nil),                    // 31: auth_proto.UnblockUserRequest
+	(*RequestVerifyAdmin)(nil),                    // 32: auth_proto.RequestVerifyAdmin
+	(*ResponseVerifyAdmin)(nil),                   // 33: auth_proto.ResponseVerifyAdmin
+	(*GetEmailAndUsernameRequest)(nil),            // 34: auth_proto.GetEmailAndUsernameRequest
+	(*GetEmailAndUsernameResponse)(nil),           // 35: auth_proto.GetEmailAndUsernameResponse
+	(*CreateBlueTickPaymentRequest)(nil),          // 36: auth_proto.CreateBlueTickPaymentRequest
+	(*CreateBlueTickPaymentResponse)(nil),         // 37: auth_proto.CreateBlueTickPaymentResponse
+	(*GetBlueTickVerificationStatusRequest)(nil),  // 38: auth_proto.GetBlueTickVerificationStatusRequest
+	(*GetBlueTickVerificationStatusResponse)(nil), // 39: auth_proto.GetBlueTickVerificationStatusResponse
+	(*VerifyBlueTickPaymentRequest)(nil),          // 40: auth_proto.VerifyBlueTickPaymentRequest
+	(*VerifyBlueTickPaymentResponse)(nil),         // 41: auth_proto.VerifyBlueTickPaymentResponse
+	(*BlueTickVerification)(nil),                  // 42: auth_proto.BlueTickVerification
+	(*OnlinePaymentRequest)(nil),                  // 43: auth_proto.OnlinePaymentRequest
+	(*OnlinePaymentResponse)(nil),                 // 44: auth_proto.OnlinePaymentResponse
+	(*BlueTickResponse)(nil),                      // 45: auth_proto.BlueTickResponse
+	(*GetAllVerifiedUsersRequest)(nil),            // 46: auth_proto.GetAllVerifiedUsersRequest
+	(*GetAllverifiedUsers)(nil),                   // 47: auth_proto.GetAllverifiedUsers
 }
 var file_pkg_pb_auth_proto_depIdxs = []int32{
 	5,  // 0: auth_proto.ResponseUserSearch.SearchResult:type_name -> auth_proto.SingleResponseGetFollowers
 	5,  // 1: auth_proto.ResponseGetUsersDetails.UserData:type_name -> auth_proto.SingleResponseGetFollowers
 	29, // 2: auth_proto.GetAllUsersResponse.Users:type_name -> auth_proto.UserAdminResponse
-	23, // 3: auth_proto.AuthService.UserSignUp:input_type -> auth_proto.SignUpRequest
-	21, // 4: auth_proto.AuthService.UserOTPVerification:input_type -> auth_proto.RequestOtpVefification
-	19, // 5: auth_proto.AuthService.UserLogin:input_type -> auth_proto.RequestUserLogin
-	17, // 6: auth_proto.AuthService.ForgotPasswordRequest:input_type -> auth_proto.RequestForgotPass
-	16, // 7: auth_proto.AuthService.ResetPassword:input_type -> auth_proto.RequestResetPass
-	14, // 8: auth_proto.AuthService.VerifyAccessToken:input_type -> auth_proto.RequestVerifyAccess
-	12, // 9: auth_proto.AuthService.AccessRegenerator:input_type -> auth_proto.RequestAccessGenerator
-	10, // 10: auth_proto.AuthService.GetUserProfile:input_type -> auth_proto.RequestGetUserProfile
-	9,  // 11: auth_proto.AuthService.EditUserProfile:input_type -> auth_proto.RequestEditUserProfile
-	0,  // 12: auth_proto.AuthService.GetFollowersDetails:input_type -> auth_proto.RequestUserId
-	0,  // 13: auth_proto.AuthService.GetFollowingsDetails:input_type -> auth_proto.RequestUserId
-	3,  // 14: auth_proto.AuthService.SearchUser:input_type -> auth_proto.RequestUserSearch
-	2,  // 15: auth_proto.AuthService.SetUserProfileImage:input_type -> auth_proto.RequestSetProfileImg
-	34, // 16: auth_proto.AuthService.GetEmailAndUsername:input_type -> auth_proto.GetEmailAndUsernameRequest
-	0,  // 17: auth_proto.AuthService.GetUserDetailsLiteForPostView:input_type -> auth_proto.RequestUserId
-	0,  // 18: auth_proto.AuthService.CheckUserExist:input_type -> auth_proto.RequestUserId
-	25, // 19: auth_proto.AuthService.AdminLogin:input_type -> auth_proto.AdminLoginRequest
-	27, // 20: auth_proto.AuthService.GetAllUsers:input_type -> auth_proto.GetAllUsersRequest
-	30, // 21: auth_proto.AuthService.BlockUser:input_type -> auth_proto.BlockUserRequest
-	31, // 22: auth_proto.AuthService.UnblockUser:input_type -> auth_proto.UnblockUserRequest
-	32, // 23: auth_proto.AuthService.VerifyAdminToken:input_type -> auth_proto.RequestVerifyAdmin
-	24, // 24: auth_proto.AuthService.UserSignUp:output_type -> auth_proto.SignUpResponse
-	22, // 25: auth_proto.AuthService.UserOTPVerification:output_type -> auth_proto.ResponseOtpVerification
-	20, // 26: auth_proto.AuthService.UserLogin:output_type -> auth_proto.ResponseUserLogin
-	18, // 27: auth_proto.AuthService.ForgotPasswordRequest:output_type -> auth_proto.ResponseForgotPass
-	1,  // 28: auth_proto.AuthService.ResetPassword:output_type -> auth_proto.ResponseErrorMessage
-	15, // 29: auth_proto.AuthService.VerifyAccessToken:output_type -> auth_proto.ResponseVerifyAccess
-	13, // 30: auth_proto.AuthService.AccessRegenerator:output_type -> auth_proto.ResponseAccessGenerator
-	11, // 31: auth_proto.AuthService.GetUserProfile:output_type -> auth_proto.ResponseUserProfile
-	1,  // 32: auth_proto.AuthService.EditUserProfile:output_type -> auth_proto.ResponseErrorMessage
-	6,  // 33: auth_proto.AuthService.GetFollowersDetails:output_type -> auth_proto.ResponseGetUsersDetails
-	6,  // 34: auth_proto.AuthService.GetFollowingsDetails:output_type -> auth_proto.ResponseGetUsersDetails
-	4,  // 35: auth_proto.AuthService.SearchUser:output_type -> auth_proto.ResponseUserSearch
-	1,  // 36: auth_proto.AuthService.SetUserProfileImage:output_type -> auth_proto.ResponseErrorMessage
-	35, // 37: auth_proto.AuthService.GetEmailAndUsername:output_type -> auth_proto.GetEmailAndUsernameResponse
-	8,  // 38: auth_proto.AuthService.GetUserDetailsLiteForPostView:output_type -> auth_proto.ResponseUserDetailsLite
-	7,  // 39: auth_proto.AuthService.CheckUserExist:output_type -> auth_proto.ResponseBool
-	26, // 40: auth_proto.AuthService.AdminLogin:output_type -> auth_proto.AdminLoginResponse
-	28, // 41: auth_proto.AuthService.GetAllUsers:output_type -> auth_proto.GetAllUsersResponse
-	1,  // 42: auth_proto.AuthService.BlockUser:output_type -> auth_proto.ResponseErrorMessage
-	1,  // 43: auth_proto.AuthService.UnblockUser:output_type -> auth_proto.ResponseErrorMessage
-	33, // 44: auth_proto.AuthService.VerifyAdminToken:output_type -> auth_proto.ResponseVerifyAdmin
-	24, // [24:45] is the sub-list for method output_type
-	3,  // [3:24] is the sub-list for method input_type
-	3,  // [3:3] is the sub-list for extension type_name
-	3,  // [3:3] is the sub-list for extension extendee
-	0,  // [0:3] is the sub-list for field type_name
+	45, // 3: auth_proto.GetAllverifiedUsers.Users:type_name -> auth_proto.BlueTickResponse
+	23, // 4: auth_proto.AuthService.UserSignUp:input_type -> auth_proto.SignUpRequest
+	21, // 5: auth_proto.AuthService.UserOTPVerification:input_type -> auth_proto.RequestOtpVefification
+	19, // 6: auth_proto.AuthService.UserLogin:input_type -> auth_proto.RequestUserLogin
+	17, // 7: auth_proto.AuthService.ForgotPasswordRequest:input_type -> auth_proto.RequestForgotPass
+	16, // 8: auth_proto.AuthService.ResetPassword:input_type -> auth_proto.RequestResetPass
+	14, // 9: auth_proto.AuthService.VerifyAccessToken:input_type -> auth_proto.RequestVerifyAccess
+	12, // 10: auth_proto.AuthService.AccessRegenerator:input_type -> auth_proto.RequestAccessGenerator
+	10, // 11: auth_proto.AuthService.GetUserProfile:input_type -> auth_proto.RequestGetUserProfile
+	9,  // 12: auth_proto.AuthService.EditUserProfile:input_type -> auth_proto.RequestEditUserProfile
+	0,  // 13: auth_proto.AuthService.GetFollowersDetails:input_type -> auth_proto.RequestUserId
+	0,  // 14: auth_proto.AuthService.GetFollowingsDetails:input_type -> auth_proto.RequestUserId
+	3,  // 15: auth_proto.AuthService.SearchUser:input_type -> auth_proto.RequestUserSearch
+	2,  // 16: auth_proto.AuthService.SetUserProfileImage:input_type -> auth_proto.RequestSetProfileImg
+	34, // 17: auth_proto.AuthService.GetEmailAndUsername:input_type -> auth_proto.GetEmailAndUsernameRequest
+	0,  // 18: auth_proto.AuthService.GetUserDetailsLiteForPostView:input_type -> auth_proto.RequestUserId
+	0,  // 19: auth_proto.AuthService.CheckUserExist:input_type -> auth_proto.RequestUserId
+	25, // 20: auth_proto.AuthService.AdminLogin:input_type -> auth_proto.AdminLoginRequest
+	27, // 21: auth_proto.AuthService.GetAllUsers:input_type -> auth_proto.GetAllUsersRequest
+	30, // 22: auth_proto.AuthService.BlockUser:input_type -> auth_proto.BlockUserRequest
+	31, // 23: auth_proto.AuthService.UnblockUser:input_type -> auth_proto.UnblockUserRequest
+	32, // 24: auth_proto.AuthService.VerifyAdminToken:input_type -> auth_proto.RequestVerifyAdmin
+	36, // 25: auth_proto.AuthService.CreateBlueTickPayment:input_type -> auth_proto.CreateBlueTickPaymentRequest
+	40, // 26: auth_proto.AuthService.VerifyBlueTickPayment:input_type -> auth_proto.VerifyBlueTickPaymentRequest
+	43, // 27: auth_proto.AuthService.OnlinePayment:input_type -> auth_proto.OnlinePaymentRequest
+	46, // 28: auth_proto.AuthService.GetAllVerifiedUsers:input_type -> auth_proto.GetAllVerifiedUsersRequest
+	0,  // 29: auth_proto.AuthService.CheckUserVerified:input_type -> auth_proto.RequestUserId
+	24, // 30: auth_proto.AuthService.UserSignUp:output_type -> auth_proto.SignUpResponse
+	22, // 31: auth_proto.AuthService.UserOTPVerification:output_type -> auth_proto.ResponseOtpVerification
+	20, // 32: auth_proto.AuthService.UserLogin:output_type -> auth_proto.ResponseUserLogin
+	18, // 33: auth_proto.AuthService.ForgotPasswordRequest:output_type -> auth_proto.ResponseForgotPass
+	1,  // 34: auth_proto.AuthService.ResetPassword:output_type -> auth_proto.ResponseErrorMessage
+	15, // 35: auth_proto.AuthService.VerifyAccessToken:output_type -> auth_proto.ResponseVerifyAccess
+	13, // 36: auth_proto.AuthService.AccessRegenerator:output_type -> auth_proto.ResponseAccessGenerator
+	11, // 37: auth_proto.AuthService.GetUserProfile:output_type -> auth_proto.ResponseUserProfile
+	1,  // 38: auth_proto.AuthService.EditUserProfile:output_type -> auth_proto.ResponseErrorMessage
+	6,  // 39: auth_proto.AuthService.GetFollowersDetails:output_type -> auth_proto.ResponseGetUsersDetails
+	6,  // 40: auth_proto.AuthService.GetFollowingsDetails:output_type -> auth_proto.ResponseGetUsersDetails
+	4,  // 41: auth_proto.AuthService.SearchUser:output_type -> auth_proto.ResponseUserSearch
+	1,  // 42: auth_proto.AuthService.SetUserProfileImage:output_type -> auth_proto.ResponseErrorMessage
+	35, // 43: auth_proto.AuthService.GetEmailAndUsername:output_type -> auth_proto.GetEmailAndUsernameResponse
+	8,  // 44: auth_proto.AuthService.GetUserDetailsLiteForPostView:output_type -> auth_proto.ResponseUserDetailsLite
+	7,  // 45: auth_proto.AuthService.CheckUserExist:output_type -> auth_proto.ResponseBool
+	26, // 46: auth_proto.AuthService.AdminLogin:output_type -> auth_proto.AdminLoginResponse
+	28, // 47: auth_proto.AuthService.GetAllUsers:output_type -> auth_proto.GetAllUsersResponse
+	1,  // 48: auth_proto.AuthService.BlockUser:output_type -> auth_proto.ResponseErrorMessage
+	1,  // 49: auth_proto.AuthService.UnblockUser:output_type -> auth_proto.ResponseErrorMessage
+	33, // 50: auth_proto.AuthService.VerifyAdminToken:output_type -> auth_proto.ResponseVerifyAdmin
+	37, // 51: auth_proto.AuthService.CreateBlueTickPayment:output_type -> auth_proto.CreateBlueTickPaymentResponse
+	41, // 52: auth_proto.AuthService.VerifyBlueTickPayment:output_type -> auth_proto.VerifyBlueTickPaymentResponse
+	44, // 53: auth_proto.AuthService.OnlinePayment:output_type -> auth_proto.OnlinePaymentResponse
+	47, // 54: auth_proto.AuthService.GetAllVerifiedUsers:output_type -> auth_proto.GetAllverifiedUsers
+	7,  // 55: auth_proto.AuthService.CheckUserVerified:output_type -> auth_proto.ResponseBool
+	30, // [30:56] is the sub-list for method output_type
+	4,  // [4:30] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_pkg_pb_auth_proto_init() }
@@ -2589,7 +3458,7 @@ func file_pkg_pb_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_pkg_pb_auth_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   36,
+			NumMessages:   48,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

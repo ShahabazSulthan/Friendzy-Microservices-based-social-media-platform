@@ -58,7 +58,6 @@ func (u *UserRepo) GetEmailAndUsernameByUserID(userID int) (string, string, erro
 	return email, username, nil
 }
 
-
 func (u *UserRepo) UserExistsByUsername(username string) bool {
 	var UserCount int
 
@@ -264,73 +263,72 @@ func (u *UserRepo) SearchUsersByName(myID, searchText, limit, offset *string) (*
 }
 
 func (u *UserRepo) GetFollowersDetails(userIDs *[]uint64) (*[]responsemodels.UserListResponse, error) {
-    var userData []responsemodels.UserListResponse
+	var userData []responsemodels.UserListResponse
 
-    // Check if userIDs is empty
-    if len(*userIDs) == 0 {
-        return &userData, nil // Return empty slice if no user IDs
-    }
+	// Check if userIDs is empty
+	if len(*userIDs) == 0 {
+		return &userData, nil // Return empty slice if no user IDs
+	}
 
-    // Prepare the query and arguments
-    interfaceIds := make([]interface{}, len(*userIDs))
-    for i, id := range *userIDs {
-        interfaceIds[i] = id
-    }
+	// Prepare the query and arguments
+	interfaceIds := make([]interface{}, len(*userIDs))
+	for i, id := range *userIDs {
+		interfaceIds[i] = id
+	}
 
-    // Construct the query
-    query := "SELECT id, name, user_name, profile_img_url FROM users WHERE id IN ("
-    for i := range *userIDs {
-        query += "?"
+	// Construct the query
+	query := "SELECT id, name, user_name, profile_img_url FROM users WHERE id IN ("
+	for i := range *userIDs {
+		query += "?"
 
-        if i < len(*userIDs)-1 {
-            query += ","
-        }
-    }
-    query += ")"
+		if i < len(*userIDs)-1 {
+			query += ","
+		}
+	}
+	query += ")"
 
-    // Execute the query
-    err := u.DB.Raw(query, interfaceIds...).Scan(&userData).Error
-    if err != nil {
-        fmt.Println("Error in Get Followers : ", err)
-        return nil, err
-    }
-    return &userData, nil
+	// Execute the query
+	err := u.DB.Raw(query, interfaceIds...).Scan(&userData).Error
+	if err != nil {
+		fmt.Println("Error in Get Followers : ", err)
+		return nil, err
+	}
+	return &userData, nil
 }
 
 func (u *UserRepo) GetFollowingDetails(userIDs *[]uint64) (*[]responsemodels.UserListResponse, error) {
-    var userData []responsemodels.UserListResponse
+	var userData []responsemodels.UserListResponse
 
-    // Check if userIDs is empty
-    if len(*userIDs) == 0 {
-        return &userData, nil // Return empty slice if no user IDs
-    }
+	// Check if userIDs is empty
+	if len(*userIDs) == 0 {
+		return &userData, nil // Return empty slice if no user IDs
+	}
 
-    // Prepare the query and arguments
-    interfaceIds := make([]interface{}, len(*userIDs))
-    for i, id := range *userIDs {
-        interfaceIds[i] = id
-    }
+	// Prepare the query and arguments
+	interfaceIds := make([]interface{}, len(*userIDs))
+	for i, id := range *userIDs {
+		interfaceIds[i] = id
+	}
 
-    // Construct the query
-    query := "SELECT id, name, user_name, profile_img_url FROM users WHERE id IN ("
-    for i := range *userIDs {
-        query += "?"
+	// Construct the query
+	query := "SELECT id, name, user_name, profile_img_url FROM users WHERE id IN ("
+	for i := range *userIDs {
+		query += "?"
 
-        if i < len(*userIDs)-1 {
-            query += ","
-        }
-    }
-    query += ")"
+		if i < len(*userIDs)-1 {
+			query += ","
+		}
+	}
+	query += ")"
 
-    // Execute the query
-    err := u.DB.Raw(query, interfaceIds...).Scan(&userData).Error
-    if err != nil {
-        fmt.Println("Error in Get Following : ", err)
-        return nil, err
-    }
-    return &userData, nil
+	// Execute the query
+	err := u.DB.Raw(query, interfaceIds...).Scan(&userData).Error
+	if err != nil {
+		fmt.Println("Error in Get Following : ", err)
+		return nil, err
+	}
+	return &userData, nil
 }
-
 
 func (u *UserRepo) SetUserProfileImage(userID, imageUrl *string) error {
 	query := "UPDATE users SET profile_img_url=$1 WHERE id=$2"
@@ -343,21 +341,21 @@ func (u *UserRepo) SetUserProfileImage(userID, imageUrl *string) error {
 }
 
 func (u *UserRepo) IsUserBlocked(userID string) (bool, error) {
-    var status string
+	var status string
 
-    // Query to check the user's status
-    query := "SELECT status FROM users WHERE id=$1"
-    err := u.DB.Raw(query, userID).Row().Scan(&status)
+	// Query to check the user's status
+	query := "SELECT status FROM users WHERE id=$1"
+	err := u.DB.Raw(query, userID).Row().Scan(&status)
 
-    if err != nil {
-        fmt.Println("Error in checking user block status:", err)
-        return false, err
-    }
+	if err != nil {
+		fmt.Println("Error in checking user block status:", err)
+		return false, err
+	}
 
-    // Assuming 'blocked' is the status representing a blocked user
-    if status == "blocked" {
-        return true, nil
-    }
+	// Assuming 'blocked' is the status representing a blocked user
+	if status == "blocked" {
+		return true, nil
+	}
 
-    return false, nil
+	return false, nil
 }

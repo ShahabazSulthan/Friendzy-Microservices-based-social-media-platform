@@ -257,6 +257,17 @@ func (p *PostUseCase) GetAllRelatedPostsForHomeScreen(userId, limit, offset *str
 			return nil, errors.New(fmt.Sprint(err) + userData.ErrorMessage)
 		}
 
+		isVerified, err := p.AuthClient.CheckUserVerified(context, &pb.RequestUserId{UserId: fmt.Sprint((*postData)[i].UserId)})
+		if err != nil {
+			return nil, err
+		}
+		
+		if isVerified.ExistStatus {
+			(*postData)[i].BlueTick = "☑️"
+		} 
+
+		
+
 		(*postData)[i].UserName = userData.UserName
 		(*postData)[i].UserProfileImgURL = userData.UserProfileImgURL
 
@@ -314,6 +325,16 @@ func (p *PostUseCase) GetMostLovedPostsFromGlobalUser(userId, limit, offset *str
 		if err != nil || userData.ErrorMessage != "" {
 			return nil, fmt.Errorf("error getting user details for post %s: %v %s", postIdStr, err, userData.ErrorMessage)
 		}
+
+		isVerified, err := p.AuthClient.CheckUserVerified(ctx, &pb.RequestUserId{UserId: fmt.Sprint((*postData)[i].UserId)})
+		if err != nil {
+			return nil, err
+		}
+		
+		if isVerified.ExistStatus {
+			(*postData)[i].BlueTick = "☑️"
+		} 
+
 		(*postData)[i].UserName = userData.UserName
 		(*postData)[i].UserProfileImgURL = userData.UserProfileImgURL
 
@@ -366,6 +387,14 @@ func (p *PostUseCase) GetRandomPosts(limit, offset *string) (*[]responsemodel.Po
 			return nil, errors.New(fmt.Sprint(err) + userData.ErrorMessage)
 		}
 
+		isVerified, err := p.AuthClient.CheckUserVerified(context, &pb.RequestUserId{UserId: fmt.Sprint((*postData)[i].UserId)})
+		if err != nil {
+			return nil, err
+		}
+		
+		if isVerified.ExistStatus {
+			(*postData)[i].BlueTick = "☑️"
+		} 
 		(*postData)[i].UserName = userData.UserName
 		(*postData)[i].UserProfileImgURL = userData.UserProfileImgURL
 

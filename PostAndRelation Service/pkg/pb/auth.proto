@@ -8,13 +8,12 @@ service AuthService{
     rpc GetUserDetailsLiteForPostView(RequestUserId) returns (ResponseUserDetailsLite);
     rpc CheckUserExist(RequestUserId) returns (ResponseBool);
     rpc GetEmailAndUsername (RequestUserId) returns (UserEmailUsernameResponse);
+    rpc CheckUserVerified(RequestUserId) returns (ResponseBool);
 }
 
 message RequestUserId{
     string UserId=1;
 }
-
-
 
 message ResponseBool{
     bool ExistStatus=1;

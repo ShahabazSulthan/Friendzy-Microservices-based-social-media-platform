@@ -5,6 +5,7 @@ go 1.22.0
 require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/lib/pq v1.10.9
+	github.com/razorpay/razorpay-go v1.3.2
 	github.com/spf13/viper v1.19.0
 	golang.org/x/crypto v0.28.0
 	google.golang.org/grpc v1.67.1

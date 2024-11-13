@@ -24,3 +24,11 @@ type User struct {
 	Links         string
 	Status        is_verified `gorm:"default:pending"`
 }
+
+type BlueTickVerification struct {
+	gorm.Model
+	UserID          uint        `gorm:"not null"` // Foreign key to User
+	Status          is_verified `gorm:"default:pending"`
+	VerificationID  string
+	VerificationFee uint `gorm:"default:600"` // Fixed amount in rupees
+}

@@ -39,7 +39,7 @@ func InitializeAuthService(config *config.Config) (*server.AuthService, error) {
 		return nil, err
 	}
 	UserRepo := repository.NewUserRepo(DB)
-	UseruseCase := usecase.NewUserCase(UserRepo, smtpUtil, jwtutil, randNumber, regexUtil, &config.Token, hashUtil, postANDClient)
+	UseruseCase := usecase.NewUserCase(UserRepo, smtpUtil, jwtutil, randNumber, regexUtil, &config.Token, hashUtil, postANDClient, &config.Razopay)
 	// JWT Use Case
 	jwtUsecase := usecase.NewJwtUseCase(&config.Token, jwtutil, UserRepo)
 	if jwtUsecase == nil {
@@ -50,6 +50,10 @@ func InitializeAuthService(config *config.Config) (*server.AuthService, error) {
 
 	adminRepo := repository.NewAdminRepo(DB)
 	adminUsecase := usecase.NewAdminUseCase(adminRepo, jwtutil, regexUtil, &config.Token, hashUtil)
-	EmbeddingStruct := server.NewAuthServer(UseruseCase, jwtUsecase, adminUsecase)
+
+	paymentRepo := repository.NewPaymentRepo(DB)
+	paymentUsecase := usecase.NewPaymenyUsecase(paymentRepo, &config.Razopay)
+
+	EmbeddingStruct := server.NewAuthServer(UseruseCase, jwtUsecase, adminUsecase, paymentUsecase)
 	return EmbeddingStruct, nil
 }

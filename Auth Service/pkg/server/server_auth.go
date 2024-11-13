@@ -12,22 +12,25 @@ import (
 )
 
 type AuthService struct {
-	UserUsecase  interface_usecase.IUserUseCase
-	JwtUseCase   interface_usecase.IJwt
-	AdminUsecase interface_usecase.IAdminUsecase
+	UserUsecase    interface_usecase.IUserUseCase
+	JwtUseCase     interface_usecase.IJwt
+	AdminUsecase   interface_usecase.IAdminUsecase
+	PaymentUsecase interface_usecase.IPaymentUsecase
 	pb.AuthServiceServer
 }
 
 func NewAuthServer(userUseCase interface_usecase.IUserUseCase,
 	jwtusecase interface_usecase.IJwt,
-	adminusecase interface_usecase.IAdminUsecase) *AuthService {
+	adminusecase interface_usecase.IAdminUsecase,
+	payemtUseacse interface_usecase.IPaymentUsecase) *AuthService {
 	if jwtusecase == nil {
 		log.Fatal("JwtUseCase cannot be nil in NewAuthServer")
 	}
 	return &AuthService{
-		UserUsecase:  userUseCase,
-		JwtUseCase:   jwtusecase,
-		AdminUsecase: adminusecase,
+		UserUsecase:    userUseCase,
+		JwtUseCase:     jwtusecase,
+		AdminUsecase:   adminusecase,
+		PaymentUsecase: payemtUseacse,
 	}
 }
 
@@ -505,5 +508,112 @@ func (s *AuthService) VerifyAdminToken(ctx context.Context, req *pb.RequestVerif
 	return &pb.ResponseVerifyAdmin{
 		AdminEmail:   *adminEmail, // Assuming adminEmail returns a pointer to a string
 		ErrorMessage: "",          // No error, so we set this to an empty string
+	}, nil
+}
+
+func (s *AuthService) CreateBlueTickPayment(ctx context.Context, req *pb.CreateBlueTickPaymentRequest) (*pb.CreateBlueTickPaymentResponse, error) {
+	// Call the use case to create a Razorpay order and get the verification ID
+	verificationID, err := s.PaymentUsecase.CreateBlueTickPayment(uint(req.UserId))
+	if err != nil {
+		log.Printf("Error creating blue tick payment: %v", err)
+		return &pb.CreateBlueTickPaymentResponse{
+			Message: err.Error(),
+		}, nil
+	}
+
+	// Return the successful response
+	return &pb.CreateBlueTickPaymentResponse{
+		VerificationId: verificationID,
+		Message:        "Payment order created successfully",
+	}, nil
+}
+
+func (s *AuthService) VerifyBlueTickPayment(ctx context.Context, req *pb.VerifyBlueTickPaymentRequest) (*pb.VerifyBlueTickPaymentResponse, error) {
+	// Call the Razorpay use case to verify the payment
+	isVerified, err := s.PaymentUsecase.VerifyBlueTickPayment(req.GetVerificationId(), req.GetPaymentId(), req.GetSignature(), uint(req.UserId))
+	if err != nil {
+		return &pb.VerifyBlueTickPaymentResponse{
+			Success:      false,
+			ErrorMessage: err.Error(),
+		}, nil
+	}
+
+	// Return the success response if verification is successful
+	return &pb.VerifyBlueTickPaymentResponse{
+		Success:      isVerified,
+		ErrorMessage: "",
+	}, nil
+}
+
+// GetBlueTickVerification handles the gRPC request to fetch blue tick verification details.
+func (s *AuthService) OnlinePayment(ctx context.Context, req *pb.OnlinePaymentRequest) (*pb.OnlinePaymentResponse, error) {
+	// Call the use case to get blue tick verification details
+	_, err := s.PaymentUsecase.OnlinePayment(req.GetUserId(), req.GetVerificationId())
+	if err != nil {
+		// Log error and return a failed response
+		return &pb.OnlinePaymentResponse{
+			UserId:          req.UserId,
+			Paymentstatus:   "Failed",
+			Verificationfee: "1000",
+		}, nil
+	}
+
+	// Return the success response with the verification details
+	return &pb.OnlinePaymentResponse{
+		UserId:          req.UserId,
+		Paymentstatus:   "Success",
+		Verificationfee: "1000",
+	}, nil
+}
+
+func (s *AuthService) GetAllVerifiedUsers(ctx context.Context, req *pb.GetAllVerifiedUsersRequest) (*pb.GetAllverifiedUsers, error) {
+	// Validate request parameters
+	if req.Limit == "" || req.Offset == "" {
+		return &pb.GetAllverifiedUsers{
+			ErrorMessage: "Limit and Offset are required",
+		}, nil
+	}
+
+	// Call the use case to get all users
+	usersData, err := s.PaymentUsecase.GetAllVerifiedUsers(req.Limit, req.Offset)
+	if err != nil {
+		return &pb.GetAllverifiedUsers{
+			ErrorMessage: err.Error(),
+		}, nil
+	}
+
+	// Prepare the response
+	var userResponses []*pb.BlueTickResponse
+	for _, user := range *usersData {
+		userResponses = append(userResponses, &pb.BlueTickResponse{
+			ID:              uint64(user.ID),
+			BlueTick:        "☑️",
+			Name:            user.Name,
+			UserName:        user.UserName,
+			Email:           user.Email,
+			Bio:             user.Bio,
+			ProfileImageURL: user.ProfileImageURL,
+			Links:           user.Links,
+			Status:          user.Status,
+		})
+	}
+
+	return &pb.GetAllverifiedUsers{
+		Users: userResponses,
+	}, nil
+}
+
+func (s *AuthService) CheckUserVerified(ctx context.Context, req *pb.RequestUserId) (*pb.ResponseBool, error) {
+	stat, err := s.PaymentUsecase.IsUserVerified(req.UserId)
+	if err != nil {
+		return &pb.ResponseBool{
+			ExistStatus:  false,
+			ErrorMessage: "Error in verifying user status",
+		}, err // Returning the actual error so it can be handled by the caller
+	}
+
+	return &pb.ResponseBool{
+		ExistStatus:  stat,
+		ErrorMessage: "",
 	}, nil
 }

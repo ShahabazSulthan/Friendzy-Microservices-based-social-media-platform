@@ -288,6 +288,7 @@ func (u *PostService) GetMostLovedPostsFromGlobalUser(ctx context.Context, req *
 	for i := range *respData {
 		repeatedData = append(repeatedData, &pb.PostsDataModel{
 			UserId:            uint64((*respData)[i].UserId),
+			BlueTick:          (*respData)[i].BlueTick,
 			UserName:          (*respData)[i].UserName,
 			UserProfileImgURL: (*respData)[i].UserProfileImgURL,
 			PostId:            uint64((*respData)[i].PostId),
@@ -317,6 +318,7 @@ func (u *PostService) GetAllRelatedPostsForHomeScreen(ctx context.Context, req *
 	for i := range *respData {
 		repeatedData = append(repeatedData, &pb.PostsDataModel{
 			UserId:            uint64((*respData)[i].UserId),
+			BlueTick:          (*respData)[i].BlueTick,
 			UserName:          (*respData)[i].UserName,
 			UserProfileImgURL: (*respData)[i].UserProfileImgURL,
 			PostId:            uint64((*respData)[i].PostId),
@@ -346,6 +348,7 @@ func (u *PostService) GetRandomPosts(ctx context.Context, req *pb.RequestGetRand
 	for i := range *respData {
 		repeatedData = append(repeatedData, &pb.PostsDataModel{
 			UserId:            uint64((*respData)[i].UserId),
+			BlueTick:          (*respData)[i].BlueTick,
 			UserName:          (*respData)[i].UserName,
 			UserProfileImgURL: (*respData)[i].UserProfileImgURL,
 			PostId:            uint64((*respData)[i].PostId),

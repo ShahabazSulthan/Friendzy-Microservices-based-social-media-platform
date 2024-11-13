@@ -1099,3 +1099,182 @@ func (svc *UserHandler) GetLogFile(ctx *fiber.Ctx) error {
 	ctx.Set("Content-Type", "text/plain; charset=utf-8")
 	return ctx.Status(fiber.StatusOK).Send(logData)
 }
+
+// CreateBlueTickPaymentHandler handles the creation of a blue tick payment order.
+func (h *UserHandler) CreateBlueTickPaymentHandler(ctx *fiber.Ctx) error {
+	var req struct {
+		UserId uint `json:"userId" validate:"required"`
+	}
+
+	// Parse and validate request body
+	if err := ctx.BodyParser(&req); err != nil {
+		return ctx.Status(fiber.StatusBadRequest).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusBadRequest,
+				Message:    "Invalid request data",
+				Error:      err.Error(),
+			})
+	}
+
+	// Call the gRPC service method
+	resp, err := h.Client.CreateBlueTickPayment(context.Background(), &pb.CreateBlueTickPaymentRequest{
+		UserId: uint32(req.UserId),
+	})
+	if err != nil {
+		log.Printf("Error creating blue tick payment: %v", err)
+		return ctx.Status(fiber.StatusServiceUnavailable).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusServiceUnavailable,
+				Message:    "Service unavailable",
+				Error:      err.Error(),
+			})
+	}
+
+	return ctx.Status(fiber.StatusOK).
+		JSON(responsemodel_auth.CommonResponse{
+			StatusCode: fiber.StatusOK,
+			Message:    resp.Message,
+			Data: map[string]string{
+				"verificationId": resp.VerificationId,
+			},
+		})
+}
+
+// VerifyBlueTickPaymentHandler verifies the blue tick payment.
+func (h *UserHandler) VerifyBlueTickPaymentHandler(ctx *fiber.Ctx) error {
+	var req struct {
+		VerificationId string `json:"verificationId" validate:"required"`
+		PaymentId      string `json:"paymentId" validate:"required"`
+		Signature      string `json:"signature" validate:"required"`
+		UserId         uint   `json:"userId" validate:"required"`
+	}
+
+	// Parse and validate request body
+	if err := ctx.BodyParser(&req); err != nil {
+		return ctx.Status(fiber.StatusBadRequest).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusBadRequest,
+				Message:    "Invalid request data",
+				Error:      err.Error(),
+			})
+	}
+
+	// Call the gRPC service method
+	resp, err := h.Client.VerifyBlueTickPayment(context.Background(), &pb.VerifyBlueTickPaymentRequest{
+		VerificationId: req.VerificationId,
+		PaymentId:      req.PaymentId,
+		Signature:      req.Signature,
+		UserId:         uint32(req.UserId),
+	})
+	if err != nil {
+		log.Printf("Error verifying blue tick payment: %v", err)
+		return ctx.Status(fiber.StatusServiceUnavailable).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusServiceUnavailable,
+				Message:    "Service unavailable",
+				Error:      err.Error(),
+			})
+	}
+
+	// Check for an error message in the gRPC response
+	if !resp.Success {
+		return ctx.Status(fiber.StatusBadRequest).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusBadRequest,
+				Message:    "Payment verification failed",
+				Error:      resp.ErrorMessage,
+			})
+	}
+
+	return ctx.Status(fiber.StatusOK).
+		JSON(responsemodel_auth.CommonResponse{
+			StatusCode: fiber.StatusOK,
+			Message:    "Payment verified successfully",
+		})
+}
+
+func (h *UserHandler) OnlinePayment(ctx *fiber.Ctx) error {
+	// Extract query parameters for userID and verificationID
+	userID := ctx.Params("userID")
+	verificationID := ctx.Params("verificationID")
+
+	// Log userID and verificationID for debugging
+	fmt.Printf("Received OnlinePayment request for UserID: %s, VerificationID: %s\n", userID, verificationID)
+
+	// Call the gRPC service to get blue tick verification details
+	resp, err := h.Client.OnlinePayment(context.Background(), &pb.OnlinePaymentRequest{
+		UserId:         userID,
+		VerificationId: verificationID,
+	})
+
+	// Error handling and response based on gRPC service results
+	if err != nil || resp == nil || resp.Paymentstatus == "" {
+		// Render template with an error message
+		if err := ctx.Status(fiber.StatusBadRequest).
+			Render("razopay", fiber.Map{
+				"badRequest": "Verification ID not found or invalid request data",
+			}); err != nil {
+			return fmt.Errorf("failed to render template: %w", err)
+		}
+		return nil
+	}
+
+	// Render template with verification details
+	if err := ctx.Status(fiber.StatusOK).
+		Render("razopay", fiber.Map{
+			"user_id":          resp.UserId,
+			"payment_status":   resp.Paymentstatus,
+			"verification_fee": resp.Verificationfee,
+			"order_id":         verificationID,
+		}); err != nil {
+		return fmt.Errorf("failed to render template: %w", err)
+	}
+	return nil
+}
+func (svc *UserHandler) GetAllVerifiedUsers(ctx *fiber.Ctx) error {
+	limit := "10"
+	offset := "0"
+
+	if limit == "" || offset == "" {
+		return ctx.Status(fiber.ErrBadRequest.Code).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.ErrBadRequest.Code,
+				Message:    "Get all users failed (limit and offset required)",
+				Error:      "Limit and Offset are required",
+			})
+	}
+
+	// Send the request to the gRPC service
+	context, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	resp, err := svc.Client.GetAllVerifiedUsers(context, &pb.GetAllVerifiedUsersRequest{
+		Limit:  limit,
+		Offset: offset,
+	})
+
+	if err != nil {
+		return ctx.Status(fiber.StatusServiceUnavailable).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusServiceUnavailable,
+				Message:    "Get all users failed (service unavailable)",
+				Error:      err.Error(),
+			})
+	}
+
+	if resp.ErrorMessage != "" {
+		return ctx.Status(fiber.StatusBadRequest).
+			JSON(responsemodel_auth.CommonResponse{
+				StatusCode: fiber.StatusBadRequest,
+				Message:    "Get all verified users failed",
+				Error:      resp.ErrorMessage,
+			})
+	}
+
+	return ctx.Status(fiber.StatusOK).
+		JSON(responsemodel_auth.CommonResponse{
+			StatusCode: fiber.StatusOK,
+			Message:    "Get all verified users successful",
+			Data:       resp,
+		})
+}

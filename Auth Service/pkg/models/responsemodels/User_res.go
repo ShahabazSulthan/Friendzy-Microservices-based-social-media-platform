@@ -63,3 +63,21 @@ type AdminLoginres struct {
 	Result   string `json:"result,omitempty"`
 	Token    string `json:"token,omitempty"`
 }
+
+type OnlinePayment struct {
+	UserID          uint   `json:"user_id"`
+	PaymentStatus   string `json:"payment_status"`   // e.g., success, pending, failed
+	VerificationFee uint   `json:"verification_fee"` // Fixed fee for verification (e.g., 600)
+}
+
+type BlueTickResponse struct {
+	ID               uint32 `json:"id"`
+	Name             string `json:"name"`
+	UserName         string `json:"user_name"`
+	Email            string `json:"email"`
+	Bio              string `json:"bio"`
+	ProfileImageURL  string `json:"profile_img_url"`
+	Links            string `json:"links"`
+	Status           string `json:"status"`
+	BlueTickVerified string `json:"blue_tick_verified"`
+}

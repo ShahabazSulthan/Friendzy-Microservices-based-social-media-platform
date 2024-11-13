@@ -8,6 +8,8 @@ import (
 
 func AuthUserRoutes(app *fiber.App, userHandler *handler_auth.UserHandler, middleware *middleware.Middleware) {
 
+	app.Get("/verify/:userID/:verificationID", userHandler.OnlinePayment)
+
 	// Admin routes (protected with AdminAuthMiddleware)
 	adminRoutes := app.Group("/admin")
 	{
@@ -31,9 +33,12 @@ func AuthUserRoutes(app *fiber.App, userHandler *handler_auth.UserHandler, middl
 	app.Patch("/resetpassword", userHandler.ResetPassword) // No middleware here
 	app.Get("/accessgenerator", middleware.AccessRegenerator)
 	app.Get("/log", userHandler.GetLogFile)
+	
 
 	// Apply user authentication middleware for user-protected routes
 	app.Use(middleware.UserAuthorizationMiddleWare)
+
+	app.Get("/bluetickusers",userHandler.GetAllVerifiedUsers)
 
 	// User profile management routes (protected with UserAuthorizationMiddleWare)
 	profileManagement := app.Group("/profile")
@@ -43,6 +48,8 @@ func AuthUserRoutes(app *fiber.App, userHandler *handler_auth.UserHandler, middl
 		profileManagement.Post("/setprofileimage", userHandler.SetProfileImage)
 		profileManagement.Get("/followers", userHandler.GetFollowersDetails)
 		profileManagement.Get("/following", userHandler.GetFollowingsDetails)
+		profileManagement.Post("/blueTick",userHandler.CreateBlueTickPaymentHandler)
+		profileManagement.Post("/verifypayment",userHandler.VerifyBlueTickPaymentHandler)
 	}
 
 	// Explore management routes (protected with UserAuthorizationMiddleWare)

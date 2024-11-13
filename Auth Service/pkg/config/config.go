@@ -7,6 +7,11 @@ type PortManager struct {
 	PostNrelSvcUrl string `mapstructure:"POSTNREL_SVC_URL"`
 }
 
+type Razopay struct {
+	RazopayKey    string `mapstructure:"RAZOPAYKEY"`
+	RazopaySecret string `mapstructure:"PAZOPAYSECRET"`
+}
+
 type DataBase struct {
 	DBUser     string `mapstructure:"DBUSER"`
 	DBHost     string `mapstructure:"DBHOST"`
@@ -33,6 +38,7 @@ type Config struct {
 	DB       DataBase
 	Token    Token
 	Smtp     Smtp
+	Razopay  Razopay
 }
 
 func LoadConfig() (*Config, error) {
@@ -40,6 +46,7 @@ func LoadConfig() (*Config, error) {
 	var token Token
 	var smtp Smtp
 	var db DataBase
+	var razoPay Razopay
 
 	viper.AddConfigPath("./")
 	viper.SetConfigName("dev")
@@ -72,6 +79,11 @@ func LoadConfig() (*Config, error) {
 		return nil, err
 	}
 
-	config := Config{PortMngr: portmanager, Token: token, DB: db, Smtp: smtp}
+	err = viper.Unmarshal(&razoPay)
+	if err != nil {
+		return nil, err
+	}
+
+	config := Config{PortMngr: portmanager, Token: token, DB: db, Smtp: smtp, Razopay: razoPay}
 	return &config, nil
 }

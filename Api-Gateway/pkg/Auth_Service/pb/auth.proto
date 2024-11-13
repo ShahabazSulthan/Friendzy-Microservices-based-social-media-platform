@@ -27,6 +27,11 @@ service AuthService {
     rpc BlockUser(BlockUserRequest) returns (ResponseErrorMessage);
     rpc UnblockUser(UnblockUserRequest) returns (ResponseErrorMessage);
     rpc VerifyAdminToken(RequestVerifyAdmin) returns (ResponseVerifyAdmin);
+
+    rpc CreateBlueTickPayment(CreateBlueTickPaymentRequest) returns (CreateBlueTickPaymentResponse);
+    rpc VerifyBlueTickPayment(VerifyBlueTickPaymentRequest) returns (VerifyBlueTickPaymentResponse);
+    rpc OnlinePayment(OnlinePaymentRequest) returns (OnlinePaymentResponse);
+    rpc GetAllVerifiedUsers(GetAllVerifiedUsersRequest) returns (GetAllverifiedUsers);
 }
 
 message RequestUserId {
@@ -222,4 +227,73 @@ message RequestVerifyAdmin {
 message ResponseVerifyAdmin {
     string AdminEmail = 1; // The email of the admin if token is valid
     string ErrorMessage = 2; // Error message if token verification fails
+}
+
+// Message for CreateBlueTickPayment request
+message CreateBlueTickPaymentRequest {
+    uint32 user_id = 1; // User ID for whom payment is being created
+  }
+  
+  // Message for CreateBlueTickPayment response
+  message CreateBlueTickPaymentResponse {
+    string verification_id = 1; // Verification ID generated after payment creation// Razorpay order ID
+    string message = 3; // Any additional message
+  }
+
+  
+  // Message for VerifyBlueTickPayment response
+  // Message for GetBlueTickVerificationStatus request
+  message GetBlueTickVerificationStatusRequest {
+    uint32 user_id = 1; // User ID to retrieve verification status
+  }
+  
+  // Message for GetBlueTickVerificationStatus response
+  message GetBlueTickVerificationStatusResponse {
+    string status = 1; // Status of blue tick verification
+    string message = 2; // Any additional message
+  }
+
+  message VerifyBlueTickPaymentRequest {
+    string verification_id = 1;
+    string payment_id = 2;
+    string signature = 3;
+    uint32 user_id = 4;
+}
+
+message VerifyBlueTickPaymentResponse {
+    bool success = 1;
+    string error_message = 2;
+}
+
+message OnlinePaymentRequest {
+    string user_id = 1;          // User ID to retrieve verification details
+    string verification_id = 2;  // Verification ID
+  }
+  
+  message OnlinePaymentResponse {
+   string user_id = 1;        
+   string paymentstatus = 2;
+   string verificationfee = 3;
+  }
+
+  message BlueTickResponse {
+    uint64 ID = 1; 
+    string BlueTick = 2;
+    string Name = 3;
+    string UserName = 4;
+    string Email = 5;
+    string Bio = 6;
+    string ProfileImageURL = 7;
+    string Links = 8;
+    string Status = 9;
+}
+
+message GetAllVerifiedUsersRequest {
+    string Limit = 1;
+    string Offset = 2;
+}
+
+message GetAllverifiedUsers {
+    string ErrorMessage = 1;
+    repeated BlueTickResponse Users = 2;
 }
