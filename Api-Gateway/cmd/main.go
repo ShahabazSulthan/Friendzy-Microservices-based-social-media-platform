@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"time"
@@ -12,9 +13,10 @@ import (
 	config "github.com/ShahabazSulthan/Friendzy_apiGateway/pkg/Config"
 	di_notif "github.com/ShahabazSulthan/Friendzy_apiGateway/pkg/Notification_Service/di"
 	di_post "github.com/ShahabazSulthan/Friendzy_apiGateway/pkg/post_relation_service/di"
-	"github.com/fatih/color"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/monitor"
 	"github.com/gofiber/template/html/v2"
+	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/peer"
 )
 
@@ -34,19 +36,29 @@ func main() {
 	}
 	defer file.Close()
 
-	// Set log output to file and configure flags
-	log.SetOutput(file)
-	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
+	// Set up Logrus to write to both file and console without color
+	logrus.SetOutput(io.MultiWriter(file, os.Stdout))
+
+	// Configure log formatter without colors
+	logrus.SetFormatter(&logrus.TextFormatter{
+		DisableColors: true,
+		FullTimestamp: true,
+	})
 
 	// Log server start
-	log.Printf("[%s] Server starting on port %s", serverID, cfg.Port)
+	logrus.WithField("serverID", serverID).Infof("Server starting on port %s", cfg.Port)
 
 	// Initialize Fiber app with HTML template engine
 	engine := html.New("D:/BROTOTYPE/WEEK 26/Friendzy/Api-Gateway/template", ".html")
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
-	app.Use(FiberLogger()) // Add custom logging middleware
+
+	// Set up Prometheus middleware using monitor
+	app.Get("/metrics", monitor.New(monitor.Config{Title: "Friendzy API Gateway Metrics"}))
+
+	// Use logging middleware
+	app.Use(FiberLogger())
 
 	// Initialize services with dependency injection
 	middleware, err := di_auth.InitAuthClient(app, cfg)
@@ -75,7 +87,6 @@ func main() {
 	}
 }
 
-// FiberLogger logs HTTP requests handled by Fiber with bold colors
 func FiberLogger() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		startTime := time.Now()
@@ -94,34 +105,32 @@ func FiberLogger() fiber.Handler {
 			path = "/"
 		}
 
-		// Define colors for status codes
-		statusColor := color.New(color.Bold)
+		// Set up Logrus fields
+		logger := logrus.WithFields(logrus.Fields{
+			"status":    statusCode,
+			"latency":   latency,
+			"clientIP":  clientIP,
+			"method":    method,
+			"path":      path,
+			"userAgent": userAgent,
+			"serverID":  serverID,
+		})
+
+		// Log based on status code
 		switch {
 		case statusCode >= 500:
-			statusColor.Add(color.FgRed)
+			logger.Error("Internal Server Error")
 		case statusCode >= 400:
-			statusColor.Add(color.FgYellow)
+			logger.Warn("Client Error")
 		case statusCode >= 300:
-			statusColor.Add(color.FgCyan)
+			logger.Info("Redirection")
 		default:
-			statusColor.Add(color.FgHiMagenta)
+			logger.Info("Successful Request")
 		}
-
-		// Log HTTP request details to both file and terminal with server ID
-		logLine := fmt.Sprintf(
-			"[%s] [HTTP] status=%d latency=%v clientIP=%s method=%s path=%s userAgent=%s",
-			serverID, statusCode, latency, clientIP, method, path, userAgent,
-		)
-		log.Println(logLine)
-
-		// Output to terminal with colors
-		statusColor.Printf("%s\n", logLine)
 
 		// Log errors if any occurred
 		if err != nil {
-			errorLog := fmt.Sprintf("[%s] [HTTP] error=%s", serverID, err.Error())
-			log.Println(errorLog)
-			color.New(color.FgRed, color.Bold).Printf("%s\n", errorLog)
+			logger.WithField("error", err.Error()).Error("An error occurred")
 		}
 
 		return err

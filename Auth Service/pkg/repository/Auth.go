@@ -359,3 +359,4 @@ func (u *UserRepo) IsUserBlocked(userID string) (bool, error) {
 
 	return false, nil
 }
+

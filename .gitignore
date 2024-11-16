@@ -1,3 +1,7 @@
 dev.env
 
-app.log
+Api-Gateway/app.log
+
+Auth Service/auth.log
+
+PostAndRelation Service/post.log

@@ -100,15 +100,16 @@ message RequestGetUserProfile{
 
 message ResponseUserProfile{
     string Name=1;
-    string UserName=2;
-    string Bio=3;
-    string Links=4;
-    string ProfileImageURL=5;
-    uint64 PostsCount=6;
-    uint64 FollowerCount=7;
-    uint64 FollowingCount=8;
-    bool FollowingStat=10;
-    string ErrorMessage=9;
+    string BlueTick = 3;
+    string UserName=4;
+    string Bio=5;
+    string Links=6;
+    string ProfileImageURL=7;
+    uint64 PostsCount=8;
+    uint64 FollowerCount=9;
+    uint64 FollowingCount=10;
+    bool FollowingStat=11;
+    string ErrorMessage=12;
 }
 
 message RequestAccessGenerator {

@@ -4,7 +4,6 @@ go 1.22.0
 
 require (
 	github.com/IBM/sarama v1.43.3
-	github.com/fatih/color v1.18.0
 	github.com/gin-contrib/cors v1.7.2
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-playground/validator/v10 v10.22.1
@@ -12,6 +11,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.52.5
 	github.com/gofiber/template/html/v2 v2.1.2
 	github.com/gorilla/websocket v1.5.3
+	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/viper v1.19.0
 	google.golang.org/grpc v1.67.1
 	google.golang.org/protobuf v1.34.2

@@ -24,6 +24,7 @@ import (
 
 type UserUseCase struct {
 	UserRepo         interfaces.IUserRepository
+	PaymentRepo      interfaces.IPaymentRepository
 	SmtpUtil         interface_smtp.Ismtp
 	JwtUtil          interface_jwt.Ijwt
 	RandomNumUtil    interface_random.IRandGene
@@ -35,6 +36,7 @@ type UserUseCase struct {
 }
 
 func NewUserCase(userRepo interfaces.IUserRepository,
+	paymentRepo interfaces.IPaymentRepository,
 	smtpUtil interface_smtp.Ismtp,
 	jwtUtil interface_jwt.Ijwt,
 	randNumUtil interface_random.IRandGene,
@@ -45,6 +47,7 @@ func NewUserCase(userRepo interfaces.IUserRepository,
 	razopay *config.Razopay) interface_usecase.IUserUseCase {
 	return &UserUseCase{
 		UserRepo:         userRepo,
+		PaymentRepo:      paymentRepo,
 		SmtpUtil:         smtpUtil,
 		JwtUtil:          jwtUtil,
 		RandomNumUtil:    randNumUtil,
@@ -298,6 +301,11 @@ func (u *UserUseCase) UserProfile(userId, UserBId *string) (*responsemodels.User
 	userData, err := u.UserRepo.GetUserLiteProfile(actualId)
 	if err != nil {
 		return nil, err
+	}
+
+	isVerify, _ := u.PaymentRepo.IsUserVerified(*actualId)
+	if isVerify {
+		userData.BlueTickVerified = "☑️"
 	}
 
 	context, cancel := context.WithTimeout(context.Background(), time.Second*10)

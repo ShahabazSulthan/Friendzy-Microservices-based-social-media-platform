@@ -96,7 +96,7 @@ func (svc *ChatWebsockethandler) WsConnection(ctx *fiber.Ctx) error {
 			case "TypingStatus":
 				svc.TypingStatus(&messageModel)
 			default:
-				sendErrMessageWS(userIdStr, errors.New("message Type should be OneToOne,OneToMany,DeleteMessage,UpdateSeenStatus or TypingStatus ,no other types allowed"))
+				sendErrMessageWS(userIdStr, errors.New("message Type should be OneToOne,OneToMany or TypingStatus ,no other types allowed"))
 			}
 		}
 	})(ctx)

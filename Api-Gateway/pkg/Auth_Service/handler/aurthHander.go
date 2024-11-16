@@ -694,6 +694,9 @@ func (svc *UserHandler) GetAnotherUserProfile(ctx *fiber.Ctx) error {
 	uintValueuserBId := uint(intValueuserBId)
 
 	respStruct.UserId = uintValueuserBId
+	if resp.BlueTick != "" {
+		respStruct.BlueTickVerified = resp.BlueTick
+	}
 	respStruct.Name = resp.Name
 	respStruct.UserName = resp.UserName
 	respStruct.Bio = resp.Bio

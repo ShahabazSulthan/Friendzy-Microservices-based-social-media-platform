@@ -50,6 +50,7 @@ type UserProfileA struct {
 	UserId uint `json:"UserId"  gorm:"column:id"`
 
 	Name              string `json:"Name"`
+	BlueTickVerified  string `json:"blue_tick_verified,omitempty"`
 	UserName          string `json:"UserName"`
 	Bio               string `json:"Bio"`
 	Links             string `json:"Links"`
@@ -63,6 +64,7 @@ type UserProfileB struct {
 	UserId uint `json:"UserId"  gorm:"column:id"`
 
 	Name              string `json:"Name"`
+	BlueTickVerified  string `json:"blue_tick_verified,omitempty"`
 	UserName          string `json:"UserName"`
 	Bio               string `json:"Bio"`
 	Links             string `json:"Links"`

@@ -1,7 +1,1 @@
-dev.env
-
-# Sensitive or environment-specific files
-.env
-.env.*
-
-app.log
+git rm --cached app.log

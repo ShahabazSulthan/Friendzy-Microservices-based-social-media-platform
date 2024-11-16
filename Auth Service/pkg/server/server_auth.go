@@ -234,6 +234,7 @@ func (s *AuthService) GetUserProfile(ctx context.Context, req *pb.RequestGetUser
 
 	return &pb.ResponseUserProfile{
 		Name:            respData.Name,
+		BlueTick:        respData.BlueTickVerified,
 		UserName:        respData.UserName,
 		Bio:             respData.Bio,
 		Links:           respData.Links,

@@ -22,10 +22,9 @@ func NewPaymentRepo(db *gorm.DB) interfaces.IPaymentRepository {
 	}
 }
 
-// GetBlueTickVerificationPrice fetches the current price for Blue Tick verification.
 func (p *PaymentRepo) GetBlueTickVerificationPrice() uint {
 	// Set a fixed or fetch from config/database as per your requirement
-	const blueTickPrice uint = 600 // example price
+	const blueTickPrice uint = 1000 
 	return blueTickPrice
 }
 
@@ -63,25 +62,6 @@ func (p *PaymentRepo) UpdateBlueTickPaymentSuccess(verificationID string) (*doma
 	return &blueTickVerification, nil
 }
 
-// // GetBlueTickVerificationStatus retrieves the blue tick verification payment status for a user.
-// func (p *PaymentRepo) GetBlueTickVerificationStatus(userID uint) (*responsemodels.OnlinePayment, error) {
-// 	// var blueTickVerification domain.BlueTickVerification
-
-// 	// if err := p.DB.Where("user_id = ?", userID).First(&blueTickVerification).Error; err != nil {
-// 	// 	if errors.Is(err, gorm.ErrRecordNotFound) {
-// 	// 		return nil, errors.New("blue tick verification record not found")
-// 	// 	}
-// 	// 	return nil, err
-// 	// }
-
-// 	// // Prepare the response model
-// 	// status := &responsemodels.OnlinePayment{
-// 	// 	UserID: userID,
-// 	// 	Status: blueTickVerification.Status,
-// 	// 	Amount: p.GetBlueTickVerificationPrice(),
-// 	// }
-// 	// return status, nil
-// }
 
 func (p *PaymentRepo) OnlinePayment(userID, verificationID string) (*responsemodels.OnlinePayment, error) {
 	var orderDetails responsemodels.OnlinePayment

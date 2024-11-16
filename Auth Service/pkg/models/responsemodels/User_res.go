@@ -32,6 +32,7 @@ type UserProfileResponse struct {
 	FollowingCount    uint
 	FollowedBy        string
 	FollowingStatus   bool
+	BlueTickVerified  string `json:"blue_tick_verified"`
 }
 
 type UserLiteResponse struct {
