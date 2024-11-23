@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authsvc-deployment
+  namespace: friendzy
+  labels:
+    app: authsvc
+    env: production
+    project: friendzy-socialmedia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authsvc
+  template:
+    metadata:
+      labels:
+        app: authsvc
+    spec:
+      containers:
+        - name: auth-service
+          image: shahabaz4573/auth-service:3.0
+          ports:
+            - containerPort: 50001
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service # Fixed service name
+  namespace: friendzy
+  labels:
+    app: authsvc
+    env: production
+    project: friendzy-socialmedia
+spec:
+  type: ClusterIP
+  selector:
+    app: authsvc
+  ports:
+    - port: 50001
+      targetPort: 50001 # Ensure this matches containerPort in Deployment

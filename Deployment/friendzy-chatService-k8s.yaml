@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: chatsvc-deployment
+  namespace: friendzy
+  labels:
+    app: chatsvc
+    env: production
+    project: friendzy-socialmedia
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chatsvc
+  template:
+    metadata:
+      labels:
+        app: chatsvc
+    spec:
+      containers:
+        - name: chat-service
+          image: shahabaz4573/chat-service:4.0
+          ports:
+            - containerPort: 50004
+
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: chat-service
+  namespace: friendzy
+  labels:
+    app: chatsvc
+    env: production
+    project: friendzy-socialmedia
+
+spec:
+  type: ClusterIP
+  selector:
+    app: chatsvc
+  ports:
+    - port: 50004
+      targetPort: 50004

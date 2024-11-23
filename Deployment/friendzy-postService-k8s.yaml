@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postnrelsvc-deployment
+  namespace: friendzy
+  labels:
+    app: postnrelsvc
+    env: production
+    project: friendzy-socialmedia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postnrelsvc
+  template:
+    metadata:
+      labels:
+        app: postnrelsvc
+    spec:
+      containers:
+        - name: postnrelsvc-container
+          image: shahabaz4573/post-service:3.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 50002
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postnrelsvc-service
+  namespace: friendzy
+  labels:
+    app: postnrelsvc
+    env: production
+    project: friendzy-socialmedia
+spec:
+  type: ClusterIP
+  selector:
+    app: postnrelsvc
+  ports:
+    - port: 50002
+      targetPort: 50002

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notifsvc-deployment
+  namespace: friendzy
+  labels:
+    app: notifsvc
+    env: production
+    project: friendzy-socialmedia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notifsvc
+  template:
+    metadata:
+      labels:
+        app: notifsvc
+    spec:
+      containers:
+        - name: notifsvc-service
+          image: shahabaz4573/notification-service:3.0
+          ports:
+            - containerPort: 50003
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: notifsvc-service
+  namespace: friendzy
+  labels:
+    app: notifsvc
+    env: production
+    project: friendzy-socialmedia
+spec:
+  type: ClusterIP
+  selector:
+    app: notifsvc
+  ports:
+    - port: 50003
+      targetPort: 50003
+
+

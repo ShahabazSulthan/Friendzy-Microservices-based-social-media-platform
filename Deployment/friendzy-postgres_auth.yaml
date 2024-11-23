@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: friendzy
+  labels:
+    app: postgresdb
+    env: production
+    project: friendzy-socialmedia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresdb
+  serviceName: postgresdb
+  template:
+    metadata:
+      labels:
+        app: postgresdb
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16.2
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "12345"
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres-data # Use a subdirectory
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: my-storage-class
+        resources:
+          requests:
+            storage: 100Mi # Increased for production use
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresdb
+  namespace: friendzy
+  labels:
+    app: postgresdb
+    env: production
+    project: friendzy-socialmedia
+spec:
+  type: ClusterIP
+  selector:
+    app: postgresdb
+  ports:
+    - port: 5432 # Exposed service port
+      targetPort: 5432 # Matches container port

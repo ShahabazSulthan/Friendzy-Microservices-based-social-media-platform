@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka
+  namespace: friendzy
+  labels:
+    service: kafka
+spec:
+  serviceName: friendzy-kafka  # Matches the Service name below
+  replicas: 1
+  selector:
+    matchLabels:
+      service: kafka
+  template:
+    metadata:
+      labels:
+        network/kafka-network: "true"
+        service: kafka
+    spec:
+      securityContext:
+        fsGroup: 1000
+      enableServiceLinks: false
+      containers:
+        - name: friendzy-kafka
+          imagePullPolicy: IfNotPresent
+          image: confluentinc/cp-kafka:7.0.1
+          ports:
+            - containerPort: 9094
+              name: internal
+            - containerPort: 9092
+              name: external
+          env:
+            - name: KAFKA_BROKER_ID
+              value: "0"  # Must be unique for each broker; matches the pod ordinal
+            - name: KAFKA_ADVERTISED_LISTENERS
+              value: "INTERNAL://kafka-0.friendzy-kafka.friendzy.svc.cluster.local:9094,EXTERNAL://friendzy-kafka:9092"
+            - name: KAFKA_LISTENERS
+              value: "INTERNAL://:9094,EXTERNAL://:9092"
+            - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+              value: "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
+            - name: KAFKA_INTER_BROKER_LISTENER_NAME
+              value: "INTERNAL"
+            - name: KAFKA_ZOOKEEPER_CONNECT
+              value: "zookeeper:2181"
+            - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+              value: "1"
+          volumeMounts:
+            - mountPath: /var/lib/kafka/data
+              name: kafka-data
+              subPath: kafka-subpath
+      hostname: kafka-0  # Explicitly set the hostname
+      restartPolicy: Always
+  volumeClaimTemplates:
+    - metadata:
+        name: kafka-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: my-storage-class
+        resources:
+          requests:
+            storage: 100Mi  # Increased for production use
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: friendzy-kafka
+  namespace: friendzy
+  labels:
+    service: kafka
+spec:
+  clusterIP: None  # Required for StatefulSet
+  selector:
+    service: kafka
+  ports:
+    - name: internal
+      port: 9094
+      targetPort: 9094
+    - name: external
+      port: 9092
+      targetPort: 9092

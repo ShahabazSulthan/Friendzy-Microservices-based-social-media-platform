@@ -41,9 +41,9 @@ func (c *ChatUsecase) KafkaOneToOneMessageConsumer() {
 	// Initialize Kafka consumer configuration
 	config := sarama.NewConfig()
 	config.Consumer.Return.Errors = true // Enable error reporting on the consumer
-
+    kafkaport := "localhost:9092"
 	// Create a new Kafka consumer
-	consumer, err := sarama.NewConsumer([]string{c.Kafka.KafkaPort}, config)
+	consumer, err := sarama.NewConsumer([]string{kafkaport}, config)
 	if err != nil {
 		log.Printf("Failed to create Kafka consumer: %v", err)
 		return

@@ -1,0 +1,145 @@
+version: '3.8'
+
+services:
+  postgresdb:
+    image: postgres:16.2
+    restart: always
+    container_name: postgres_db
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+    networks:
+      - friendzy_net_bridge
+    volumes:
+      - project-volume:/var/lib/postgresql/data
+    hostname: postgresdb
+    ports:
+      - "5433:5432"
+
+  redis_service:
+    image: redis:7.0.15
+    container_name: redis_service
+    networks:
+      - friendzy_net_bridge
+    ports:
+      - "6379:6379"
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    restart: always
+    container_name: zookeeper_service
+    networks:
+      - friendzy_net_bridge
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  friendzy_kafka:
+    image: confluentinc/cp-kafka:latest
+    restart: always
+    container_name: friendzy_kafka
+    networks:
+      - friendzy_net_bridge
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper_service:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://friendzy_kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+     
+      - "9092:9092"
+
+  friendzy_kafka_chat:
+    image: confluentinc/cp-kafka:latest
+    restart: always
+    container_name: friendzy_kafka_chat
+    networks:
+      - friendzy_net_bridge
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper_service:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://friendzy_kafka_chat:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "9093:9093"
+
+  friendzy_auth:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: auth-service:2.0
+    restart: unless-stopped
+    container_name: auth_svc
+    depends_on:
+      - postgresdb
+    networks:
+      - friendzy_net_bridge
+    ports:
+      - "50001:50001"
+    hostname: friendzyauth
+
+  ciao_apigw:
+    image: api-gateway:2.0
+    build: .
+    restart: unless-stopped
+    container_name: apigw_svc
+    depends_on:
+      - friendzy_kafka
+    networks:
+      - friendzy_net_bridge
+    ports:
+      - "8000:8000"
+
+  friendzy_post:
+    image: post-service:2.0
+    build: .
+    restart: unless-stopped
+    container_name: post_svc
+    depends_on:
+      - postgresdb
+      - redis_service
+      - friendzy_kafka
+    networks:
+      - friendzy_net_bridge
+    ports:
+      - "50002:50002"
+
+  friendzy_notification:
+    image: notification-service:2.0
+    build: .
+    restart: unless-stopped
+    container_name: notification_svc
+    depends_on:
+      - postgresdb
+      - friendzy_kafka
+    networks:
+      - friendzy_net_bridge
+    ports:
+      - "50003:50003"
+
+  friendzy_chat:
+    image: chat-service:2.0
+    build: .
+    restart: unless-stopped
+    container_name: chat_svc
+    depends_on:
+      - friendzy_kafka_chat
+    networks:
+      - friendzy_net_bridge
+    ports:
+      - "50004:50004"
+
+networks:
+  friendzy_net_bridge:
+    driver: bridge
+
+volumes:
+  project-volume:
+    driver: local

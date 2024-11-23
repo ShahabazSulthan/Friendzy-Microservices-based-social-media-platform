@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apigw-deployment
+  namespace: friendzy
+  labels:
+    app: apigateway
+    env: production
+    project: friendzy-socialmedia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apigateway
+  template:
+    metadata:
+      labels:
+        app: apigateway
+    spec:
+      containers:
+        - name: apigw-service
+          image: shahabaz4573/api-gateway:3.0
+          ports:
+            - containerPort: 8000
+          env:
+            - name: AUTH_SVC_URL
+              value: "auth-service:50001"
+            - name: POSTNREL_SVC_URL
+              value: "postnrelsvc-service:50002"
+            - name: CHAT_SVC_URL
+              value: "chat-service:50004"
+            - name: NOTIF_SVC_URL
+              value: "notifsvc-service:50003"
+            - name: KAFKA_PORT
+              value: "friendzy_kafka:9092"
+            - name: KAFKA_TOPIC_1
+              value: "onetomessage"
+            - name: KAFKA_TOPIC_2
+              value: "manytomessage"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apigw-service
+  namespace: friendzy
+  labels:
+    app: apigateway
+    env: production
+    project: friendzy-socialmedia
+spec:
+  type: NodePort
+  selector:
+    app: apigateway
+  ports:
+    - targetPort: 8000
+      port: 8000
+      nodePort: 30003
