@@ -16,6 +16,8 @@
 - [Database Schema](#database-schema)
 - [Installation](#installation)
 - [Usage](#usage)
+- [API Routes](#api-routes)
+- [API Testing](#api-testing)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -58,16 +60,15 @@ User -> API Gateway -> [Auth Service | Post Service | Chat Service | Notificatio
 
 ### 1. Auth Service
 - **Responsibilities**: User registration, login, OTP verification, JWT authentication, profile management, and payment-based blue tick verification.
-- **Tech Stack**: Go , JWT, PostgreSQL, Razorpay.
+- **Tech Stack**: Go, JWT, PostgreSQL, Razorpay.
 
 ### 2. Post and Relation Service
 - **Responsibilities**: Create posts, like/unlike posts, comment on posts, manage followers/following, and implement feed algorithms.
-- **Tech Stack**: Go , Kafka, Redis, PostgreSQL.
-  
+- **Tech Stack**: Go, Kafka, Redis, PostgreSQL.
+
 ### 3. Chat Service
 - **Responsibilities**: Supports one-to-one and group chats using WebSockets for real-time communication.
-- **Tech Stack**: Go , WebSocket, gRPC, MongoDB.
-
+- **Tech Stack**: Go, WebSocket, gRPC, MongoDB.
 
 ### 4. Notification Service
 - **Responsibilities**: Handles sending push notifications for user actions like likes, comments, and follows using Kafka.
@@ -84,7 +85,7 @@ User -> API Gateway -> [Auth Service | Post Service | Chat Service | Notificatio
 - **Message Queue**: Kafka
 - **Real-Time Communication**: WebSocket
 - **Cache**: Redis
-- **Database**: PostgreSQL,MongoDB
+- **Database**: PostgreSQL, MongoDB
 - **Payment Gateway**: Razorpay
 - **API Communication**: gRPC, REST
 
@@ -126,8 +127,8 @@ User -> API Gateway -> [Auth Service | Post Service | Chat Service | Notificatio
 ### Steps
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/friendzy.git
-   cd friendzy
+   git clone https://github.com/ShahabazSulthan/Friendzy.git
+   cd Friendzy
    ```
 
 2. **Set up Environment Variables**:
@@ -146,32 +147,41 @@ User -> API Gateway -> [Auth Service | Post Service | Chat Service | Notificatio
 5. **Access the Application**:
    - API Gateway: [http://localhost:8000](http://localhost:8000)
 
-## Usage
+## API Routes
 
-### Running Individual Services
-```bash
-cd Auth\ Service && go run cmd/main.go
-cd PostAndRelation\ Service && go run cmd/main.go
-cd Chat\ Service && go run cmd/main.go
-cd Notification\ Service && go run cmd/main.go
-```
+### Auth Service
+- `POST /signup` - Register a new user
+- `POST /verify` - OTP verification
+- `POST /login` - User login
+- `POST /forgotpassword` - Request password reset
+- `PATCH /resetpassword` - Reset password
+- `GET /profile` - Get user profile (Protected)
 
-### Accessing APIs via Postman
+### Post Service
+- `POST /post` - Create a new post
+- `GET /post` - Get user posts
+- `DELETE /post/:postid` - Delete a post
+- `POST /post/like/:postid` - Like a post
+
+### Chat Service
+- `GET /chat/onetoonechats/:recipientid` - Get one-to-one chats
+- `GET /chat/ws` - WebSocket connection for chat
+
+### Notification Service
+- `GET /notification` - Fetch user notifications
+
+## API Testing
+
+- The API is hosted at: [friendzy.shahabazsulthan.cloud](https://friendzy.shahabazsulthan.cloud/)
 - Import the Postman collection from `docs/Friendzy.postman_collection.json`
+- Use JWT tokens for protected routes
 
 ## Contributing
 
-We welcome contributions! Please follow these steps:
 1. Fork the repository.
 2. Create a new branch (`git checkout -b feature-branch`).
 3. Commit your changes (`git commit -m 'Add new feature'`).
 4. Push to the branch (`git push origin feature-branch`).
 5. Open a Pull Request.
 
-## License
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
-
----
-
-**Friendzy** aims to create a seamless social media experience by leveraging microservices architecture, real-time communication, and intelligent feed algorithms. Let's connect and engage like never before! 🚀
